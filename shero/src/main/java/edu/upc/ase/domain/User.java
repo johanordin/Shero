@@ -1,7 +1,12 @@
 package edu.upc.ase.domain;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import com.googlecode.objectify.Key;
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
@@ -12,9 +17,11 @@ public class User {
 	private String firstname;
 	private String lastname;
 	private String emailAddress;
-	private Map<String, Item> items;
-	private Map<String, Address> adresses;
-	private Map<String, UserRating> ratings;
+	
+	private Set<Ref<Item>> items = new HashSet<Ref<Item>>();
+	private List<Key<Address>> addresses = new ArrayList<Key<Address>>();
+	// on every load() or save() will fetch and store the entire list of referenced rating keys
+	private List<Key<UserRating>> userRatings = new ArrayList<Key<UserRating>>();
 	
 	public String getFirstname() {
 		return firstname;
@@ -34,23 +41,14 @@ public class User {
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
-	public Map<String, Item> getItems() {
+	public Set<Ref<Item>> getItems() {
 		return items;
 	}
-	public void setItems(Map<String, Item> items) {
-		this.items = items;
+	public List<Key<Address>> getAddresses() {
+		return addresses;
 	}
-	public Map<String, Address> getAdresses() {
-		return adresses;
+	public List<Key<UserRating>> getUserRatings() {
+		return userRatings;
 	}
-	public void setAdresses(Map<String, Address> adresses) {
-		this.adresses = adresses;
-	}
-	public Map<String, UserRating> getRatings() {
-		return ratings;
-	}
-	public void setRatings(Map<String, UserRating> ratings) {
-		this.ratings = ratings;
-	}
-
+	
 }

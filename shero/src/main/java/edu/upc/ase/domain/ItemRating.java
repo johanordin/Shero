@@ -6,7 +6,17 @@ import com.googlecode.objectify.annotation.Id;
 @Entity
 public class ItemRating {
 
-	@Id Long id;
-	public Item item;
-	public Integer ratingValue; 
+	@Id private Long id;
+	//private Item item;
+	private Integer ratingValue;
+	
+	public ItemRating() {
+	}
+	
+	public Integer getRatingValue() {
+		return ratingValue;
+	}
+	public void setRatingValue(Integer ratingValue) {
+		this.ratingValue = ratingValue;
+	} 
 }

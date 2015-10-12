@@ -6,8 +6,7 @@ import com.googlecode.objectify.annotation.Id;
 @Entity
 public class Address {
 
-	@Id Long id; 
-	private User user;
+	@Id Long id;
 	private String city;
 	private String zipcode;
 	private String country;
@@ -15,12 +14,20 @@ public class Address {
 	private String number; 
 	private String additional;
 	
-	public User getUser() {
-		return user;
+	public Address() {
 	}
-	public void setUser(User user) {
-		this.user = user;
+	
+	public Address(String city, String zipcode, String street, String number) {
+		this.city = city;
+		this.zipcode = zipcode;
+		this.street = street;
+		this.number = number;
 	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getCity() {
 		return city;
 	}

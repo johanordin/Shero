@@ -7,14 +7,16 @@ import com.googlecode.objectify.annotation.Id;
 public class UserRating {
 
 	@Id Long id;
-	private User user;
+	//private User user;
 	private Integer ratingValue;
-	public User getUser() {
-		return user;
+	
+	public UserRating() {
 	}
-	public void setUser(User user) {
-		this.user = user;
+	
+	public UserRating(Integer ratingValue) {
+		this.ratingValue = ratingValue;
 	}
+	
 	public Integer getRatingValue() {
 		return ratingValue;
 	}

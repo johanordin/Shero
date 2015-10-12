@@ -1,34 +1,36 @@
 package edu.upc.ase.domain;
 
-import java.math.BigDecimal;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.googlecode.objectify.Key;
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
 @Entity
 public class Item {
 
-	@Id Long id;
+	@Id public Long id;
 	private String name;
-	private BigDecimal price;
+	private Double price;
 	private String description;
 	private String imagePath;
-	private Address itemAdress;
-	private Map<String, Availability> availabilities;
-	private Map<String, Item> itemRatings;
+	
+	// one item has exactly one address
+	private Ref<Address> address;
+
+	private List<Ref<Availability>> availabilityPeriods = new ArrayList<Ref<Availability>>();
+	// on every load() or save() will fetch and store the entire list of referenced rating keys
+	private List<Key<ItemRating>> itemRatings = new ArrayList<Key<ItemRating>>();
 	
 	public Item() {
-		super();
 	}
 	
-	
-	public Item(String name, BigDecimal price) {
-		super();
+	public Item(String name, Double price) {
 		this.name = name;
 		this.price = price;
 	}
-
 
 	public String getName() {
 		return name;
@@ -42,10 +44,10 @@ public class Item {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public BigDecimal getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(BigDecimal price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	public String getImagePath() {
@@ -54,22 +56,16 @@ public class Item {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
-	public Address getItemAdress() {
-		return itemAdress;
+	public Address getAddress() {
+		return address.get();
 	}
-	public void setItemAdress(Address itemAdress) {
-		this.itemAdress = itemAdress;
+	public void setAddress(Address address) {
+		this.address = Ref.create(address);
 	}
-	public Map<String, Availability> getAvailabilities() {
-		return availabilities;
+	public List<Ref<Availability>> getAvailabilityPeriods() {
+		return availabilityPeriods;
 	}
-	public void setAvailabilities(Map<String, Availability> availabilities) {
-		this.availabilities = availabilities;
-	}
-	public Map<String, Item> getItemRatings() {
+	public List<Key<ItemRating>> getItemRatings() {
 		return itemRatings;
-	}
-	public void setItemRatings(Map<String, Item> itemRatings) {
-		this.itemRatings = itemRatings;
 	}
 }
