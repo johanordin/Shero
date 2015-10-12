@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the yeomanApp
  */
-angular.module('yeomanApp')
+angular.module('SHeroApp')
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
