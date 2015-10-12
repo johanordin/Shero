@@ -1,5 +1,6 @@
 package edu.upc.ase.rest;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -44,7 +45,7 @@ public class ItemRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String setup() {
 		
-		Item item = new Item("brett", "here", 13.37);
+		Item item = new Item("brett", new BigDecimal(13.01));
 
 	    // Use Objectify to save the greeting and now() is used to make the call synchronously as we
 	    // will immediately get a new page using redirect and we want the data to be present.

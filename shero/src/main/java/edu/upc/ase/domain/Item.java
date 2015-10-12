@@ -1,55 +1,75 @@
 package edu.upc.ase.domain;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
 
-import edu.upc.ase.helper.OfyHelper;
-
-/**
- * The @Entity tells Objectify about our entity.  We also register it in {@link OfyHelper}
- * Our primary key @Id is set automatically by the Google Datastore for us.
- *
- * Objectify, unlike the AppEngine library requires that you specify the fields you
- * want to index using @Index.  Only indexing the fields you need can lead to substantial gains in
- * performance -- though if not indexing your data from the start will require indexing it later.
- *
- **/
-
-//TEST FELIX COMMIT
 @Entity
 public class Item {
-	@Id public Long id;
+
+	@Id Long id;
 	private String name;
-	@Index private String location;
-	private double price;
+	private BigDecimal price;
+	private String description;
+	private String imagePath;
+	private Address itemAdress;
+	private Map<String, Availability> availabilities;
+	private Map<String, Item> itemRatings;
 	
 	public Item() {
+		super();
 	}
 	
-	public Item(String name, String location, double price) {
+	
+	public Item(String name, BigDecimal price) {
+		super();
 		this.name = name;
-		this.location = location;
 		this.price = price;
 	}
-	
+
+
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getLocation() {
-		return location;
+	public String getDescription() {
+		return description;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+	public Address getItemAdress() {
+		return itemAdress;
+	}
+	public void setItemAdress(Address itemAdress) {
+		this.itemAdress = itemAdress;
+	}
+	public Map<String, Availability> getAvailabilities() {
+		return availabilities;
+	}
+	public void setAvailabilities(Map<String, Availability> availabilities) {
+		this.availabilities = availabilities;
+	}
+	public Map<String, Item> getItemRatings() {
+		return itemRatings;
+	}
+	public void setItemRatings(Map<String, Item> itemRatings) {
+		this.itemRatings = itemRatings;
+	}
 }
