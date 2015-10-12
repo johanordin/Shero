@@ -1,11 +1,14 @@
 package edu.upc.ase.rest;
 
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
+import com.googlecode.objectify.ObjectifyService;
 
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.service.ItemService;
@@ -35,7 +38,35 @@ public class ItemRestService {
 	public String getJSONItem() {
 		return "{\"id\":1,\"item\":\"Surfboard XYZ\"}";
 	}
+	
+	@GET
+	@Path("/setup")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String setup() {
+		
+		Item item = new Item("brett", "here", 13.37);
 
+	    // Use Objectify to save the greeting and now() is used to make the call synchronously as we
+	    // will immediately get a new page using redirect and we want the data to be present.
+	    ObjectifyService.ofy().save().entity(item).now();
+	    
+		return "{\"status\":\"done\"}";
+	}
+	
+	@GET
+	@Path("/test")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getFromDB() {
+		List<Item> items = ObjectifyService.ofy()
+		          .load()
+		          .type(Item.class) // We want only Greetings
+		          //.order("-location")       // Most recent first - date is indexed.
+		          .limit(5)             // Only show 5 of them.
+		          .list();
+		System.out.println(items.get(0));
+		return GSON.toJson(items);
+	}
+	
 	// This method is called if TEXT_PLAIN is request
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
