@@ -21,9 +21,13 @@ public class Item {
 	// one item has exactly one address
 	private @Load Ref<Address> address;
 
+	
+	@Ignore
+	private Address addressFull;
+
 	private List<Ref<Availability>> availabilityPeriods = new ArrayList<Ref<Availability>>();
 	// on every load() or save() will fetch and store the entire list of referenced rating keys
-	private List<Ref<ItemRating>> itemRatings = new ArrayList<Ref<ItemRating>>();
+	private List<Key<ItemRating>> itemRatings = new ArrayList<Key<ItemRating>>();
 	
 	public Item() {
 	}
@@ -63,17 +67,19 @@ public class Item {
 	public void setAddress(Address address) {
 		this.address = Ref.create(address);
 	}
+	public Address getAddressFull() {
+		return addressFull;
+	}
+
+	public void setAddressFull(Address addressFull) {
+		this.addressFull = addressFull;
+	}
+
 	public List<Ref<Availability>> getAvailabilityPeriods() {
 		return availabilityPeriods;
 	}
-	public List<Ref<ItemRating>> getItemRatings() {
+	public List<Key<ItemRating>> getItemRatings() {
 		return itemRatings;
-	}
-	public void addItemRating(Ref<ItemRating> irRef) {
-		this.itemRatings.add(irRef);
-	}
-	public void addAvailabilityPeriod(Ref<Availability> avRef) {
-		this.availabilityPeriods.add(avRef);
 	}
 	
 	public void addItemRating(Key<ItemRating> itemRatingKey)

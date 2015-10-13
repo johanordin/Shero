@@ -71,14 +71,17 @@ public class ItemRestService {
 		Key<Object> k = Key.create(id);
 		
 		Item i = ObjectifyService.ofy().load().type(Item.class).filterKey(k).first().now();
+		
+		
+		logger.info("Strasse :" +i.getAddress().getStreet());
 		System.out.println("item: " + i + "(id: " + id + ")");
 		return GSON.toJson(i);
 	}
 	
 	@GET
-	@Path("/setup")
+	@Path("/setupitem")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String setup() {
+	public String setupItem() {
 		logger.info("Setup aufrufen");
 		DataFactory df = DataFactory.create();
 		
@@ -154,6 +157,21 @@ public class ItemRestService {
 		          .type(ItemRating.class)
 		          .list();		
 		return GSON.toJson(ratings);
+	}
+	
+	@GET
+	@Path("/getallitems")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getAllItems() {
+		List<Item> items = ObjectifyService.ofy()
+		          .load()
+		          .type(Item.class)
+		          .list();	
+		
+		for (Item item : items) {
+			item.setAddressFull(item.getAddress());
+		}
+		return GSON.toJson(items);
 	}
 	
 	@GET
