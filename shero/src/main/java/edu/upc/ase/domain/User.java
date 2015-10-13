@@ -47,8 +47,23 @@ public class User {
 	public List<Key<Address>> getAddresses() {
 		return addresses;
 	}
+	
+	public void addAddress(Key<Address> address) {
+		addresses.add(address);
+	}
+	
 	public List<Key<UserRating>> getUserRatings() {
 		return userRatings;
+	}
+	
+	public void addUserRating(Key<UserRating> ratingKey){
+		userRatings.add(ratingKey);
+	}
+	public User(String firstname, String lastname, String emailAddress) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.emailAddress = emailAddress;
 	}
 	
 }
