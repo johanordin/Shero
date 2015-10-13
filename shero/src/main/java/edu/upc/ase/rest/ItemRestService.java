@@ -1,7 +1,6 @@
 package edu.upc.ase.rest;
 
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Logger;
 
 import javax.ws.rs.GET;
