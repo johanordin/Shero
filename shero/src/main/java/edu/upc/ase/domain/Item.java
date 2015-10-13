@@ -7,6 +7,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Load;
 
 @Entity
@@ -21,7 +22,6 @@ public class Item {
 	// one item has exactly one address
 	private @Load Ref<Address> address;
 
-	
 	@Ignore
 	private Address addressFull;
 
