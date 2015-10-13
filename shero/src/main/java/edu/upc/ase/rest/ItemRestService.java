@@ -166,7 +166,11 @@ public class ItemRestService {
 		List<Item> items = ObjectifyService.ofy()
 		          .load()
 		          .type(Item.class)
-		          .list();		
+		          .list();	
+		
+		for (Item item : items) {
+			item.setAddressFull(item.getAddress());
+		}
 		return GSON.toJson(items);
 	}
 	
