@@ -27,7 +27,7 @@ angular
         templateUrl: 'app/views/SearchResults.html'
       })
       .when('/EditUser', {
-        templateUrl: 'app/views/EditUserProfile.html',
+        templateUrl: 'app/views/EditUser.html',
         controller: 'MainCtrl'
       })
       .when('/AddItem', {
