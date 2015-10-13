@@ -7,6 +7,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Load;
 
 @Entity
 public class Item {
@@ -18,11 +19,11 @@ public class Item {
 	private String imagePath;
 	
 	// one item has exactly one address
-	private Ref<Address> address;
+	private @Load Ref<Address> address;
 
 	private List<Ref<Availability>> availabilityPeriods = new ArrayList<Ref<Availability>>();
 	// on every load() or save() will fetch and store the entire list of referenced rating keys
-	private List<Key<ItemRating>> itemRatings = new ArrayList<Key<ItemRating>>();
+	private List<Ref<ItemRating>> itemRatings = new ArrayList<Ref<ItemRating>>();
 	
 	public Item() {
 	}
@@ -65,7 +66,13 @@ public class Item {
 	public List<Ref<Availability>> getAvailabilityPeriods() {
 		return availabilityPeriods;
 	}
-	public List<Key<ItemRating>> getItemRatings() {
+	public List<Ref<ItemRating>> getItemRatings() {
 		return itemRatings;
+	}
+	public void addItemRating(Ref<ItemRating> irRef) {
+		this.itemRatings.add(irRef);
+	}
+	public void addAvailabilityPeriod(Ref<Availability> avRef) {
+		this.availabilityPeriods.add(avRef);
 	}
 }

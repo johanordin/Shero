@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Ref;
 
 import edu.upc.ase.domain.Address;
 import edu.upc.ase.domain.Item;
@@ -109,6 +110,32 @@ public class ItemRestService {
 		          .list();
 		System.out.println(items.get(0));
 		return GSON.toJson(items);
+	}
+	
+	@GET
+	@Path("/testinput")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getFromDB2() {
+		Item item = new Item("testITEM", new Double(1.03));
+		ItemRating ir = new ItemRating();
+		ir.setRatingValue(4);
+		
+		ItemRating ir2 = new ItemRating();
+		ir2.setRatingValue(2);
+		
+		// need to store to db, so the address entity gets a key in the db that can be assigned to the item
+		Key<ItemRating> key = ObjectifyService.ofy().save().entity(ir).now();
+		Key<ItemRating> key2 = ObjectifyService.ofy().save().entity(ir2).now();
+		Ref<ItemRating> kref = Ref.create(key);
+		Ref<ItemRating> kref2 = Ref.create(key2);
+		item.addItemRating(kref);
+		item.addItemRating(kref2);
+		
+	    // Use Objectify to save the greeting and now() is used to make the call synchronously as we
+	    // will immediately get a new page using redirect and we want the data to be present.
+	    ObjectifyService.ofy().save().entity(item).now();
+	    
+	    return "{\"status\":\"succeed\"}";
 	}
 	
 	// This method is called if TEXT_PLAIN is request
