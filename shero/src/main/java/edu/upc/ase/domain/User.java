@@ -13,7 +13,7 @@ import com.googlecode.objectify.annotation.Id;
 @Entity
 public class User {
 	
-	@Id Long id;
+	@Id private Long id;
 	private String firstname;
 	private String lastname;
 	private String emailAddress;
@@ -25,6 +25,19 @@ public class User {
 	
 	public String getFirstname() {
 		return firstname;
+	}
+	
+	public User(){
+	}
+	
+	public User(String firstname, String lastname, String emailAddress) {
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.emailAddress = emailAddress;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
@@ -58,12 +71,6 @@ public class User {
 	
 	public void addUserRating(Key<UserRating> ratingKey){
 		userRatings.add(ratingKey);
-	}
-	public User(String firstname, String lastname, String emailAddress) {
-		super();
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.emailAddress = emailAddress;
 	}
 	
 }
