@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular
-  .module('yeomanApp', [
+  .module('SHeroApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -20,12 +20,21 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'app/views/main.html',
+        templateUrl: 'app/views/LandingPage.html',
         controller: 'MainCtrl'
       })
-      .when('/about', {
-        templateUrl: 'app/views/about.html',
-        controller: 'AboutCtrl'
+      .when('/SearchResults', {
+        templateUrl: 'app/views/SearchResults.html'
+      })
+      .when('/EditUser', {
+        templateUrl: 'app/views/EditUser.html',
+        controller: 'MainCtrl'
+      })
+      .when('/AddItem', {
+        templateUrl: 'app/views/AddItem.html'
+      })
+      .when('/EditItem', {
+        templateUrl: 'app/views/EditItem.html'
       })
       .otherwise({
         redirectTo: '/'
