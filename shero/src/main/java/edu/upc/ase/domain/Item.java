@@ -68,4 +68,9 @@ public class Item {
 	public List<Key<ItemRating>> getItemRatings() {
 		return itemRatings;
 	}
+	
+	public void addItemRating(Key<ItemRating> itemRatingKey)
+	{
+		itemRatings.add(itemRatingKey);
+	}
 }

@@ -12,11 +12,16 @@ public class ItemRating {
 	
 	public ItemRating() {
 	}
+
+	public ItemRating(Integer ratingValue) {
+		super();
+		this.ratingValue = ratingValue;
+	} 
 	
 	public Integer getRatingValue() {
 		return ratingValue;
 	}
 	public void setRatingValue(Integer ratingValue) {
 		this.ratingValue = ratingValue;
-	} 
+	}
 }
