@@ -75,4 +75,9 @@ public class Item {
 	public void addAvailabilityPeriod(Ref<Availability> avRef) {
 		this.availabilityPeriods.add(avRef);
 	}
+	
+	public void addItemRating(Key<ItemRating> itemRatingKey)
+	{
+		itemRatings.add(itemRatingKey);
+	}
 }
