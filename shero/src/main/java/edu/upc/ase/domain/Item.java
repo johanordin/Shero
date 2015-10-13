@@ -7,6 +7,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 
 @Entity
 public class Item {
@@ -19,6 +20,9 @@ public class Item {
 	
 	// one item has exactly one address
 	private Ref<Address> address;
+	
+	@Ignore
+	private Address addressFull;
 
 	private List<Ref<Availability>> availabilityPeriods = new ArrayList<Ref<Availability>>();
 	// on every load() or save() will fetch and store the entire list of referenced rating keys
@@ -62,6 +66,14 @@ public class Item {
 	public void setAddress(Address address) {
 		this.address = Ref.create(address);
 	}
+	public Address getAddressFull() {
+		return addressFull;
+	}
+
+	public void setAddressFull(Address addressFull) {
+		this.addressFull = addressFull;
+	}
+
 	public List<Ref<Availability>> getAvailabilityPeriods() {
 		return availabilityPeriods;
 	}
