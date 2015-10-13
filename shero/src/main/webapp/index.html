@@ -50,24 +50,12 @@
             </div>
             <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
           </form>
-          <ul class="nav navbar-nav navbar-right">
-            <li ng-class="{ active: isActive('#/AddItem')}"><a ng-href="#/AddItem"><i class="fa fa-plus"></i> Add Item</a></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a ng-href="#/EditUser"><i class="fa fa-wrench"></i> Edit</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a ng-href="#/EditItem">Item 1</a></li>
-                <li><a ng-href="#/EditItem">Item 2</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a ng-href="#/">Logout</a></li>
-              </ul>
-            </li>
-          </ul>
+          <nav-login></nav-login>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
- 	<!--<div ng-controller="ItemCtrl" ng-cloak>
+ 	
+  <!--<div ng-controller="ItemCtrl" ng-cloak>
 			<p>The item is {{item.name}}</p>
 			<p>The location is {{item.location}}</p>
 			<p>The price is {{item.price}}</p>
@@ -111,8 +99,11 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="app/app.js"></script>
+        <script src="app/routes.js"></script>
+        <script src="app/directives.js"></script>
         <script src="app/controllers/main.js"></script>
         <script src="app/controllers/search.js"></script>
+        <script src="app/controllers/navbar.js"></script>
         <script src="app/controllers/item.js"></script>
         <!-- endbuild -->
 </body>
