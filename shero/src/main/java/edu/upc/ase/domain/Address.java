@@ -2,13 +2,17 @@ package edu.upc.ase.domain;
  
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 @Entity
 public class Address {
 
 	@Id Long id;
+	@Index
 	private String city;
+	@Index
 	private String zipcode;
+	@Index
 	private String country;
 	private String street;
 	private String number; 
@@ -63,5 +67,12 @@ public class Address {
 	}
 	public void setAdditional(String additional) {
 		this.additional = additional;
+	}
+	
+	@Override
+	public String toString() {
+		return "Address [city=" + city + ", zipcode=" + zipcode + ", country="
+				+ country + ", street=" + street + ", number=" + number
+				+ ", additional=" + additional + "]";
 	}
 }
