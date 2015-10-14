@@ -17,7 +17,9 @@ import com.google.gson.Gson;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 
+import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.User;
+import edu.upc.ase.domain.UserRating;
 
 @Path("/users")
 public class UserRestService {
@@ -72,7 +74,7 @@ public class UserRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	public String deleteUser(@PathParam("id") String id) {
-		Key<User> key = Key.create(id);
+		Key<User> key = Key.create(User.class, Long.parseLong(id));
 		ObjectifyService.ofy().delete().key(key).now();
 		// fix: returns successful even if entity does not exist
 		return "{\"status\":\"successful\"}";
@@ -87,5 +89,30 @@ public class UserRestService {
 		Key<User> newUser = ObjectifyService.ofy().save().entity(test).now();
 		User user = ObjectifyService.ofy().load().type(User.class).id(newUser.getId()).now();
 		return GSON.toJson(user);
+	}
+	
+	@GET
+	@Path("/relationTest")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String testing() {
+		User test = new User("Max", "Mustermann", "max@mustermann.de");
+		UserRating r = new UserRating();
+		r.setRatingValue(1);
+		UserRating r2 = new UserRating();
+		r2.setRatingValue(3);
+		Item i = new Item("theItem", 11.00);
+		Key<Item> iKey = ObjectifyService.ofy().save().entity(i).now();
+		Key<UserRating> rKey = ObjectifyService.ofy().save().entity(r).now();
+		Key<UserRating> r2Key = ObjectifyService.ofy().save().entity(r2).now();
+		test.addUserRating(rKey);
+		test.addUserRating(r2Key);
+		test.addItem(iKey);
+		Key<User> newUser = ObjectifyService.ofy().save().entity(test).now();
+		
+		User user = ObjectifyService.ofy().load().type(User.class).id(newUser.getId()).now();
+		logger.info("ratings: " + user.getUserRatings());
+		logger.info("addresses: " + user.getAddresses());
+		logger.info("items: " + user.getItems());
+		return user.serialize();
 	}
 }

@@ -23,4 +23,10 @@ public class UserRating {
 	public void setRatingValue(Integer ratingValue) {
 		this.ratingValue = ratingValue;
 	}
+
+	@Override
+	public String toString() {
+		return "UserRating [ratingValue=" + ratingValue + "]";
+	}
+	
 }
