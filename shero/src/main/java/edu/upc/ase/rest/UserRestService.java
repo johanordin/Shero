@@ -35,8 +35,7 @@ public class UserRestService {
 	@GET
 	@Path("/{id}")
 	public String getUser(@PathParam("id") String id) {
-		Key<User> k = Key.create(null, User.class, Long.parseLong(id));
-		User user = ObjectifyService.ofy().load().type(User.class).filterKey(k).first().now();
+		User user = ObjectifyService.ofy().load().type(User.class).id(Long.parseLong(id)).now();
 		return GSON.toJson(user);
 	}
 	
@@ -50,7 +49,7 @@ public class UserRestService {
 	public String createUser(String jsonUser) {
 		User newUser = GSON.fromJson(jsonUser, User.class);
 		Key<User> key = ObjectifyService.ofy().save().entity(newUser).now();
-		User user = ObjectifyService.ofy().load().type(User.class).filterKey(key).first().now();
+		User user = ObjectifyService.ofy().load().type(User.class).id(key.getId()).now();
 		return GSON.toJson(user);
 	}
 	
@@ -65,7 +64,7 @@ public class UserRestService {
 	public String updateUser(String jsonUser) {
 		User updatedUser = GSON.fromJson(jsonUser, User.class);
 		Key<User> key = ObjectifyService.ofy().save().entity(updatedUser).now();
-		User user = ObjectifyService.ofy().load().type(User.class).filterKey(key).first().now();
+		User user = ObjectifyService.ofy().load().type(User.class).id(key.getId()).now();
 		return GSON.toJson(user);
 	}
 	
@@ -86,7 +85,7 @@ public class UserRestService {
 	public String setupTestUser() {
 		User test = new User("Max", "Mux", "max@mux.es");
 		Key<User> newUser = ObjectifyService.ofy().save().entity(test).now();
-		User user = ObjectifyService.ofy().load().type(User.class).filterKey(newUser).first().now();
+		User user = ObjectifyService.ofy().load().type(User.class).id(newUser.getId()).now();
 		return GSON.toJson(user);
 	}
 }
