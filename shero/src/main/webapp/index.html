@@ -5,55 +5,15 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
+
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
-    <!-- endbuild -->
   </head>
   <body ng-app="SHeroApp">
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" ng-href="#/">SHero</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav"></ul>
-          <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Item" id="item">
-              <select class="form-control" id="location">
-                <option value="" selected disabled>Location</option>
-                <option>Barcelona</option>
-                <option>Munich</option>
-                <option>Paris</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-          </form>
-          <nav-login></nav-login>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+    <!-- NAVIGATION -->
+    <div ng-include="'app/views/Navbar.html'"></div>
  	
   <!--<div ng-controller="ItemCtrl" ng-cloak>
 			<p>The item is {{item.name}}</p>
@@ -62,7 +22,7 @@
 	</div>-->
 		
     <div class="container">
-    <div ng-view=""></div>
+    <div ui-view=""></div>
     </div>
 
     <div class="footer">
@@ -72,39 +32,33 @@
     </div>
 
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+   <script>
+     !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+     (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+     r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+     }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+     ga('create', 'UA-XXXXX-X');
+     ga('send', 'pageview');
+  </script>
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="lib/jquery/jquery.js"></script>
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="lib/angular/angular-animate.js"></script>
-    <script src="lib/angular/angular-cookies.js"></script>
-    <script src="lib/angular/angular-resource.js"></script>
-    <script src="lib/angular/angular-route.js"></script>
-    <script src="lib/angular/angular-sanitize.js"></script>
-    <script src="lib/angular/angular-touch.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+  <script src="lib/jquery/jquery.js"></script>
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="lib/angular/angular-animate.js"></script>
+  <script src="lib/angular/angular-cookies.js"></script>
+  <script src="lib/angular/angular-resource.js"></script>
+  <script src="lib/angular/angular-route.js"></script>
+  <script src="lib/angular/angular-sanitize.js"></script>
+  <script src="lib/angular/angular-touch.js"></script>
+  <script src="lib/angular/angular-ui-router.min.js"></script>
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="app/app.js"></script>
-        <script src="app/routes.js"></script>
-        <script src="app/directives.js"></script>
-        <script src="app/controllers/main.js"></script>
-        <script src="app/controllers/search.js"></script>
-        <script src="app/controllers/navbar.js"></script>
-        <script src="app/controllers/item.js"></script>
-        <!-- endbuild -->
+  <script src="app/app.js"></script>
+  <script src="app/states.js"></script>
+  <script src="app/directives.js"></script>
+  <script src="app/controllers/main.js"></script>
+  <script src="app/controllers/searchbar.js"></script>
+  <script src="app/controllers/usermenu.js"></script>
+  <script src="app/controllers/item.js"></script>
 </body>
 </html>
