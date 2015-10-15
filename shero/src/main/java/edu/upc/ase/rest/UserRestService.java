@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 
+import edu.upc.ase.domain.Address;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.User;
 import edu.upc.ase.domain.UserRating;
@@ -115,4 +116,59 @@ public class UserRestService {
 		logger.info("items: " + user.getItems());
 		return user.serialize();
 	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/address/{id}")
+	public String updateAdress(String jsonUser) {
+		User updatedUser = GSON.fromJson(jsonUser, User.class);
+		
+		System.out.println(updatedUser);
+		System.out.println(updatedUser.getAddresses());
+		
+		Address address = new Address("someCity","22", "streetName", "zip");
+		Key<Address> addressKey = ObjectifyService.ofy().save().entity(address).now();
+		updatedUser.addAddress(addressKey);
+		
+		Key<User> key = ObjectifyService.ofy().save().entity(updatedUser).now();
+		
+		User user = ObjectifyService.ofy().load().type(User.class).id(key.getId()).now();
+//		return GSON.toJson(user);
+		
+		System.out.println(user);
+		System.out.println(address);
+		
+		return user.serialize();
+	}
+	
+	
+	/**
+	 * Method to test rest interface to add Address to existing User. 
+	 * 
+	 * no address id for creating new address or existing address id for updating address
+	 * payload: {"id": , "city":"","zipcode":"","country":"","street":"","number":"","additional":""}
+	 */
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/addAddress/{id}")
+	public String addAddress(@PathParam("id") String id, String jsonAddress) {
+		
+		Address address = GSON.fromJson(jsonAddress, Address.class);
+		Key<Address> addressKey = ObjectifyService.ofy().save().entity(address).now();
+		
+		// need to retrieve corresponding key first
+		Key<User> key = Key.create(User.class, Long.parseLong(id));
+		
+		User current_user = ObjectifyService.ofy().load().type(User.class).filterKey(key).first().now();
+		current_user.addAddress(addressKey);
+		
+		Key<User> current_key = ObjectifyService.ofy().save().entity(current_user).now();
+		User user = ObjectifyService.ofy().load().type(User.class).id(current_key.getId()).now();
+		
+		return user.serialize();
+	}
+	
+	
 }
