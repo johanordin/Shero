@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html ng-app="SHeroApp">
   <head>
     <meta charset="utf-8">
     <title></title>
@@ -10,55 +10,53 @@
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
   </head>
-  <body ng-app="SHeroApp">
+  <body>
 
     <!-- NAVIGATION -->
     <div ng-include="'app/views/Navbar.html'"></div>
  	
-  <!--<div ng-controller="ItemCtrl" ng-cloak>
-			<p>The item is {{item.name}}</p>
-			<p>The location is {{item.location}}</p>
-			<p>The price is {{item.price}}</p>
-	</div>-->
-		
+		<!-- CONTENT OF THE PAGE -->
     <div class="container">
     <div ui-view=""></div>
     </div>
 
+    <!-- FOOTER -->
     <div class="footer">
       <div class="container">
         <p><span class="fa fa-copyright"></span> SHero</p>
       </div>
     </div>
 
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-   <script>
-     !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-     (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-     r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-     }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
 
-     ga('create', 'UA-XXXXX-X');
-     ga('send', 'pageview');
-  </script>
+    <script src="lib/jquery/jquery.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="lib/ui-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="lib/angular/angular-animate.js"></script>
+    <script src="lib/angular/angular-cookies.js"></script>
+    <script src="lib/angular/angular-resource.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/angular-sanitize.js"></script>
+    <script src="lib/angular/angular-touch.js"></script>
+    <script src="lib/angular/angular-ui-router.min.js"></script>
+    <script src="lib/gm-datepicker/datepickerMultiSelect.js"></script>
 
-  <script src="lib/jquery/jquery.js"></script>
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
-  <script src="lib/angular/angular-animate.js"></script>
-  <script src="lib/angular/angular-cookies.js"></script>
-  <script src="lib/angular/angular-resource.js"></script>
-  <script src="lib/angular/angular-route.js"></script>
-  <script src="lib/angular/angular-sanitize.js"></script>
-  <script src="lib/angular/angular-touch.js"></script>
-  <script src="lib/angular/angular-ui-router.min.js"></script>
-
-  <script src="app/app.js"></script>
-  <script src="app/states.js"></script>
-  <script src="app/directives.js"></script>
-  <script src="app/controllers/main.js"></script>
-  <script src="app/controllers/searchbar.js"></script>
-  <script src="app/controllers/usermenu.js"></script>
-  <script src="app/controllers/item.js"></script>
-</body>
+    <script src="app/app.js"></script>
+    <script src="app/states.js"></script>
+    <script src="app/directives.js"></script>
+    <script src="app/controllers/main.js"></script>
+    <script src="app/controllers/searchbar.js"></script>
+    <script src="app/controllers/usermenu.js"></script>
+    <script src="app/controllers/item.js"></script>
+    <script src="app/controllers/datepicker.js"></script>
+  </body>
 </html>

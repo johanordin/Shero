@@ -1,4 +1,4 @@
-angular.module('SHeroApp', ['ui.router'])
+angular.module('SHeroApp')
  	.config(function($stateProvider, $urlRouterProvider) {
  		$urlRouterProvider.otherwise('/Home');
 

@@ -1,1 +1,39 @@
 <p>Add Item!</p>
+
+   <div ng-controller='DatePickerCtrl as datepicker'>
+    <div class='panel'><h3>Selection Type:</h3>
+      <div class='btn-group'>
+        <button class='btn btn-primary' ng-model='datepicker.type' btn-radio='"individual"'>Individual</button>
+        <button class='btn btn-primary' ng-model='datepicker.type' btn-radio='"range"'>Range</button>
+      </div>
+    </div>
+    <table>
+      <tr>
+        <td>
+          <uib-datepicker ng-model='datepicker.activeDate' multi-select='datepicker.selectedDates' select-range='{{datepicker.type=="range"}}'></uib-datepicker>
+        </td>
+        <td style='width:50px'>
+        </td>
+        <td>
+          <div ng-if='datepicker.type=="individual"'>
+            Selected Dates:
+            <div class='well well-sm'>
+              <div ng-repeat='d in datepicker.selectedDates | orderBy'>
+                {{d | date : 'fullDate'}}
+                <button class='btn btn-xs btn-warning' style='margin:5px' ng-click='datepicker.removeFromSelected(d)'>Remove</button>
+              </div>
+            </div>
+          </div>
+          <div ng-if='datepicker.type=="range"' >
+            Selected Range: 
+            <div class='well well-sm'>
+              {{(datepicker.selectedDates | orderBy)[0] | date:"fullDate"}}
+              <span ng-if='datepicker.selectedDates.length > 1'>
+                - {{(datepicker.selectedDates | orderBy : '-')[0] | date:"fullDate"}}
+              </span>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
