@@ -106,6 +106,12 @@ public class User {
 		addressRefs.add(Ref.create(address));
 	}
 
+	@Override
+	public String toString() {
+		return "User [firstname=" + firstname + ", lastname=" + firstname + ", emailAddress="
+				+ emailAddress + "]";
+	}
+	
 	public String serialize() {
 		items = this.getItems();
 		addresses = this.getAddresses();

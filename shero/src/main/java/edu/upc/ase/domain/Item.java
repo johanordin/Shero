@@ -70,20 +70,22 @@ public class Item {
 	public Address getAddressFull() {
 		return addressFull;
 	}
-
 	public void setAddressFull(Address addressFull) {
 		this.addressFull = addressFull;
 	}
-
 	public List<Ref<Availability>> getAvailabilityPeriods() {
 		return availabilityPeriods;
 	}
 	public List<Key<ItemRating>> getItemRatings() {
 		return itemRatings;
 	}
-	
-	public void addItemRating(Key<ItemRating> itemRatingKey)
-	{
+	public void addItemRating(Key<ItemRating> itemRatingKey) {
 		itemRatings.add(itemRatingKey);
+	}
+	
+	@Override
+	public String toString() {
+		return "Item [name=" + name + ", price=" + price + ", description="
+				+ description + ", imagePath=" + imagePath + "]";
 	}
 }
