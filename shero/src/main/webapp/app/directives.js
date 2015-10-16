@@ -8,6 +8,16 @@ angular.module('SHeroApp')
       controllerAs: 'usermenuCtrl'
     }
   })
+
+  .directive('loginButton', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'app/directives/Navbar/LoginButton.html',
+      controller: 'LoginCtrl',
+      controllerAs: 'LoginCtrl'
+    }
+  })
+
   .directive('searchBar', function() {
   	return {
   		restrict: 'E',
