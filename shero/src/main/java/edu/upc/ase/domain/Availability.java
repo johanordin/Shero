@@ -9,7 +9,6 @@ import com.googlecode.objectify.annotation.Id;
 public class Availability {
 
 	@Id Long id;
-	//private Item item; 	not sure if this reference is needed
 	private Date availableFrom;
 	private Date availableTo;
 	

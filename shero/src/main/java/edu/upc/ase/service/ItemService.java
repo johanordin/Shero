@@ -7,7 +7,7 @@ public class ItemService {
 	
 	public Item getExampleItem() {
 		// should retrieve item from DB in future, based on some id for example
-		Item item = new Item("Surfboard XYZ", new Double(27.50));
+		Item item = new Item("Surfboard XYZ", new Double(27.50), "someDescription");
 		return item;
 	}
 }

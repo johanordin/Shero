@@ -32,21 +32,20 @@ public class User {
 	@Ignore
 	private List<Item> items;
 	@Ignore
-	private List<UserRating> userRatings;
+	private List<UserRating> receivedRatings; // populated by query
 	@Ignore
 	private List<Address> addresses;
 	
 	// live references to data store
 	private transient List<Ref<Item>> itemRefs = new ArrayList<Ref<Item>>();
-	private transient List<Ref<UserRating>> userRatingRefs = new ArrayList<Ref<UserRating>>();
 	@Load
 	private transient List<Ref<Address>> addressRefs = new ArrayList<Ref<Address>>();
 	
 	@OnLoad // Called after the POJO is populated with data
 	private void onLoad() {
-		items = this.getItems();
-		addresses = this.getAddresses();
-		userRatings = this.getUserRatings();
+		this.getItems();
+		this.getAddresses();
+		this.getReceivedRatings();
 	}
 	
 	// no-arg constructor required by objectify
@@ -88,19 +87,19 @@ public class User {
 	}
 	public List<Item> getItems() {
 		// perform batch load instead of single get() requests for every entity
-		return new ArrayList<Item>(ObjectifyService.ofy().load().refs(itemRefs).values());
+		this.items = new ArrayList<Item>(ObjectifyService.ofy().load().refs(itemRefs).values());
+		return items;
 	}
-	public List<UserRating> getUserRatings() {
-		return new ArrayList<UserRating>(ObjectifyService.ofy().load().refs(userRatingRefs).values());
+	public List<UserRating> getReceivedRatings() {
+		this.receivedRatings = ObjectifyService.ofy().load().type(UserRating.class).filter("to", this.id).list();
+		return receivedRatings;
 	}
 	public List<Address> getAddresses() {
-		return new ArrayList<Address>(ObjectifyService.ofy().load().refs(addressRefs).values());
+		this.addresses = new ArrayList<Address>(ObjectifyService.ofy().load().refs(addressRefs).values());
+		return addresses;
 	}
 	public void addItem(Key<Item> item) {
 		itemRefs.add(Ref.create(item));
-	}
-	public void addUserRating(Key<UserRating> userRating){
-		userRatingRefs.add(Ref.create(userRating));
 	}
 	public void addAddress(Key<Address> address) {
 		addressRefs.add(Ref.create(address));
@@ -113,9 +112,9 @@ public class User {
 	}
 	
 	public String serialize() {
-		items = this.getItems();
-		addresses = this.getAddresses();
-		userRatings = this.getUserRatings();
+		this.getItems();
+		this.getAddresses();
+		this.getReceivedRatings();
 		return GSON.toJson(this);
     }
 	

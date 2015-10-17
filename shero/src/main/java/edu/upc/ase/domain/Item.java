@@ -3,89 +3,138 @@ package edu.upc.ase.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.googlecode.objectify.Key;
+import com.google.gson.Gson;
+import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Load;
+import com.googlecode.objectify.annotation.OnLoad;
 
 @Entity
 public class Item {
-
-	@Id public Long id;
+	private static final Gson GSON = new Gson();
+	
+	@Id
+	public Long id;
+	@Index
 	private String name;
+	@Index
 	private Double price;
 	private String description;
 	private String imagePath;
-	
+
 	// one item has exactly one address
-	private @Load Ref<Address> address;
-
 	@Ignore
-	private Address addressFull;
+	private Address address;
+	@Ignore
+	private List<Availability> availabilityPeriods;
+	@Ignore
+	private List<ItemRating> itemRatings;
 
-	private List<Ref<Availability>> availabilityPeriods = new ArrayList<Ref<Availability>>();
-	// on every load() or save() will fetch and store the entire list of referenced rating keys
-	private List<Key<ItemRating>> itemRatings = new ArrayList<Key<ItemRating>>();
-	
+	@Load
+	private transient Ref<Address> addressRef;
+	@Load
+	@Index
+	private transient List<Ref<Availability>> availabilityPeriodRefs = new ArrayList<Ref<Availability>>();
+	@Load
+	private transient List<Ref<ItemRating>> itemRatingRefs = new ArrayList<Ref<ItemRating>>();
+
 	public Item() {
 	}
-	
-	public Item(String name, Double price) {
+
+	public Item(String name, Double price, String description) {
 		this.name = name;
 		this.price = price;
+		this.description = description;
 	}
 
+	public Item(String name, Double price, String description, Address address,
+			List<Availability> availabilityPeriods) {
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.address = address;
+		this.availabilityPeriods = availabilityPeriods;
+	}
+
+	@OnLoad
+	private void onLoad() {
+		this.getAddress();
+		this.getAvailabilityPeriods();
+		this.getItemRatings();
+	}
+	
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public Double getPrice() {
 		return price;
 	}
+
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+
 	public String getImagePath() {
 		return imagePath;
 	}
+
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
 	public Address getAddress() {
-		return address.get();
+		this.address = addressRef == null ? null : addressRef.get();
+		return address;
 	}
-	public void setAddress(Address address) {
-		this.address = Ref.create(address);
-	}
-	public Address getAddressFull() {
-		return addressFull;
-	}
-	public void setAddressFull(Address addressFull) {
-		this.addressFull = addressFull;
-	}
-	public List<Ref<Availability>> getAvailabilityPeriods() {
+
+	public List<Availability> getAvailabilityPeriods() {
+		this.availabilityPeriods = new ArrayList<Availability>(ObjectifyService.ofy().load().refs(availabilityPeriodRefs).values());
 		return availabilityPeriods;
 	}
-	public List<Key<ItemRating>> getItemRatings() {
+
+	public List<ItemRating> getItemRatings() {
+		this.itemRatings = ObjectifyService.ofy().load().type(ItemRating.class).filter("item", this.id).list();
 		return itemRatings;
 	}
-	public void addItemRating(Key<ItemRating> itemRatingKey) {
-		itemRatings.add(itemRatingKey);
+
+	public void setAddress(Address address) {
+		this.addressRef = Ref.create(address);
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Item [name=" + name + ", price=" + price + ", description="
-				+ description + ", imagePath=" + imagePath + "]";
+		return "Item [id=" + id + ", name=" + name + ", price=" + price
+				+ ", description=" + description + ", imagePath=" + imagePath
+				+ ", address=" + address + ", availabilityPeriods="
+				+ availabilityPeriods + ", itemRatings=" + itemRatings + "]";
 	}
+	
+	public String serialize() {
+		this.getAddress();
+		this.getAvailabilityPeriods();
+		this.getItemRatings();
+		return GSON.toJson(this);
+	}
+
 }
