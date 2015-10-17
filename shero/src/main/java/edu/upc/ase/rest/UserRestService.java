@@ -1,7 +1,6 @@
 package edu.upc.ase.rest;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -17,15 +16,12 @@ import com.google.gson.Gson;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 
-import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.User;
-import edu.upc.ase.domain.UserRating;
 
 @Path("/users")
 public class UserRestService {
 	private static final Gson GSON = new Gson();
-	private static final Logger logger = Logger.getLogger("UserRestService");
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getUsers() {
@@ -78,41 +74,5 @@ public class UserRestService {
 		ObjectifyService.ofy().delete().key(key).now();
 		// fix: returns successful even if entity does not exist
 		return "{\"status\":\"successful\"}";
-	}
-	
-	/***************** TEST *****************/
-	@GET
-	@Path("/setupUser")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String setupTestUser() {
-		User test = new User("Max", "Mux", "max@mux.es");
-		Key<User> newUser = ObjectifyService.ofy().save().entity(test).now();
-		User user = ObjectifyService.ofy().load().type(User.class).id(newUser.getId()).now();
-		return GSON.toJson(user);
-	}
-	
-	@GET
-	@Path("/relationTest")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String testing() {
-		User test = new User("Max", "Mustermann", "max@mustermann.de");
-		UserRating r = new UserRating();
-		r.setRatingValue(1);
-		UserRating r2 = new UserRating();
-		r2.setRatingValue(3);
-		Item i = new Item("theItem", 11.00);
-		Key<Item> iKey = ObjectifyService.ofy().save().entity(i).now();
-		Key<UserRating> rKey = ObjectifyService.ofy().save().entity(r).now();
-		Key<UserRating> r2Key = ObjectifyService.ofy().save().entity(r2).now();
-		test.addUserRating(rKey);
-		test.addUserRating(r2Key);
-		test.addItem(iKey);
-		Key<User> newUser = ObjectifyService.ofy().save().entity(test).now();
-		
-		User user = ObjectifyService.ofy().load().type(User.class).id(newUser.getId()).now();
-		logger.info("ratings: " + user.getUserRatings());
-		logger.info("addresses: " + user.getAddresses());
-		logger.info("items: " + user.getItems());
-		return user.serialize();
 	}
 }
