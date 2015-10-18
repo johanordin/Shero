@@ -25,7 +25,7 @@ angular.module('SHeroApp')
 
       		.state('addItem', {
       			url: '/AddItem',
-        		templateUrl: 'app/views/AddItem/AddItem.html',
+        		templateUrl: 'app/views/AddItem/addItem.html',
             controller: 'AddItemCtrl',
             controllerAs: 'addItemCtrl'
       		})
