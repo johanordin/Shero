@@ -5,14 +5,9 @@
  * @name SHeroApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the SHeroApp
+ * Main-controller of the SHeroApp. Does literally nothing right now.
  */
 angular.module('SHeroApp')
   .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-   
+
   });

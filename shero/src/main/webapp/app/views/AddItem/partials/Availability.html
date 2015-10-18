@@ -1,0 +1,39 @@
+<div>
+  <div class="form-group row">
+    <label class="col-lg-2 col-md-12 col-sm-12 col-xs-12" for="datepicker">Available dates</label>
+    <div class="col-lg-4 col-offset-1 col-md-5 col-sm-5 col-xs-12">
+      <uib-datepicker ng-model='activeDate' multi-select='formData.selectedDates' name="datepicker"></uib-datepicker>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" ng-if='type=="individual"'>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <button type="button" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-default" ng-click="isCollapsed = !isCollapsed">
+          <span ng-show="!isCollapsed">Show selected dates</span>
+          <span ng-hide="!isCollapsed">Hide selected dates</span>
+        </button>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" uib-collapse="!isCollapsed">
+        <div class="well well-sm">
+          <div class="row" ng-repeat='d in formData.selectedDates | orderBy' style="padding-top: 0.5em;">
+            <span class="col-lg-10 col-md-10 col-sm-10 col-xs-10">{{d | date : 'dd. MMMM yyyy'}}</span>
+            <button class='col-lg-1 col-md-1 col-sm-1 col-xs-1 btn btn-xs btn-warning' ng-click='removeDateFromSelected(d)'><i class="fa fa-times"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-lg-offset-2 col-lg-4 col-md-offset-2 col-md-4 col-sm-offset-2 col-sm-4 col-xs-offset-1 col-xs-5">
+    <a ui-sref="addItem.generalInformation" class="btn btn-block btn-info">
+    <span class="fa fa-arrow-left"></span> Previous
+    </a>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
+    <a ui-sref="addItem.pictures" class="btn btn-block btn-info">
+    Next <span class="fa fa-arrow-right"></span>
+    </a>
+  </div>
+</div>

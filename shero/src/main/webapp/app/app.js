@@ -1,6 +1,6 @@
 'use strict';
 
-  /* CREATES THE APPLICATION  */
+  /* Create Angular.js and inject dependencies  */
 angular
   .module('SHeroApp', [
     'gm.datepickerMultiSelect',
