@@ -1,3 +1,5 @@
+  /* CUSTOM DIRECTIVES  */
+
 angular.module('SHeroApp')
 
   .directive('userMenu', function() {

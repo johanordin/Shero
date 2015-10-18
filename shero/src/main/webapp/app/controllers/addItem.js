@@ -1,3 +1,5 @@
+  /* ADD ITEM CONTROLLER  */
+
 angular.module('SHeroApp')
 	.controller('AddItemCtrl', function($scope, $location) {
 	    

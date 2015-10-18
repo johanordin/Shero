@@ -12,17 +12,22 @@ angular.module('SHeroApp')
  				url: '/SearchResults',
         		templateUrl: 'app/views/SearchResults.html'
       		})
+        
+            /* APP STATE  */
  			.state('app', {
  				abstract: true,
  				/*data: {
         			requireLogin: true
       			}*/
  			})
+        
+          /* EDIT USER STATE  */
       		.state('app.editUser', {
       			url: '/EditUser', 
         		templateUrl: 'app/views/EditUser.html',
       		})
-
+        
+          /* ADD ITEM STATE  */
       		.state('addItem', {
       			url: '/AddItem',
         		templateUrl: 'app/views/AddItem/addItem.html',
@@ -42,6 +47,7 @@ angular.module('SHeroApp')
                 templateUrl: 'app/views/AddItem/partials/pictures.html'
             })
 
+          /* EDIT ITEM STATE  */
 	      .state('editItem', {
 	      	url: '/EditItem', 
 	        templateUrl: 'app/views/EditItem.html'

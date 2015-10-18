@@ -1,13 +1,6 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name yeomanApp
- * @description
- * # yeomanApp
- *
- * Main module of the application.
- */
+  /* CREATES THE APPLICATION  */
 angular
   .module('SHeroApp', [
     'gm.datepickerMultiSelect',

@@ -1,3 +1,7 @@
+
+  /* NOT USED AT THE MOMENT - WE USE state.js INSTEAD */
+
+
 /*angular.module('SHeroApp')
   
   .config(function ($routeProvider) {
