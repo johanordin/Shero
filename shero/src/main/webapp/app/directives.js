@@ -25,4 +25,19 @@ angular.module('SHeroApp')
   		controller: 'SearchBarCtrl',
   		controllerAs: 'searchbarCtrl'
   	}
-  });
+  })
+  .directive( 'goTo', function ( $location ) {
+      return function ( scope, element, attrs ) {
+        var path;
+        
+        attrs.$observe( 'goTo', function (val) {
+          path = val;
+        });
+        
+        element.bind( 'click', function () {
+          scope.$apply( function () {
+            $location.path( path );
+          });
+        });
+      };
+    });

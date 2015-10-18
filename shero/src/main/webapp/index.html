@@ -9,20 +9,21 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/tags-input/ng-tags-input.css">
+    <link rel="stylesheet" href="lib/tags-input/ng-tags-input.bootstrap.css">
   </head>
   <body>
 
     <!-- NAVIGATION -->
     <div ng-include="'app/views/Navbar.html'"></div>
  	
-
 		<!-- CONTENT OF THE PAGE -->
-    <div class="container">
-    <div ui-view=""></div>
+    <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+      <div ui-view=""></div>
     </div>
 
     <!-- FOOTER -->
-    <div class="footer">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
       <div class="container">
         <p><span class="fa fa-copyright"></span> SHero</p>
       </div>
@@ -50,6 +51,7 @@
     <script src="lib/angular/angular-touch.js"></script>
     <script src="lib/angular/angular-ui-router.min.js"></script>
     <script src="lib/gm-datepicker/datepickerMultiSelect.js"></script>
+    <script src="lib/tags-input/ng-tags-input.js"></script>
 
     <script src="app/app.js"></script>
     <script src="app/states.js"></script>
@@ -57,8 +59,8 @@
     <script src="app/controllers/main.js"></script>
     <script src="app/controllers/searchbar.js"></script>
     <script src="app/controllers/usermenu.js"></script>
-    <script src="app/controllers/item.js"></script>
-    <script src="app/controllers/datepicker.js"></script>
+    <script src="app/controllers/addItem.js"></script>
+    <script src="app/controllers/tags.js"></script>
     <script src="app/controllers/login.js"></script>
   </body>
 </html>

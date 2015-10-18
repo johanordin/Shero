@@ -1,6 +1,7 @@
 angular.module('SHeroApp')
  	.config(function($stateProvider, $urlRouterProvider) {
- 		$urlRouterProvider.otherwise('/Home');
+    $urlRouterProvider.when('/AddItem', '/AddItem/GeneralInformation');
+ 		$urlRouterProvider.when('', '  /Home');
 
  		$stateProvider
  			.state('home', {
@@ -21,10 +22,26 @@ angular.module('SHeroApp')
       			url: '/EditUser', 
         		templateUrl: 'app/views/EditUser.html',
       		})
+
       		.state('addItem', {
       			url: '/AddItem',
-        		templateUrl: 'app/views/AddItem.html'
+        		templateUrl: 'app/views/AddItem/AddItem.html',
+            controller: 'AddItemCtrl',
+            controllerAs: 'addItemCtrl'
       		})
+            .state('addItem.generalInformation', {
+                url: '/GeneralInformation',
+                templateUrl: 'app/views/AddItem/partials/generalInformation.html'
+            })
+            .state('addItem.availability', {
+                url: '/Availability',
+                templateUrl: 'app/views/AddItem/partials/availability.html'
+            })
+            .state('addItem.pictures', {
+                url: '/Pictures',
+                templateUrl: 'app/views/AddItem/partials/pictures.html'
+            })
+
 	      .state('editItem', {
 	      	url: '/EditItem', 
 	        templateUrl: 'app/views/EditItem.html'

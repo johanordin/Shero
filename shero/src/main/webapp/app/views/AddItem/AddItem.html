@@ -1,0 +1,38 @@
+<div class="col-lg-12">
+  <div class="process">
+      <div class="process-row">
+          <div class="process-step">
+              <button type="button" class="btn btn-default btn-circle" go-to="/AddItem/GeneralInformation" ng-class="{active : isGeneral}">
+                <i class="fa fa-flag fa-2x"></i>
+              </button>
+              <p>
+                <a class="process-link" ui-sref-active="active" ui-sref=".generalInformation">General</a>
+              </p>
+          </div>
+          <div class="process-step">
+              <button type="button" class="btn btn-default btn-circle" go-to="/AddItem/Availability" ng-class="{active : isAvailability}">
+                <i class="fa fa-calendar-check-o fa-2x"></i>
+              </button>
+              <p>
+                <a class="process-link" ui-sref-active="active" ui-sref=".availability">Availability</a>
+              </p>
+          </div>
+          <div class="process-step">
+              <button type="button" class="btn btn-default btn-circle" go-to="/AddItem/Pictures" ng-class="{active : isPictue}">
+                <i class="fa fa-camera fa-2x"></i>
+              </button>
+              <p>
+                <a class="process-link" ui-sref-active="active" ui-sref=".pictures">Pictures</a>
+              </p>
+          </div> 
+      </div>
+  </div>
+</div>
+
+  <form class="form-horizontal" id="signup-form" ng-submit="processForm()">
+    <div id="form-views" ui-view></div>
+  </form>
+
+<pre>
+  {{ formData }}
+</pre>
