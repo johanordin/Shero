@@ -9,6 +9,7 @@ import edu.upc.ase.domain.Address;
 import edu.upc.ase.domain.Availability;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.ItemRating;
+import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
 import edu.upc.ase.domain.UserRating;
 
@@ -27,6 +28,7 @@ public class OfyHelper implements ServletContextListener {
 		ObjectifyService.register(Availability.class);
 		ObjectifyService.register(Address.class);
 		ObjectifyService.register(UserRating.class);
+		ObjectifyService.register(Tag.class);
 	}
 
 	public void contextDestroyed(ServletContextEvent event) {

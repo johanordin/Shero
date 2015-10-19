@@ -7,6 +7,29 @@ import com.googlecode.objectify.annotation.Id;
 public class Tag {
 	
 	@Id private Long id;
-	public String tag;
+	private String tag;
+	
+	public Tag() {
+	}
+	
+	public Tag(String tag) {
+		this.tag = tag;
+	}
 
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	@Override
+	public String toString() {
+		return "Tag [id=" + id + ", tag=" + tag + "]";
+	}
 }
