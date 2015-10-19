@@ -5,7 +5,8 @@ angular.module('SHeroApp')
  		//redirects /AddItem directly to /AddItem/GeneralInformation
  		$urlRouterProvider.when('/AddItem', '/AddItem/GeneralInformation');
  		//redirects empty states to Home-View
- 		$urlRouterProvider.when('', '  /Home');
+ 		$urlRouterProvider.when('', '/Home');
+    $urlRouterProvider.when('#/', '/Home');
 
  		$stateProvider
  			//Landing Page
@@ -30,7 +31,7 @@ angular.module('SHeroApp')
  			})
         
           	//Edit User
-      		.state('app.editUser', {
+      		.state('editUser', {
       			url: '/EditUser', 
         		templateUrl: 'app/views/EditUser.html',
       		})

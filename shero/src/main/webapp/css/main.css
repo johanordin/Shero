@@ -78,6 +78,7 @@ body {
     display: table;     
     width: 100%;
     position: relative;
+    margin-bottom: 1em;
 }
 
 .process-step button[disabled] {

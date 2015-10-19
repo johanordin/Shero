@@ -6,23 +6,23 @@
                 <i class="fa fa-flag fa-2x"></i>
               </button>
               <p>
-                <a class="process-link" ui-sref-active="active" ui-sref=".generalInformation">General</a>
+                <!--<a class="process-link" ui-sref-active="active" ui-sref=".generalInformation">General</a>-->
               </p>
           </div>
           <div class="process-step">
-              <button type="button" class="btn btn-default btn-circle" go-to="/AddItem/Availability" ng-class="{active : isAvailability}">
+              <button type="button" class="btn btn-default btn-circle" go-to="/AddItem/Availability" ng-class="{active : isAvailability}"  ng-disabled="(formData.name == undefined) || (formData.price == undefined) || (formData.location == undefined)">
                 <i class="fa fa-calendar-check-o fa-2x"></i>
               </button>
               <p>
-                <a class="process-link" ui-sref-active="active" ui-sref=".availability">Availability</a>
+                <!--<a class="process-link" ui-sref-active="active" ui-sref=".availability">Availability</a>-->
               </p>
           </div>
           <div class="process-step">
-              <button type="button" class="btn btn-default btn-circle" go-to="/AddItem/Pictures" ng-class="{active : isPictue}">
+              <button type="button" class="btn btn-default btn-circle" go-to="/AddItem/Pictures" ng-class="{active : isPictue}"  ng-disabled="(formData.name == undefined) || (formData.price == undefined) || (formData.location == undefined)">
                 <i class="fa fa-camera fa-2x"></i>
               </button>
               <p>
-                <a class="process-link" ui-sref-active="active" ui-sref=".pictures">Pictures</a>
+                <!--<a class="process-link" ui-sref-active="active" ui-sref=".pictures">Pictures</a>-->
               </p>
           </div> 
       </div>

@@ -7,7 +7,7 @@
  * adding a new item.
  */
 angular.module('SHeroApp')
-	.controller('AddItemCtrl', function($scope, $location) {
+	.controller('AddItemCtrl', function($scope, $http, $location) {
 	    
 		//Data of the user-form which is going to sent to server
 	    $scope.formData = {};
@@ -19,7 +19,19 @@ angular.module('SHeroApp')
 	    
 	    //onSubmit-function of user-form
 	    $scope.processForm = function() {
-	        console.log($scope.formData);
+	    	$http({
+	    		method: 'POST',
+	    		url: '/rest/items',
+	    		data: $scope.formData
+	    	}).then(function successCallback(response) {
+			    // this callback will be called asynchronously
+			    // when the response is available
+			    console.log("success: " + response);
+			}, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			    console.log("error: " + response);
+			});
 	    }; 
   
 	    //remove a selected date from the selectedDates-array
