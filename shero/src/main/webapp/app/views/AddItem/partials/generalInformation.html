@@ -1,12 +1,12 @@
 <div class="form-group">
-  <label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="name">Name</label>
+  <label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="name">Name *</label>
   <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
   	<input type="text" class="form-control" name="name" ng-model="formData.name" placeholder="Enter the name for the item" style="border-radius: 4px;" required>
 	</div>
 </div>
 
 <div class="form-group">
-  <label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="price">Price</label>
+  <label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="price">Price *</label>
   <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12 input-group">
   	<input type="number" class="form-control" name="price" ng-model="formData.price" placeholder="Enter the price per day for the item" min="0" required>
   	<div class="input-group-addon">€</div>
@@ -14,7 +14,7 @@
 </div>
 
 <div class="form-group">
-	<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="location">Location</label>
+	<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="location">Location *</label>
 	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 input-group">
 		<select class="form-control" id="location" ng-model="formData.location" style="border-radius: 4px;" required>
       <option>Barcelona</option>
@@ -46,5 +46,5 @@
     <a ui-sref="addItem.availability" class="btn btn-block btn-info">
     Next <i class="fa fa-arrow-right"></i>
     </a>
-  </div
+  </div>
 </div>

@@ -11,7 +11,7 @@ angular.module('SHeroApp')
 	    
 		//Data of the user-form which is going to sent to server
 	    $scope.formData = {};
-	    $scope.formData.selectedDates=[];
+	    $scope.formData.selectedDates=[new Date().setHours(0, 0, 0, 0)];
 
 	    //Variables for DatePicker
 	    $scope.activeDate = null;
@@ -19,7 +19,7 @@ angular.module('SHeroApp')
 	    
 	    //onSubmit-function of user-form
 	    $scope.processForm = function() {
-	        alert('Now validate and send to server!');
+	        console.log($scope.formData);
 	    }; 
   
 	    //remove a selected date from the selectedDates-array
