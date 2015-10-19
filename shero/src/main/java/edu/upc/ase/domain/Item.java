@@ -33,6 +33,9 @@ public class Item {
 	private List<Availability> availabilityPeriods;
 	@Ignore
 	private List<ItemRating> itemRatings;
+	
+	@Ignore
+	private List<Tag> tags;
 
 	@Load
 	private transient Ref<Address> addressRef;
@@ -116,6 +119,14 @@ public class Item {
 	public List<ItemRating> getItemRatings() {
 		this.itemRatings = ObjectifyService.ofy().load().type(ItemRating.class).filter("item", this.id).list();
 		return itemRatings;
+	}
+
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
 	}
 
 	public void setAddress(Address address) {
