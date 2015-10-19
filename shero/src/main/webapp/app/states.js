@@ -5,7 +5,7 @@ angular.module('SHeroApp')
  		//redirects /AddItem directly to /AddItem/GeneralInformation
  		$urlRouterProvider.when('/AddItem', '/AddItem/GeneralInformation');
  		//redirects empty states to Home-View
- 		$urlRouterProvider.when('', '/Home');
+ 		$urlRouterProvider.when('', '  /Home');
 
  		$stateProvider
  			//Landing Page
@@ -22,15 +22,15 @@ angular.module('SHeroApp')
         
             //Abstract state
       		//Acts as parent for all states which need authentication
- 			//.state('app', {
- 			//	abstract: true,
+ 			.state('app', {
+ 				abstract: true,
  				/*data: {
         			requireLogin: true
       			}*/
- 			//})
+ 			})
         
           	//Edit User
-      		.state('editUser', {
+      		.state('app.editUser', {
       			url: '/EditUser', 
         		templateUrl: 'app/views/EditUser.html',
       		})
