@@ -97,7 +97,10 @@ public class UserRestService {
 
 		// finally, store user
 		Key<User> key = ObjectifyService.ofy().save().entity(newUser).now();
+		
 		User user = ObjectifyService.ofy().load().type(User.class).id(key.getId()).now();
+		// somehow need to fetch addresses manually to populate object not only with address data but also the keys
+		user.getAddresses();
 		return GSON.toJson(user);
 	}
 	
