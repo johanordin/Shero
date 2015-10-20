@@ -23,6 +23,7 @@ import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Result;
 
 import edu.upc.ase.domain.Address;
+import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.User;
 
 @Path("/users")
@@ -128,4 +129,24 @@ public class UserRestService {
 		// fix: returns successful even if entity does not exist
 		return "{\"status\":\"successful\"}";
 	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{id}/items")
+	public String createItem(@PathParam("id") String userId, String jsonItem) {
+		// load respective user
+		User user = ObjectifyService.ofy().load().type(User.class).id(Long.parseLong(userId)).now();
+		
+		// create the item
+		Item item = GSON.fromJson(jsonItem, Item.class);
+		// TODO
+		
+		// save and add item to user
+		
+		// save user
+
+		// return new item
+		return GSON.toJson(null);
+	}
+	
 }
