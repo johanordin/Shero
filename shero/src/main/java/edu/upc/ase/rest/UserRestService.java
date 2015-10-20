@@ -1,6 +1,8 @@
 package edu.upc.ase.rest;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -13,15 +15,22 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Result;
 
+import edu.upc.ase.domain.Address;
 import edu.upc.ase.domain.User;
 
 @Path("/users")
 public class UserRestService {
 	private static final Gson GSON = new Gson();
-
+	private static final JsonParser JSON_PARSER = new JsonParser();
+	private static final Logger logger = Logger.getLogger("UserRestService");
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getUsers() {
@@ -40,12 +49,53 @@ public class UserRestService {
 	/**
 	 * Expected input from frontend: 
 	 * {"firstname":"fname","lastname":"lname","emailAddress":"abc@def.com","items":[],"addresses":[],"userRatings":[]}
+	 * 
+	 * or with address:
+	 * {"firstname":"test1","lastname":"test2","emailAddress":"abc@def.com","items":[],
+	 * "addresses":[{"country":"country","zipcode":"zip","street":"str","number":"1","city":"city"}],"userRatings":[]}
+	 * 
 	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String createUser(String jsonUser) {
 		User newUser = GSON.fromJson(jsonUser, User.class);
+		logger.info("newUser:" + newUser);
+		
+		// parse address(es) manually
+		JsonObject jsonObj = JSON_PARSER.parse(jsonUser).getAsJsonObject();
+		JsonArray addresses = jsonObj.getAsJsonArray("addresses");
+		// store promises to wait for asynchronous results on the newly saved entities' keys
+		List<Result<Key<Address>>> promiseList = new ArrayList<Result<Key<Address>>>();
+		
+		for(int i = 0; i < addresses.size(); i++) {
+			JsonObject address = addresses.get(i).getAsJsonObject();
+			String country = address.get("country").toString().replace("\"", "");
+			String city = address.get("city").toString().replace("\"", "");
+			String zipcode = address.get("zipcode").toString().replace("\"", "");
+			String street = address.get("street").toString().replace("\"", "");
+			String number = address.get("number").toString().replace("\"", "");
+			
+			// not a mandatory field, therefore needs some extra verification
+			String additional = address.get("additional") != null ? address.get("additional").toString().replace("\"", "") : null;
+			
+			Address newAddress = new Address(country, city, zipcode, street, number);
+			if (additional != null) {
+				newAddress.setAdditional(additional);
+			}
+			
+			Result<Key<Address>> newAddrKey = ObjectifyService.ofy().save().entity(newAddress);
+			promiseList.add(newAddrKey);
+		}
+		
+		for(Result<Key<Address>> promise : promiseList) {
+			Key<Address> addrKey = promise.now();
+			
+			// reference user with this address
+			newUser.addAddress(addrKey);
+		}
+
+		// finally, store user
 		Key<User> key = ObjectifyService.ofy().save().entity(newUser).now();
 		User user = ObjectifyService.ofy().load().type(User.class).id(key.getId()).now();
 		return GSON.toJson(user);

@@ -9,11 +9,11 @@ public class Address {
 
 	@Id Long id;
 	@Index
+	private String country;
+	@Index
 	private String city;
 	@Index
 	private String zipcode;
-	@Index
-	private String country;
 	private String street;
 	private String number; 
 	private String additional;
@@ -76,11 +76,12 @@ public class Address {
 	public void setAdditional(String additional) {
 		this.additional = additional;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Address [city=" + city + ", zipcode=" + zipcode + ", country="
-				+ country + ", street=" + street + ", number=" + number
-				+ ", additional=" + additional + "]";
+		return "Address [id=" + id + ", country=" + country + ", city=" + city
+				+ ", zipcode=" + zipcode + ", street=" + street + ", number="
+				+ number + ", additional=" + additional + "]";
 	}
+	
 }
