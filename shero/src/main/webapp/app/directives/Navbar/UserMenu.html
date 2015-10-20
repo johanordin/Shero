@@ -1,10 +1,10 @@
 <ul class="nav navbar-nav navbar-right">
   <!-- Show if user is not logged-in --> 
-  <li ng-hide="usermenuCtrl.loggedIn"><a ng-href="#/" ng-click="usermenuCtrl.login();">Login</a>
+  <li ng-hide="loggedIn"><a ng-href="#/" ng-click="open();">Login</a>
  
   <!-- Show if user is logged in -->
-  <li ng-show="usermenuCtrl.loggedIn"><a ui-sref="addItem"><i class="fa fa-plus"></i> Add Item</a></li>
-  <li ng-show="usermenuCtrl.loggedIn" class="dropdown">
+  <li ng-show="loggedIn"><a ui-sref="addItem"><i class="fa fa-plus"></i> Add Item</a></li>
+  <li ng-show="loggedIn" class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile <span class="caret"></span></a>
     <ul class="dropdown-menu">
       <li><a ui-sref="editUser"><i class="fa fa-wrench"></i> Edit</a></li>
@@ -12,7 +12,7 @@
       <li><a ui-sref="editItem">Item 1</a></li>
       <li><a ui-sref="editItem">Item 2</a></li>
       <li role="separator" class="divider"></li>
-      <li><a ui-sref="home" ng-click="usermenuCtrl.logout();">Logout</a></li>
+      <li><a ui-sref="home" ng-click="logout();">Logout</a></li>
     </ul>
   </li>
 </ul>

@@ -12,16 +12,6 @@ angular.module('SHeroApp')
     }
   })
 
-  	//directive for the loginButton in the navbar
-  .directive('loginButton', function() {
-    return {
-      restrict: 'E',
-      templateUrl: 'app/directives/Navbar/LoginButton.html',
-      controller: 'LoginCtrl',
-      controllerAs: 'LoginCtrl'
-    }
-  })
-
   //directive for the search-form in the navbar
   .directive('searchBar', function() {
   	return {
