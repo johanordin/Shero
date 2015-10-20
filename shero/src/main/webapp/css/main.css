@@ -119,14 +119,6 @@ body {
     border-radius: 50%;
 }
 
-.btn.btn-circle:hover {
-
-}
-
-.btn.btn-circle.active {
-    background-color: #D8FF00;
-}
-
 .process-link { 
     color:#777;  
     text-align:center; 

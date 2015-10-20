@@ -9,10 +9,27 @@
  */
 
 angular.module('SHeroApp')
-	.controller('TagsCtrl', function($scope, $resource) {
-	    var tags = $resource('tags.json');
+	.controller('TagsCtrl', function($scope, $http, $resource) {
 	   
-	  	$scope.loadTags = function(query) {
-	    	return tags.query().$promise;
-	  	};
+	  	  $scope.tags = [
+		  ];
+
+		  var test = $http({
+				method: 'GET',
+				url: '/rest/tags',
+			}).then(function successCallback(response) {
+			    // this callback will be called asynchronously
+			    // when the response is available
+			    console.log("success: " + JSON.stringify(response));
+			    console.log("success: " + response);
+			    test = response.data;
+			}, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			    console.log("error: " + response);
+			});
+		   
+		  $scope.loadTags = function(query) {
+		    return test;
+		  };
 	});

@@ -7,21 +7,21 @@ import com.googlecode.objectify.annotation.Id;
 public class Tag {
 	
 	@Id private Long id;
-	private String tag;
+	private String text;
 	
 	public Tag() {
 	}
 	
 	public Tag(String tag) {
-		this.tag = tag;
+		this.text = tag;
 	}
 
 	public String getTag() {
-		return tag;
+		return text;
 	}
 
 	public void setTag(String tag) {
-		this.tag = tag;
+		this.text = tag;
 	}
 
 	public Long getId() {
@@ -30,6 +30,6 @@ public class Tag {
 
 	@Override
 	public String toString() {
-		return "Tag [id=" + id + ", tag=" + tag + "]";
+		return "Tag [id=" + id + ", text=" + text + "]";
 	}
 }
