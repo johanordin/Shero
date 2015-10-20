@@ -1,1 +1,98 @@
-<p>Edit User!</p>
+<h1>General information</h1><br/>
+<form class="form-horizontal" ng-submit="processGeneralForm()" data-toggle="validator">
+	<div class="form-group">
+		<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="firstname">First name</label>
+		<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+			<input type="text" class="form-control" name="firstname" ng-model="generalForm.firstname" placeholder="Enter your first name" style="border-radius: 4px;">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="lastname">Last name</label>
+		<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+			<input type="text" class="form-control" name="lastname" ng-model="generalForm.lastname" placeholder="Enter your last name" style="border-radius: 4px;">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="email">Email</label>
+		<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+			<input type="email" class="form-control" name="email" ng-model="generalForm.emailAddress" placeholder="Enter your email address" style="border-radius: 4px;">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="password">Password</label>
+		<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+			<input type="password" class="form-control" id="password" name="password" ng-model="generalForm.password" placeholder="Enter your new password" style="border-radius: 4px;">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="repppassword">Repeated password</label>
+		<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+			<input type="password" class="form-control" name="reppassword" ng-model="generalForm.reppassword" placeholder="Confirm your new password" style="border-radius: 4px;">
+		</div>
+	</div>
+
+	<br/>
+	<div class="form-group">
+		<div class="col-sm-10">
+			<button type="submit" class="btn btn-success">Update</button>
+		</div>
+	</div>
+</form>
+
+<br/><hr/>
+
+<h1>Address</h1><br/>
+<form class="form-horizontal" ng-submit="processAddressForm()" data-toggle="validator">
+	<div class="form-group">
+		<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="country">Country *</label>
+		<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+			<input type="text" class="form-control" name="country" ng-model="addressForm.country" placeholder="Enter your country" style="border-radius: 4px;" required>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="city">City *</label>
+		<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+			<input type="text" class="form-control" name="city" ng-model="addressForm.city" placeholder="Enter your city" style="border-radius: 4px;" required>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="zipcode">Zip code *</label>
+		<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+			<input type="text" class="form-control" name="zipcode" ng-model="addressForm.zipcode" placeholder="Enter your zip code" style="border-radius: 4px;" required>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="street">Street *</label>
+		<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+			<input type="text" class="form-control" name="street" ng-model="addressForm.street" placeholder="Enter your street" style="border-radius: 4px;" required>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="number">Number *</label>
+		<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+			<input type="text" class="form-control" name="number" ng-model="addressForm.number" placeholder="Enter your street number" style="border-radius: 4px;" required>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="additional">Additional information</label>
+		<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+			<input type="text" class="form-control" name="additional" ng-model="addressForm.additional" placeholder="Enter your additional information" style="border-radius: 4px;">
+		</div>
+	</div>
+
+	<br/>
+	<div class="form-group">
+		<div class="col-sm-10">
+			<button type="submit" class="btn btn-success">Add address</button>
+		</div>
+	</div>
+</form>
