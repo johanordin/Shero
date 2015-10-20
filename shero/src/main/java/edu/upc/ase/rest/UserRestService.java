@@ -66,42 +66,51 @@ public class UserRestService {
 		// parse address(es) manually
 		JsonObject jsonObj = JSON_PARSER.parse(jsonUser).getAsJsonObject();
 		JsonArray addresses = jsonObj.getAsJsonArray("addresses");
-		// store promises to wait for asynchronous results on the newly saved entities' keys
-		List<Result<Key<Address>>> promiseList = new ArrayList<Result<Key<Address>>>();
 		
-		for(int i = 0; i < addresses.size(); i++) {
-			JsonObject address = addresses.get(i).getAsJsonObject();
-			String country = address.get("country").toString().replace("\"", "");
-			String city = address.get("city").toString().replace("\"", "");
-			String zipcode = address.get("zipcode").toString().replace("\"", "");
-			String street = address.get("street").toString().replace("\"", "");
-			String number = address.get("number").toString().replace("\"", "");
+		boolean addressesEmpty = false;
+		if (addresses == null) {
+			addressesEmpty = true;
+		}
+		
+		if (!addressesEmpty) {
+			// store promises to wait for asynchronous results on the newly saved entities' keys
+			List<Result<Key<Address>>> promiseList = new ArrayList<Result<Key<Address>>>();
 			
-			// not a mandatory field, therefore needs some extra verification
-			String additional = address.get("additional") != null ? address.get("additional").toString().replace("\"", "") : null;
-			
-			Address newAddress = new Address(country, city, zipcode, street, number);
-			if (additional != null) {
-				newAddress.setAdditional(additional);
+			for(int i = 0; i < addresses.size(); i++) {
+				JsonObject address = addresses.get(i).getAsJsonObject();
+				String country = address.get("country").toString().replace("\"", "");
+				String city = address.get("city").toString().replace("\"", "");
+				String zipcode = address.get("zipcode").toString().replace("\"", "");
+				String street = address.get("street").toString().replace("\"", "");
+				String number = address.get("number").toString().replace("\"", "");
+				
+				// not a mandatory field, therefore needs some extra verification
+				String additional = address.get("additional") != null ? address.get("additional").toString().replace("\"", "") : null;
+				
+				Address newAddress = new Address(country, city, zipcode, street, number);
+				if (additional != null) {
+					newAddress.setAdditional(additional);
+				}
+				
+				Result<Key<Address>> newAddrKey = ObjectifyService.ofy().save().entity(newAddress);
+				promiseList.add(newAddrKey);
 			}
 			
-			Result<Key<Address>> newAddrKey = ObjectifyService.ofy().save().entity(newAddress);
-			promiseList.add(newAddrKey);
+			for(Result<Key<Address>> promise : promiseList) {
+				Key<Address> addrKey = promise.now();
+				
+				// reference user with this address
+				newUser.addAddress(addrKey);
+			}
 		}
-		
-		for(Result<Key<Address>> promise : promiseList) {
-			Key<Address> addrKey = promise.now();
-			
-			// reference user with this address
-			newUser.addAddress(addrKey);
-		}
-
 		// finally, store user
 		Key<User> key = ObjectifyService.ofy().save().entity(newUser).now();
 		
 		User user = ObjectifyService.ofy().load().type(User.class).id(key.getId()).now();
 		// somehow need to fetch addresses manually to populate object not only with address data but also the keys
-		user.getAddresses();
+		if (!addressesEmpty) {
+			user.getAddresses();
+		}
 		return GSON.toJson(user);
 	}
 	
