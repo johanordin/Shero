@@ -45,11 +45,4 @@ public class AddressRestService {
 		// fix: returns successful even if entity does not exist
 		return "{\"status\":\"successful\"}";
 	}
-	
-	@GET
-	@Path("/{id}")
-	public String getAddress(@PathParam("id") String id) {
-		Address address = ObjectifyService.ofy().load().type(Address.class).id(Long.parseLong(id)).now();
-		return GSON.toJson(address);
-	}
 }
