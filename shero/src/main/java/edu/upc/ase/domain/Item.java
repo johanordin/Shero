@@ -45,6 +45,10 @@ public class Item {
 	@Load
 	private transient List<Ref<ItemRating>> itemRatingRefs = new ArrayList<Ref<ItemRating>>();
 
+	
+	@Load
+	private transient List<Ref<Image>> imageRefs = new ArrayList<Ref<Image>>();
+	
 	public Item() {
 	}
 
@@ -119,6 +123,14 @@ public class Item {
 	public List<ItemRating> getItemRatings() {
 		this.itemRatings = ObjectifyService.ofy().load().type(ItemRating.class).filter("item", this.id).list();
 		return itemRatings;
+	}
+
+	public List<Ref<Image>> getImageRefs() {
+		return imageRefs;
+	}
+
+	public void setImageRefs(List<Ref<Image>> imageRefs) {
+		this.imageRefs = imageRefs;
 	}
 
 	public List<Tag> getTags() {
