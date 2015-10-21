@@ -19,6 +19,13 @@ import edu.upc.ase.domain.Address;
 public class AddressRestService {
 	private static final Gson GSON = new Gson();
 	
+	@GET
+	@Path("/{id}")
+	public String getAddress(@PathParam("id") String id) {
+		Address address = ObjectifyService.ofy().load().type(Address.class).id(Long.parseLong(id)).now();
+		return GSON.toJson(address);
+	}
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
