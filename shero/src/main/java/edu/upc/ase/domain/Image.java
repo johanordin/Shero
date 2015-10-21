@@ -12,6 +12,12 @@ public class Image {
 	@Index
 	private String name;
 	private byte[] image;
+	
+	public Image(String name, byte[] image) {
+		super();
+		this.name = name;
+		this.image = image;
+	}
 
 	public String getName() {
 		return name;
