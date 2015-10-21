@@ -1,0 +1,29 @@
+<form id="registration" action="" method="">
+    <label for="register_username">Username</label>
+    <input type="text" class="form-control" id="register_username" 
+           placeholder="User Name" 
+           ng-model="formData.username"
+           required 
+           autofocus>
+    <br>
+    <label for="register_mail">Mail</label>
+    <input type="email" class="form-control" id="register_mail"
+           placeholder="Email-Address"
+           ng-model="formData.mail"
+           required>
+    <br>
+    <label for="register_password">Password</label>
+    <input type="password" class="form-control" id="register_password" 
+           placeholder="Password" 
+           ng-model="formData.password"
+           required>
+    <br>
+    <label for="register_repeatPassword">Repeat your password</label>
+    <input type="password" class="form-control" id="register_repeatPassword" 
+           placeholder="Repeat Password" 
+           ng-model="formData.repeatPassword"
+           data-fv-identical="true"
+           data-fv-identical-field="password"
+           data-fv-identical-message="The password and its confirm are not the same"
+           required>
+</form>

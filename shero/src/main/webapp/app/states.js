@@ -35,6 +35,7 @@ angular.module('SHeroApp')
       		.state('editUser', {
       			url: '/EditUser', 
         		templateUrl: 'app/views/EditUser.html',
+            controller: 'EditUserCtrl'
       		})
         
           //Add Item

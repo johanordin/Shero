@@ -104,13 +104,15 @@ public class User {
 	public void addAddress(Key<Address> address) {
 		addressRefs.add(Ref.create(address));
 	}
-
+	
 	@Override
 	public String toString() {
-		return "User [firstname=" + firstname + ", lastname=" + firstname + ", emailAddress="
-				+ emailAddress + "]";
+		return "User [id=" + id + ", firstname=" + firstname + ", lastname="
+				+ lastname + ", emailAddress=" + emailAddress + ", items="
+				+ items + ", receivedRatings=" + receivedRatings
+				+ ", addresses=" + addresses + "]";
 	}
-	
+
 	public String serialize() {
 		this.getItems();
 		this.getAddresses();

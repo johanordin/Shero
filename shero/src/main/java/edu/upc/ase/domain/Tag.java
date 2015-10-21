@@ -1,5 +1,6 @@
 package edu.upc.ase.domain;
 
+import com.google.gson.annotations.SerializedName;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
@@ -7,21 +8,21 @@ import com.googlecode.objectify.annotation.Id;
 public class Tag {
 	
 	@Id private Long id;
-	private String text;
+	@SerializedName("text") private String tag;
 	
 	public Tag() {
 	}
 	
 	public Tag(String tag) {
-		this.text = tag;
+		this.tag = tag;
 	}
 
 	public String getTag() {
-		return text;
+		return tag;
 	}
 
 	public void setTag(String tag) {
-		this.text = tag;
+		this.tag = tag;
 	}
 
 	public Long getId() {
@@ -30,6 +31,6 @@ public class Tag {
 
 	@Override
 	public String toString() {
-		return "Tag [id=" + id + ", text=" + text + "]";
+		return "Tag [id=" + id + ", tag=" + tag + "]";
 	}
 }
