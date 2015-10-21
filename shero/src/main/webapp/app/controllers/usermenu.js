@@ -12,11 +12,11 @@ angular.module('SHeroApp').controller('UserMenuCtrl', function($scope, $uibModal
     
   $scope.animationsEnabled = true;
 
-  $scope.open = function (size) {
+  $scope.openModal = function (size) {
 
     var modalLogin = $uibModal.open({
       animation: $scope.animationsEnabled,
-      templateUrl: 'app/views/Navbar/ModalLogin.html',
+      templateUrl: 'app/views/Navbar/ModalLogin/ModalLogin.html',
       controller: 'ModalLoginCtrl',
       size: size,
       resolve: {
