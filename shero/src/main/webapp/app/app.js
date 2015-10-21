@@ -12,5 +12,6 @@ angular
     'ngTouch',
     'ui.router',
     'ui.bootstrap',
-    'ngTagsInput'
+    'ngTagsInput',
+    'flow'
   ])
