@@ -25,6 +25,7 @@ import com.googlecode.objectify.Result;
 import edu.upc.ase.domain.Address;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.User;
+import edu.upc.ase.rest.test.TestMailService;
 
 @Path("/users")
 public class UserRestService {
@@ -111,6 +112,11 @@ public class UserRestService {
 		if (!addressesEmpty) {
 			user.getAddresses();
 		}
+		
+		//Send welcome Mail to user
+		TestMailService mailService = new TestMailService();
+		mailService.sendWelcomeMail(user);
+		
 		return GSON.toJson(user);
 	}
 	

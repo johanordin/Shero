@@ -112,6 +112,10 @@ public class User {
 				+ items + ", receivedRatings=" + receivedRatings
 				+ ", addresses=" + addresses + "]";
 	}
+	
+	public String getFullname(){
+		return this.getFirstname() + " " + this.getLastname();
+	}
 
 	public String serialize() {
 		this.getItems();
