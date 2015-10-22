@@ -12,7 +12,7 @@ public class Image {
 	
 	@Index
 	private String name;
-	private Blob image;
+	private Blob image; 
 	
 	public Image(String name, Blob image) {
 		super();
