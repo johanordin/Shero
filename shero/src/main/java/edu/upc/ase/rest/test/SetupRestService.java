@@ -13,7 +13,7 @@ public class SetupRestService {
 	@GET
 	@Path("/setup")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String setup() {
+	public String setup() { 
 		
 		SetupDatastoreUtil.setupEMailTemplate();
 		SetupDatastoreUtil.setupUser();

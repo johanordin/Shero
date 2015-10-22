@@ -9,7 +9,7 @@ import com.googlecode.objectify.ObjectifyService;
 
 import edu.upc.ase.domain.Address;
 import edu.upc.ase.domain.Availability;
-import edu.upc.ase.domain.Image;
+import edu.upc.ase.domain.Image; 
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.ItemRating;
 import edu.upc.ase.domain.Tag;
