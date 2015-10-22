@@ -8,7 +8,7 @@
  * Controller of the SHeroApp which is used for all operations inside the Modal for Login and Register.
  * The Login and the register are two views inside of tabs
  */
-angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modalInstance, $rootScope, $http, registerService) {
+angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modalInstance, $rootScope, $cookies, registerService, userDataService) {
 
     //variable to hold the input data from the user
     $scope.forms = {};
@@ -47,9 +47,6 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
             $scope.title = 'Register';
             $scope.link = 'Back to login!';
             $scope.formData = {};
-            $scope.formData.items = [];
-            $scope.formData.addresses = [];
-            $scope.formData.userRatings = [];
         } else if ($scope.tab === 2) {
             $scope.tab = 1;
             $scope.title = 'Log In';
@@ -66,10 +63,10 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     //function called when the user is in login-view and clicks the login-button
     $scope.loginClicked = function() {
         var expiry = new Date();
-            var date = new Date();
-            expiry.setTime(date.getTime()+(30*60*1000)); //Cookie expires in 30 Minutes
-            document.cookie = "sheroUserId=123456; expires=" + expiry.toGMTString();
-            $rootScope.loggedIn = true;
+        var date = new Date();
+        expiry.setTime(date.getTime()+(30*60*1000)); //Cookie expires in 30 Minutes
+        document.cookie = "sheroUserId=123456; expires=" + expiry.toGMTString();
+        $rootScope.loggedIn = true;
     }
     
     //function called when the user is in register-view and clicks the register-button
@@ -85,7 +82,7 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     $scope.registerUser = function() {
         var getUserPromise = registerService.postUser($scope.formData);
         getUserPromise.then(function(response) {
-            console.log(JSON.stringify(response));
+            userDataService.store(response.data);
         });
     }
 });

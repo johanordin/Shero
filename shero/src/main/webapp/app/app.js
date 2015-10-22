@@ -10,6 +10,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ngStorage',
     'ui.router',
     'ui.bootstrap',
     'ngTagsInput',
