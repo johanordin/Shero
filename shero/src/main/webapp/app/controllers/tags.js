@@ -9,29 +9,21 @@
  */
 
 angular.module('SHeroApp')
-	.controller('TagsCtrl', function($scope, $http, $resource) {
+	.controller('TagsCtrl', function($scope, $http, $resource, tagService) {
 	   	  
    	  	//holds selected tags
   	  	$scope.tags = [];
 
 		//loads tags from server
-	  	var allTags = $http({
-			method: 'GET',
-			url: '/rest/tags',
-		}).then(function successCallback(response) {
-		    // this callback will be called asynchronously
-		    // when the response is available
-		    console.log("success: " + JSON.stringify(response));
-		    console.log("success: " + response);
-		    test = response.data;
-		}, function errorCallback(response) {
-		    // called asynchronously if an error occurs
-		    // or server returns response with an error status.
-		    console.log("error: " + response);
-		});
-		   
-		//function to load tags into tags-field
-		$scope.loadTags = function(query) {
-		    return allTags;
-		};
+	  	$scope.allTags;
+    
+        var getTagsPromise = tagService.getTags();
+        getTagsPromise.then(function(response) {
+            $scope.allTags = response.data;
+            
+            $scope.loadTags = function(query) {
+                console.log("outside: " + $scope.allTags);
+                return $scope.allTags;
+            };
+        });
 	});

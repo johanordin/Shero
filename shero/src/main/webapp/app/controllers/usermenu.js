@@ -18,11 +18,7 @@ angular.module('SHeroApp').controller('UserMenuCtrl', function($scope, $uibModal
       animation: $scope.animationsEnabled,
       templateUrl: 'app/views/Navbar/ModalLogin/ModalLogin.html',
       controller: 'ModalLoginCtrl',
-      size: size,
-      resolve: {
-        items: function () {
-        }
-      }
+      size: size
     });
 
     modalLogin.result.then(function () {
