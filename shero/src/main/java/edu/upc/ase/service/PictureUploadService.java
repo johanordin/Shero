@@ -14,6 +14,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
@@ -25,6 +26,8 @@ public class PictureUploadService extends HttpServlet {
 	/**
 	 * 
 	 */
+	private static Logger logger = Logger.getLogger(PictureUploadService.class);
+	
 	private static final long serialVersionUID = 1L;
 
 	private boolean isMultipart;
@@ -34,6 +37,8 @@ public class PictureUploadService extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
+		
+		logger.info("doPost Servlet call");
 		// Check that we have a file upload request
 		isMultipart = ServletFileUpload.isMultipartContent(request);
 
