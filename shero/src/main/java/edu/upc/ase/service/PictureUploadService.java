@@ -38,7 +38,7 @@ public class PictureUploadService extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
 		
-		logger.info("doPost Servlet call");
+		logger.warn("doPost Servlet call");
 		// Check that we have a file upload request
 		isMultipart = ServletFileUpload.isMultipartContent(request);
 
