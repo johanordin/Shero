@@ -7,7 +7,7 @@
  * adding a new item.
  */
 angular.module('SHeroApp')
-	.controller('AddItemCtrl', function($scope, $http, $location, $rootScope, ItemsService, fileUpload) {
+	.controller('AddItemCtrl', function($scope, $http, $location, $rootScope, ItemsService, userDataService, fileUpload) {
 	    
 		//Data of the user-form which is going to sent to server
 	    $scope.formData = {};
@@ -22,8 +22,7 @@ angular.module('SHeroApp')
 	    $scope.processForm = function() {
             var postItemPromise = ItemsService.postItem($scope.formData);
             postItemPromise.then(function(response) {
-                //TODO reload new user data!
-                console.log("Item " + response.data.id + " created!");
+                userDataService.updateUserData(response.data);
                 alert ("Item created!");
             });
 	    }; 
