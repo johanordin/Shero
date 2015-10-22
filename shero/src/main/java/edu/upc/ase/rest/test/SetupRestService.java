@@ -17,7 +17,6 @@ public class SetupRestService {
 		
 		SetupDatastoreUtil.setupEMailTemplate();
 		SetupDatastoreUtil.setupUser();
-		SetupDatastoreUtil.setupImage();
 
 		return "sucessfully set up the system";
 	}

@@ -63,27 +63,6 @@ public class SetupDatastoreUtil {
 		logger.info("items: " + user.getItems());
 	}
 	
-	public static void setupImage() {
-		
-
-		File fi = new File("C:\\Uni Regensburg\\bild.jpg");
-		byte[] fileContent;
-		try {
-			fileContent = Files.readAllBytes(fi.toPath());
-			Blob blob = new Blob(fileContent);
-
-			Image image = new Image("Test Picture", blob);
-			
-			Key<Image> newImage = ObjectifyService.ofy().save().entity(image).now();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-
-		
-	}
-
 	private static String HTML_TEMPLATE = "<html>" + "<head>" + "<title>Welcome to Shero!</title>" + "</head>"
 			+ "<body>" + "<h1> Hello #USERNAME#</h1>" + "<p>Welcome to Shero, be a sharing Hero!<p/>" + "</body>"
 			+ "</html>";
