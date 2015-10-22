@@ -20,12 +20,12 @@ import com.google.appengine.api.datastore.Blob;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 
-import edu.upc.ase.domain.Image;
+import edu.upc.ase.domain.Image; 
 
 public class PictureUploadService extends HttpServlet {
 
 	/**
-	 * 
+	 *  
 	 */
 	private static Logger logger = Logger.getLogger(PictureUploadService.class);
 	

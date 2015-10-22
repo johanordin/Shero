@@ -11,7 +11,7 @@ public class Image {
 	public Long id;
 	
 	@Index
-	private String name;
+	private String name; 
 	private Blob image; 
 	
 	public Image(String name, Blob image) {
