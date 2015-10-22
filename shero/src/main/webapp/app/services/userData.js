@@ -25,6 +25,8 @@ angular.module('SHeroApp')
             $cookies.put('SHeroUserId', '', {'expires': expiry.toGMTString()})
             
             $rootScope.$storage = $localStorage.$reset();
+            
+            $rootScope.loggedIn = false;
         }
         
         return {

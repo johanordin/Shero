@@ -74,8 +74,8 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     
     //function called when the user is in register-view and clicks the register-button
     $scope.registerClicked = function() {
-        if ($scope.password === $scope.repeatPassword) {
-            $scope.formData.passwordHash = Sha256.hash($scope.password);
+        if ($scope.passwords.password === $scope.passwords.repeatPassword) {
+            $scope.formData.passwordHash = Sha256.hash($scope.passwords.password);
             $scope.registerUser();
             $modalInstance.close();
         }
