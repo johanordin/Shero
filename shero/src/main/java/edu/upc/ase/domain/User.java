@@ -3,7 +3,6 @@ package edu.upc.ase.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
@@ -16,8 +15,6 @@ import com.googlecode.objectify.annotation.OnLoad;
 
 @Entity
 public class User {
-	private static final Gson GSON = new Gson();
-	
 	@Id private Long id;
 	private String firstname;
 	private String lastname;
@@ -26,7 +23,7 @@ public class User {
 	private String emailAddress;
 	
 	// will not be serialized, but persisted in database
-	private transient String passwordHash;
+	private String passwordHash;
 	
 	// will not be persisted, but is important for serialization of entity values
 	@Ignore
@@ -109,11 +106,12 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstname=" + firstname + ", lastname="
-				+ lastname + ", emailAddress=" + emailAddress + ", items="
-				+ items + ", receivedRatings=" + receivedRatings
-				+ ", addresses=" + addresses + "]";
+				+ lastname + ", emailAddress=" + emailAddress
+				+ ", passwordHash=" + passwordHash + ", items=" + items
+				+ ", receivedRatings=" + receivedRatings + ", addresses="
+				+ addresses + "]";
 	}
-	
+
 	public String getFullname(){
 		return this.getFirstname() + " " + this.getLastname();
 	}
