@@ -30,6 +30,7 @@ import edu.upc.ase.domain.Availability;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
+import edu.upc.ase.domain.UserRating;
 import edu.upc.ase.rest.test.TestMailService;
 
 @Path("/users")
@@ -51,6 +52,16 @@ public class UserRestService {
 	public String getUser(@PathParam("id") String id) {
 		User user = ObjectifyService.ofy().load().type(User.class).id(Long.parseLong(id)).now();
 		return GSON.toJson(user);
+	}
+	
+	@GET
+	@Path("/mail/{mail}")
+	public String getUserByMailAddress(@PathParam("mail") String mailAddress) {
+		List<User> users = ObjectifyService.ofy().load().type(User.class).filter("emailAddress", mailAddress).list();
+		if (!users.isEmpty()) {
+			return GSON.toJson(users.get(0));
+		}
+		return "{\"status\":\"unsuccessful\"}";
 	}
 	
 	/**
