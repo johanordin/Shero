@@ -1,6 +1,7 @@
 package edu.upc.ase.rest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,14 +17,18 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.Result;
 
 import edu.upc.ase.domain.Address;
+import edu.upc.ase.domain.Availability;
 import edu.upc.ase.domain.Item;
+import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
 
 @Path("/users")
@@ -111,6 +116,7 @@ public class UserRestService {
 		if (!addressesEmpty) {
 			user.getAddresses();
 		}
+		user.serialize();
 		return GSON.toJson(user);
 	}
 	
@@ -148,14 +154,57 @@ public class UserRestService {
 		
 		// create the item
 		Item item = GSON.fromJson(jsonItem, Item.class);
-		// TODO
+		logger.info("item: " + item);
+
+		//****** RETRIEVE REFERENCED ENTITIES BY ID *******/
+		
+		// 1. retrieve address id from json
+		JsonObject jsonObj = JSON_PARSER.parse(jsonItem).getAsJsonObject();
+		String addressId = jsonObj.get("addressId").toString().replace("\"", "");
+
+		// add address to item
+		Key<Address> addrKey = Key.create(Address.class,
+				Long.parseLong(addressId));
+		Ref<Address> addrRef = Ref.create(addrKey);
+		item.setAddress(addrRef);
+
+		// 2. retrieve tag ids from json
+		// expected tag format:
+		// [{"id":"12341","text":"tag"},{"id":"12415","text":"tag2"}]
+		JsonArray tags = jsonObj.getAsJsonArray("tags");
+		for (int i = 0; i < tags.size(); i++) {
+			JsonObject tag = tags.get(i).getAsJsonObject();
+			String tagId = tag.get("id").toString().replace("\"", "");
+
+			Key<Tag> tagKey = Key.create(Tag.class,
+					Long.parseLong(tagId.toString()));
+			Ref<Tag> tagRef = Ref.create(tagKey);
+			item.addTag(tagRef);
+		}
+				
+		// create and store availability entities
+		JsonArray availabilityDates = jsonObj.getAsJsonArray("selectedDates");
+		for (int i = 0; i < availabilityDates.size(); i++) {
+			Date date = new Date(availabilityDates.get(i).getAsLong());
+			Availability availableDay = new Availability(date);
+			Key<Availability> dayKey = ObjectifyService.ofy().save().entity(availableDay).now();
+			item.addAvailableDay(Ref.create(dayKey));
+		}
 		
 		// save and add item to user
+		Key<Item> itemKey = ObjectifyService.ofy().save().entity(item).now();
+		user.addItem(itemKey);
 		
 		// save user
+		Key<User> userKey = ObjectifyService.ofy().save().entity(user).now();
+		User returnUser = ObjectifyService.ofy().load().type(User.class).id(userKey.getId()).now();
 
+		// update items referenced in user entity
+		returnUser.serialize();
+		// update item cache? if not, item will not have referenced entities
+		item.serialize();
 		// return new item
-		return GSON.toJson(null);
+		return GSON.toJson(returnUser);
 	}
 	
 }
