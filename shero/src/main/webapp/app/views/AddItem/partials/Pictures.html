@@ -1,29 +1,29 @@
 <style type="text/css">
-	.drop {
-		padding: 15px;
-		border: 2px #f1f1f1 dashed;
-		border-radius: 5px;
-		line-height: 34px;
+.drop {
+	padding: 15px;
+	border: 2px #f1f1f1 dashed;
+	border-radius: 5px;
+	line-height: 34px;
 }
+
 .drop.drag-over {
-    background: #5CB85C;
-    color: #fff
+	background: #5CB85C;
+	color: #fff
 }
 </style>
 
 <div class="text-center">
 
-    <div flow-init flow-file-success="$file.msg = $message">
+	<div flow-init flow-file-success="$file.msg = $message">
 
-    <div class="drop" flow-drop="" ng-class="dropClass">
-        <span class="btn btn-default" flow-btn="">Upload File
-            <input type="file" file-model="myFile" multiple="multiple" style="visibility: hidden; position: absolute;">
-        </span>
-        <b>OR</b>
-        Drag And Drop your file here
-    </div>
+		<div class="drop" flow-drop="" ng-class="dropClass">
+			<span class="btn btn-default" flow-btn="">Upload File <input
+				type="file" file-model="myFile" multiple="multiple"
+				style="visibility: hidden; position: absolute;">
+			</span> <b>OR</b> Drag And Drop your file here
+		</div>
 
-    <!--
+		<!--
     <table>
         <tr ng-repeat="file in $flow.files">
             <td>{{$index+1}}</td>
@@ -32,10 +32,16 @@
         </tr>
     </table>
     -->
-    <img flow-img="$flow.files[0]"/>
-    </div>
-    
+		<img flow-img="$flow.files[0]" />
+	</div>
 
-    <button ng-click="uploadFile()" type="submit" class="btn btn-success">Share Item</button>
+
+	<button ng-click="uploadFile()" type="submit" class="btn btn-success">Share
+		Item</button>
+	<form action="UploadServlet" method="post"
+		enctype="multipart/form-data">
+		<input type="file" name="file" size="50" /> <br /> <input
+			type="submit" value="Upload File" />
+	</form>
 
 </div>
