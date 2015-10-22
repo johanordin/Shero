@@ -12,6 +12,7 @@ angular.module('SHeroApp')
 		//Data of the user-form which is going to sent to server
 	    $scope.formData = {};
 	    $scope.formData.selectedDates=[new Date().setHours(0, 0, 0, 0)];
+        $scope.formData.tags = [];
 
 	    //Variables for DatePicker
 	    $scope.activeDate = null;
