@@ -21,6 +21,7 @@ angular.module('SHeroApp')
 	    $scope.processForm = function() {
             var postItemPromise = ItemsService.postItem($scope.formData);
             postItemPromise.then(function(response) {
+                //TODO reload new user data!
                 console.log("Item " + response.data.id + " created!");
                 alert ("Item created!");
             });
@@ -30,8 +31,6 @@ angular.module('SHeroApp')
 		$scope.removeDateFromSelected = function(dt) {
 			$scope.formData.selectedDates.splice($scope.formData.selectedDates.indexOf(dt), 1);
 		};
-    
-        console.log($rootScope.$storage.user.addresses);
 
 		//react on change of the view in the form and set variable of specified path to true
 		$scope.$watch( function () { return $location.path(); }, function (path) {
@@ -50,14 +49,14 @@ angular.module('SHeroApp')
 			}
 		});
     
-        $scope.uploadFile = function(){
-            var file = $scope.myFile;
-            console.log('file is ' );
-            console.dir(file);
-            var uploadUrl = "/UploadServlet";
-            console.dir(uploadUrl);
-            fileUpload.uploadFileToUrl(file, uploadUrl);
-        };
+//        $scope.uploadFile = function(){
+//            var file = $scope.myFile;
+//            console.log('file is ' );
+//            console.dir(file);
+//            var uploadUrl = "/UploadServlet";
+//            console.dir(uploadUrl);
+//            fileUpload.uploadFileToUrl(file, uploadUrl);
+//        };
 	})
 
 //    .controller('myCtrl', function($scope, fileUpload){

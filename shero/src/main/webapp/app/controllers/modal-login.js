@@ -64,7 +64,7 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     }
     
     $scope.loginUser = function() {
-        var getUserPromise = UsersService.getUser();
+        var getUserPromise = UsersService.getUserByMail();
         getUserPromise.then(function(response) {
             userDataService.store(response.data);
             console.log("User "+ response.data.id +" logged in!");

@@ -11,17 +11,27 @@ angular.module('SHeroApp')
             })
         };
     
-        var getUser = function() {
+        var getUserByMail = function() {
             return $http({
                 method: "GET",
-                url: "/rest/users/mail/max%40mustermann.de",
+                url: "/rest/users/mail/max%40mustermann.de"
             }).then(function(response){
                 return response;
             })
         };
     
+        var getUserById = function(id) {
+            return $http({
+                method: "GET",
+                url: "/rest/users/id/"+id
+            }).then(function(response){
+                return response;      
+            })
+        };
+    
         return {
             postUser : postUser,
-            getUser: getUser
+            getUserByMail: getUserByMail,
+            getUserById: getUserById
         };
     })

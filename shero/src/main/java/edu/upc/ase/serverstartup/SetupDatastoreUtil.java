@@ -43,6 +43,7 @@ public class SetupDatastoreUtil {
 		Key<Address> addrKey2 = ObjectifyService.ofy().save().entity(addr2).now();
 		
 		from.addAddress(addrKey);
+		from.addAddress(addrKey2);
 		to.addAddress(addrKey2);
 		
 		UserRating r = new UserRating();

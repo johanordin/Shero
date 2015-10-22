@@ -48,7 +48,7 @@ public class UserRestService {
 	}
 	
 	@GET
-	@Path("/{id}")
+	@Path("/id/{id}")
 	public String getUser(@PathParam("id") String id) {
 		User user = ObjectifyService.ofy().load().type(User.class).id(Long.parseLong(id)).now();
 		return GSON.toJson(user);

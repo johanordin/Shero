@@ -22,7 +22,7 @@ angular.module('SHeroApp').controller('UserMenuCtrl', function($scope, $uibModal
     });
 
     modalLogin.result.then(function () {
-      $log.info('Modal dismissed at: ' + new Date());
+        
     });
   };
 

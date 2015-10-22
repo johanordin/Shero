@@ -22,7 +22,6 @@ angular.module('SHeroApp')
             $scope.allTags = response.data;
             
             $scope.loadTags = function(query) {
-                console.log("outside: " + $scope.allTags);
                 return $scope.allTags;
             };
         });
