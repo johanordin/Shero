@@ -2,6 +2,7 @@ package edu.upc.ase.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 import com.googlecode.objectify.ObjectifyService;
@@ -16,6 +17,7 @@ import com.googlecode.objectify.annotation.OnLoad;
 @Entity
 public class Item {
 	private static final Gson GSON = new Gson();
+	private static final Logger logger = Logger.getLogger("Item");
 	
 	@Id
 	public Long id;
@@ -33,7 +35,6 @@ public class Item {
 	private List<Availability> availabilityPeriods;
 	@Ignore
 	private List<ItemRating> itemRatings;
-	
 	@Ignore
 	private List<Tag> tags;
 
@@ -44,7 +45,8 @@ public class Item {
 	private transient List<Ref<Availability>> availabilityPeriodRefs = new ArrayList<Ref<Availability>>();
 	@Load
 	private transient List<Ref<ItemRating>> itemRatingRefs = new ArrayList<Ref<ItemRating>>();
-
+	@Load
+	private transient List<Ref<Tag>> tagRefs = new ArrayList<Ref<Tag>>();
 	
 	@Load
 	private transient List<Ref<Image>> imageRefs = new ArrayList<Ref<Image>>();
@@ -59,19 +61,22 @@ public class Item {
 	}
 
 	public Item(String name, Double price, String description, Address address,
-			List<Availability> availabilityPeriods) {
+			List<Availability> availabilityPeriods, List<Tag> tags) {
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.address = address;
 		this.availabilityPeriods = availabilityPeriods;
+		this.tags = tags;
 	}
 
 	@OnLoad
 	private void onLoad() {
+		logger.info("Item.class call onLoad()");
 		this.getAddress();
 		this.getAvailabilityPeriods();
 		this.getItemRatings();
+		this.getTags();
 	}
 	
 	public String getName() {
@@ -125,26 +130,27 @@ public class Item {
 		return itemRatings;
 	}
 
+	public List<Tag> getTags() {
+		this.tags = new ArrayList<Tag>(ObjectifyService.ofy().load().refs(tagRefs).values());
+		return tags;
+	}
+	
 	public List<Ref<Image>> getImageRefs() {
 		return imageRefs;
 	}
 
-	public void setImageRefs(List<Ref<Image>> imageRefs) {
-		this.imageRefs = imageRefs;
+	public void setAddress(Ref<Address> address) {
+		this.addressRef = address;
 	}
-
-	public List<Tag> getTags() {
-		return tags;
+	
+	public void addTag(Ref<Tag> tag) {
+		this.tagRefs.add(tag);
 	}
-
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
+	
+	public void addAvailableDay(Ref<Availability> day) {
+		this.availabilityPeriodRefs.add(day);
 	}
-
-	public void setAddress(Address address) {
-		this.addressRef = Ref.create(address);
-	}
-
+	
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", name=" + name + ", price=" + price
@@ -153,11 +159,11 @@ public class Item {
 				+ availabilityPeriods + ", itemRatings=" + itemRatings + "]";
 	}
 	
-	public String serialize() {
+	public void serialize() {
 		this.getAddress();
 		this.getAvailabilityPeriods();
 		this.getItemRatings();
-		return GSON.toJson(this);
+		this.getTags();
 	}
 
 }

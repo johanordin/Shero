@@ -9,27 +9,28 @@ import com.googlecode.objectify.annotation.Id;
 public class Availability {
 
 	@Id Long id;
-	private Date availableFrom;
-	private Date availableTo;
+	// granularity of availability is day-wise
+	private Date availabilityDate;
 	
 	public Availability() {
 	}
-	
-	public Availability(Date availableFrom, Date availableTo) {
-		this.availableFrom = availableFrom;
-		this.availableTo = availableTo;
+
+	public Availability(Date availabilityDate) {
+		this.availabilityDate = availabilityDate;
+	}
+
+	public Date getAvailabilityDate() {
+		return availabilityDate;
+	}
+
+	public void setAvailabilityDate(Date availabilityDate) {
+		this.availabilityDate = availabilityDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Availability [id=" + id + ", availabilityDate="
+				+ availabilityDate + "]";
 	}
 	
-	public Date getAvailableFrom() {
-		return availableFrom;
-	}
-	public void setAvailableFrom(Date availableFrom) {
-		this.availableFrom = availableFrom;
-	}
-	public Date getAvailableTo() {
-		return availableTo;
-	}
-	public void setAvailableTo(Date availableTo) {
-		this.availableTo = availableTo;
-	}
 }
