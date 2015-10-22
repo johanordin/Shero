@@ -8,7 +8,7 @@
  * Controller of the SHeroApp which is used for all operations inside the Modal for Login and Register.
  * The Login and the register are two views inside of tabs
  */
-angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modalInstance, $rootScope, $cookies, UsersService, userDataService) {
+angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modalInstance, UsersService, userDataService) {
 
     //variable to hold the input data from the user
     $scope.formData = {};
@@ -60,11 +60,16 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     
     //function called when the user is in login-view and clicks the login-button
     $scope.loginClicked = function() {
-        var expiry = new Date();
-        var date = new Date();
-        expiry.setTime(date.getTime()+(30*60*1000)); //Cookie expires in 30 Minutes
-        document.cookie = "sheroUserId=123456; expires=" + expiry.toGMTString();
-        $rootScope.loggedIn = true;
+        $scope.loginUser();
+    }
+    
+    $scope.loginUser = function() {
+        var getUserPromise = UsersService.getUser();
+        getUserPromise.then(function(response) {
+            userDataService.store(response.data);
+            console.log("User "+ response.data.id +" logged in!");
+            alert("User logged in");
+        });
     }
     
     //function called when the user is in register-view and clicks the register-button

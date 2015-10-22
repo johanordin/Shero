@@ -16,7 +16,19 @@ angular.module('SHeroApp')
                 userid: userData.id
             });
             $rootScope.loggedIn = true;
+        };
+        
+        var deleteUserData = function () {
+            var expiry = new Date();
+            var date = new Date();
+            expiry.setTime(date.getTime()-(30*60*1000)); //Cookie expires before 30 Minutes
+            $cookies.put('SHeroUserId', '', {'expires': expiry.toGMTString()})
+            
+            $rootScope.$storage = $localStorage.$reset();
         }
         
-        return {store: store};
+        return {
+            store: store,
+            delete: deleteUserData
+        };
     })

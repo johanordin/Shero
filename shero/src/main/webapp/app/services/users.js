@@ -10,5 +10,18 @@ angular.module('SHeroApp')
                 return response;
             })
         };
-        return {postUser : postUser};
+    
+        var getUser = function() {
+            return $http({
+                method: "GET",
+                url: "/users/mail/max%40mustermann.de",
+            }).then(function(response){
+                return response;
+            })
+        };
+    
+        return {
+            postUser : postUser,
+            getUser: getUser
+        };
     })

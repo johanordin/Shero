@@ -8,7 +8,7 @@
  * Controller of the SHeroApp to control the UserMenu (right part of the navbar).
  */
 
-angular.module('SHeroApp').controller('UserMenuCtrl', function($scope, $uibModal, $rootScope, $log) {
+angular.module('SHeroApp').controller('UserMenuCtrl', function($scope, $uibModal, $rootScope, $log, UsersService) {
     
   $scope.animationsEnabled = true;
 
