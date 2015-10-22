@@ -32,8 +32,20 @@ angular.module('SHeroApp')
           	//Edit User
       		.state('editUser', {
       			url: '/EditUser', 
-        		templateUrl: 'app/views/EditUser.html',
+        		templateUrl: 'app/views/EditUser/EditUser.html',
+            controller: 'editUserCtrl',
+            controllerAs: 'editUserCtrl'
       		})
+              //Child-State of EditUser to show first page of the user-form
+              .state('editUser.generalinformation', {
+                  url: '/Generalinformation',
+                  templateUrl: 'app/views/EditUser/partials/Generalinformation.html'
+              })
+              //Child-State of EditUser to show second page of the user-form
+              .state('editUser.contact', {
+                  url: '/Contact',
+                  templateUrl: 'app/views/EditUser/partials/Contact.html'
+              })
         
           //Add Item
       		.state('addItem', {
