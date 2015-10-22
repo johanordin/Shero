@@ -26,6 +26,7 @@ angular.module('SHeroApp')
 	    	}).then(function successCallback(response) {
 			    // this callback will be called asynchronously
 			    // when the response is available
+                alert("Item successfully safed in the database! :)");
 			    console.log("success: " + response);
 			}, function errorCallback(response) {
 			    // called asynchronously if an error occurs

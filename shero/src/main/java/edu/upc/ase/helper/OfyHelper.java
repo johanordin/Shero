@@ -12,6 +12,7 @@ import edu.upc.ase.domain.ItemRating;
 import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
 import edu.upc.ase.domain.UserRating;
+import edu.upc.ase.domain.admin.EmailTemplate;
 
 /**
  * OfyHelper, a ServletContextListener, is setup in web.xml to run before a JSP
@@ -29,6 +30,7 @@ public class OfyHelper implements ServletContextListener {
 		ObjectifyService.register(Address.class);
 		ObjectifyService.register(UserRating.class);
 		ObjectifyService.register(Tag.class);
+		ObjectifyService.register(EmailTemplate.class);
 	}
 
 	public void contextDestroyed(ServletContextEvent event) {

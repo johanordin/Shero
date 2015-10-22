@@ -1,5 +1,6 @@
 package edu.upc.ase.domain;
 
+import com.google.appengine.api.datastore.Blob;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
@@ -10,10 +11,10 @@ public class Image {
 	public Long id;
 	
 	@Index
-	private String name;
-	private byte[] image;
+	private String name; 
+	private Blob image; 
 	
-	public Image(String name, byte[] image) {
+	public Image(String name, Blob image) {
 		super();
 		this.name = name;
 		this.image = image;
@@ -27,11 +28,11 @@ public class Image {
 		this.name = name;
 	}
 	
-	public byte[] getImage() {
+	public Blob getImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(Blob image) {
 		this.image = image;
 	}
 }

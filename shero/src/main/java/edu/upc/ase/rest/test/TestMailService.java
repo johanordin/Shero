@@ -10,44 +10,50 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
-import com.google.gson.Gson;
+import org.apache.log4j.Logger;
 
+import com.googlecode.objectify.ObjectifyService;
 
-@Path("/mailtest")
+import edu.upc.ase.domain.User;
+import edu.upc.ase.domain.admin.EmailTemplate;
+
 public class TestMailService {
-		private static final Gson GSON = new Gson();
 
-		@GET
-		@Produces(MediaType.APPLICATION_JSON)
-		public String testMail() throws UnsupportedEncodingException {
-			
-			Properties props = new Properties();
-			Session session = Session.getDefaultInstance(props, null);
+	private static Logger logger = Logger.getLogger(TestMailService.class);
 
-			String msgBody = "...";
+	public String sendWelcomeMail(User user) {
 
-			try {
-			    Message msg = new MimeMessage(session);
-			    msg.setFrom(new InternetAddress("shero.ase@gmail.com", "Example.com Admin"));
-			    msg.addRecipient(Message.RecipientType.TO,
-			     new InternetAddress("xpl@gmx.de", "Mr. User"));
-			    msg.setSubject("Your Example.com account has been activated");
-			    msg.setText(msgBody);
-			    Transport.send(msg);
+		Properties props = new Properties();
+		Session session = Session.getDefaultInstance(props, null);
 
-			} catch (AddressException e) {
-			    // ...
-			} catch (MessagingException e) {
-			    // ...
-			}
+		try {
+			Message msg = new MimeMessage(session);
+			String msgText = getHtmlMessageText("WelcomeTemplate");
+			// Replace placeholder USERNAME with real username
+			msgText = msgText.replace("#USERNAME#", user.getFullname());
+			msg.setContent(msgText, "text/html");
 
-			
-			return "{\"status\":\"successful\"}";
+			msg.setFrom(new InternetAddress("shero.ase@gmail.com", "Shero Welcome Mail"));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmailAddress(), user.getFullname()));
+			msg.setSubject("Welcome to Shero");
+			Transport.send(msg);
+
+		} catch (AddressException e) {
+			logger.error("Address Error", e);
+		} catch (MessagingException e) {
+			logger.error("Message Error", e);
+		} catch (UnsupportedEncodingException e) {
+			logger.error("UnsupportedEncodingException", e);
 		}
-		
+
+		return "{\"status\":\"successful\"}";
+	}
+
+	private String getHtmlMessageText(String templateName) {
+		EmailTemplate emailTemplate = ObjectifyService.ofy().load().type(EmailTemplate.class)
+				.filter("name", templateName).list().get(0);
+		return emailTemplate.getHtmlText();
+	}
+
 }

@@ -30,6 +30,7 @@ import edu.upc.ase.domain.Availability;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
+import edu.upc.ase.rest.test.TestMailService;
 
 @Path("/users")
 public class UserRestService {
@@ -117,6 +118,10 @@ public class UserRestService {
 			user.getAddresses();
 		}
 		user.serialize();
+		//Send welcome Mail to user
+		TestMailService mailService = new TestMailService();
+		mailService.sendWelcomeMail(user);
+		
 		return GSON.toJson(user);
 	}
 	

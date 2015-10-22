@@ -8,10 +8,13 @@
  * Controller of the SHeroApp which is used for all operations inside the Modal for Login and Register.
  * The Login and the register are two views inside of tabs
  */
-angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modalInstance, $rootScope, items) {
+angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modalInstance, $rootScope, $http, registerService) {
 
     //variable to hold the input data from the user
+    $scope.forms = {};
     $scope.formData = {};
+    $scope.password = "";
+    $scope.repeatPassword = "";
     
     //variable to check whether is user wants to login or to register and switch between the two options
     $scope.tab = 1;
@@ -25,10 +28,10 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     $scope.okClicked = function () {
         if ($scope.tab === 1) {
             $scope.loginClicked();
+            $modalInstance.close();
         } else if ($scope.tab === 2) {
             $scope.registerClicked();
         }
-        $modalInstance.close();
     };
 
     //function called when the user clicks the cancel-button
@@ -44,10 +47,14 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
             $scope.title = 'Register';
             $scope.link = 'Back to login!';
             $scope.formData = {};
+            $scope.formData.items = [];
+            $scope.formData.addresses = [];
+            $scope.formData.userRatings = [];
         } else if ($scope.tab === 2) {
             $scope.tab = 1;
             $scope.title = 'Log In';
             $scope.link = 'Not registered';
+            $scope.formData = {};
         }
     };
 
@@ -67,6 +74,18 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     
     //function called when the user is in register-view and clicks the register-button
     $scope.registerClicked = function() {
-        console.log('Register clicked!');
+        if ($scope.password == $scope.repeatPassword) {
+            $scope.formData.passwordHash = Sha256.hash($scope.password);
+            $scope.registerUser();
+            $modalInstance.close();
+        }
+    }
+    
+    //function to send data of registering user to server
+    $scope.registerUser = function() {
+        var getUserPromise = registerService.postUser($scope.formData);
+        getUserPromise.then(function(response) {
+            console.log(JSON.stringify(response));
+        });
     }
 });
