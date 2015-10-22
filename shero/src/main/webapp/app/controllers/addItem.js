@@ -7,7 +7,7 @@
  * adding a new item.
  */
 angular.module('SHeroApp')
-	.controller('AddItemCtrl', function($scope, $http, $location) {
+	.controller('AddItemCtrl', function($scope, $http, $location, fileUpload) {
 	    
 		//Data of the user-form which is going to sent to server
 	    $scope.formData = {};
@@ -55,4 +55,25 @@ angular.module('SHeroApp')
 				$scope.isPictue = true;
 			}
 		});
-	});
+    
+        $scope.uploadFile = function(){
+            var file = $scope.myFile;
+            console.log('file is ' );
+            console.dir(file);
+            var uploadUrl = "/UploadServlet";
+            console.dir(uploadUrl);
+            fileUpload.uploadFileToUrl(file, uploadUrl);
+        };
+	})
+
+//    .controller('myCtrl', function($scope, fileUpload){
+//    
+//        $scope.uploadFile = function(){
+//            var file = $scope.myFile;
+//            console.log('file is ' );
+//            console.dir(file);
+//            var uploadUrl = "/fileUpload";
+//            fileUpload.uploadFileToUrl(file, uploadUrl);
+//        };
+//    
+//    });
