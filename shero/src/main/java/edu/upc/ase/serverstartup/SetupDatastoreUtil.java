@@ -1,16 +1,12 @@
 package edu.upc.ase.serverstartup;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.google.appengine.api.datastore.Blob;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 
-import edu.upc.ase.domain.Image;
+import edu.upc.ase.domain.Address;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.User;
 import edu.upc.ase.domain.UserRating;
@@ -39,6 +35,15 @@ public class SetupDatastoreUtil {
 		
 		Key<User> fromUser = ObjectifyService.ofy().save().entity(from).now();
 		Key<User> toUser = ObjectifyService.ofy().save().entity(to).now();
+		
+		Address addr = new Address("Barcelona","08001", "Avd. Diagonal","21");
+		Key<Address> addrKey = ObjectifyService.ofy().save().entity(addr).now();
+		
+		Address addr2 = new Address("Madrid","10001", "Schinkenstrasse","213");
+		Key<Address> addrKey2 = ObjectifyService.ofy().save().entity(addr2).now();
+		
+		from.addAddress(addrKey);
+		to.addAddress(addrKey2);
 		
 		UserRating r = new UserRating();
 		r.setRatingValue(1);
