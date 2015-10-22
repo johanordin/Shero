@@ -170,8 +170,7 @@ public class UserRestService {
 		// add address to item
 		Key<Address> addrKey = Key.create(Address.class,
 				Long.parseLong(addressId));
-		Ref<Address> addrRef = Ref.create(addrKey);
-		item.setAddress(addrRef);
+		item.setAddress(addrKey);
 
 		// 2. retrieve tag ids from json
 		// expected tag format:

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
@@ -139,8 +140,8 @@ public class Item {
 		return imageRefs;
 	}
 
-	public void setAddress(Ref<Address> address) {
-		this.addressRef = address;
+	public void setAddress(Key<Address> address) { 
+		this.addressRef = Ref.create(address);
 	}
 	
 	public void addTag(Ref<Tag> tag) {
