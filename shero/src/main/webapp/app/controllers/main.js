@@ -8,6 +8,6 @@
  * Main-controller of the SHeroApp. Does literally nothing right now.
  */
 angular.module('SHeroApp')
-  .controller('MainCtrl', function ($scope) {
+    .controller('MainCtrl', function ($scope) {
 
-  });
+    });
