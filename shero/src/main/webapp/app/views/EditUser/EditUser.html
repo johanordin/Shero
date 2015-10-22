@@ -1,0 +1,31 @@
+<div class="col-lg-12">
+  <div class="process">
+      <div class="process-row">
+          <div class="process-step">
+              <button type="button" class="btn btn-default btn-circle" go-to="/EditUser/Generalinformation" ng-class="{active : isGeneral}">
+                <i class="fa fa-user fa-2x"></i>
+              </button>
+              <p>
+                <a class="process-link" ui-sref-active="active" ui-sref=".generalinformation">General</a>
+              </p>
+          </div>
+          <div class="process-step">
+              <button type="button" class="btn btn-default btn-circle" go-to="/EditUser/Contact" ng-class="{active : isContact}">
+                <i class="fa fa-home fa-2x"></i>
+              </button>
+              <p>
+                <a class="process-link" ui-sref-active="active" ui-sref=".contact">Contact</a>
+              </p>
+          </div>
+      </div>
+  </div>
+</div>
+
+  <form class="form-horizontal" id="signup-form" ng-submit="processForm()">
+    <div id="form-views" ui-view></div>
+  </form>
+
+
+<pre>
+  {{ formData }}
+</pre>
