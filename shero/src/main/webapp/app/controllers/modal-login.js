@@ -8,13 +8,11 @@
  * Controller of the SHeroApp which is used for all operations inside the Modal for Login and Register.
  * The Login and the register are two views inside of tabs
  */
-angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modalInstance, $rootScope, $cookies, registerService, userDataService) {
+angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modalInstance, $rootScope, $cookies, UsersService, userDataService) {
 
     //variable to hold the input data from the user
-    $scope.forms = {};
     $scope.formData = {};
-    $scope.password = "";
-    $scope.repeatPassword = "";
+    $scope.passwords = {};
     
     //variable to check whether is user wants to login or to register and switch between the two options
     $scope.tab = 1;
@@ -71,7 +69,7 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     
     //function called when the user is in register-view and clicks the register-button
     $scope.registerClicked = function() {
-        if ($scope.password == $scope.repeatPassword) {
+        if ($scope.password === $scope.repeatPassword) {
             $scope.formData.passwordHash = Sha256.hash($scope.password);
             $scope.registerUser();
             $modalInstance.close();
@@ -80,9 +78,11 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     
     //function to send data of registering user to server
     $scope.registerUser = function() {
-        var getUserPromise = registerService.postUser($scope.formData);
-        getUserPromise.then(function(response) {
+        var postUserPromise = UsersService.postUser($scope.formData);
+        postUserPromise.then(function(response) {
             userDataService.store(response.data);
+            console.log("User " + response.data.id + " created!")
+            alert("User created");
         });
     }
 });
