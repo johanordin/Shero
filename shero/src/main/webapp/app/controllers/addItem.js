@@ -7,7 +7,7 @@
  * adding a new item.
  */
 angular.module('SHeroApp')
-	.controller('AddItemCtrl', function($scope, $http, $location, ItemsService, fileUpload) {
+	.controller('AddItemCtrl', function($scope, $http, $location, $rootScope, ItemsService, fileUpload) {
 	    
 		//Data of the user-form which is going to sent to server
 	    $scope.formData = {};
@@ -30,6 +30,8 @@ angular.module('SHeroApp')
 		$scope.removeDateFromSelected = function(dt) {
 			$scope.formData.selectedDates.splice($scope.formData.selectedDates.indexOf(dt), 1);
 		};
+    
+        console.log($rootScope.$storage.user.addresses);
 
 		//react on change of the view in the form and set variable of specified path to true
 		$scope.$watch( function () { return $location.path(); }, function (path) {
