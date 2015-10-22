@@ -22,13 +22,13 @@
     <label for="register_password">Password</label>
     <input type="password" class="form-control" id="register_password" 
            placeholder="Password" 
-           ng-model="password"
+           ng-model="passwords.password"
            required>
     <br>
     <label for="register_repeatPassword">Repeat your password</label>
     <input type="password" class="form-control" id="register_repeatPassword" 
            placeholder="Repeat Password"
-           ng-model="repeatPassword"
+           ng-model="passwords.repeatPassword"
            data-fv-identical="true"
            data-fv-identical-field="password"
            data-fv-identical-message="The password and its confirm are not the same"

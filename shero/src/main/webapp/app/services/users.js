@@ -1,5 +1,5 @@
 angular.module('SHeroApp')
-    .factory('registerService', function($q, $timeout, $http) {
+    .factory('UsersService', function($q, $timeout, $http) {
         
         var postUser = function(userData) {
             return $http({
