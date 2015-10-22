@@ -16,6 +16,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
+import com.google.appengine.api.datastore.Blob;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 
@@ -71,8 +72,9 @@ public class PictureUploadService extends HttpServlet {
 					
 					
 					byte[] bytes = IOUtils.toByteArray(fi.getInputStream());
+					Blob blob = new Blob(bytes);
 					
-					Image newImage = new Image(fieldName,bytes);
+					Image newImage = new Image(fieldName,blob);
 					
 					Key<Image> key = ObjectifyService.ofy().save().entity(newImage).now();
 					Image image = ObjectifyService.ofy().load().type(Image.class).id(key.getId()).now();
