@@ -14,7 +14,7 @@ angular.module('SHeroApp')
         var getUser = function() {
             return $http({
                 method: "GET",
-                url: "/users/mail/max%40mustermann.de",
+                url: "/rest/users/mail/max%40mustermann.de",
             }).then(function(response){
                 return response;
             })
