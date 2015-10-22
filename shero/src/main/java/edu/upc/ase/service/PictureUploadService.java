@@ -1,17 +1,15 @@
 package edu.upc.ase.service;
 
-// Import required java libraries
-import java.io.File;
-import java.util.Iterator;
-import java.util.List;
+import java.io.InputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -32,67 +30,46 @@ public class PictureUploadService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private boolean isMultipart;
-	private String filePath;
-	private int maxFileSize = 50 * 1024;
-	private int maxMemSize = 4 * 1024;
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
 		
 		logger.warn("doPost Servlet call");
+		System.out.println("doPost Servlet call");
 		// Check that we have a file upload request
 		isMultipart = ServletFileUpload.isMultipartContent(request);
 
+		
+		  ServletFileUpload upload = new ServletFileUpload();
+          try {
+			FileItemIterator iterator = upload.getItemIterator(request);
+		    while (iterator.hasNext()) {
+	            FileItemStream item = iterator.next();
+	            InputStream stream = item.openStream();
+	            if (item.isFormField()) {
+	              logger.warn("Got a form field: " + item.getFieldName()+ "value="+ item.getName());
+	              System.out.println("Got a form field: " + item.getFieldName()+ "value="+ item.getName());
+	              String idForm= item.getFieldName();
+	            } else {
+	              logger.warn("Got an uploaded file: " + item.getFieldName() +
+	                          ", name = " + item.getName()+ "  content="+item.getContentType() + " header="+item.getHeaders());
+	              System.out.println("Got an uploaded file: " + item.getFieldName() +
+	                          ", name = " + item.getName()+ "  content="+item.getContentType() + " header="+item.getHeaders());
+	              // here  save
+	              //success = insertFile(String title,String mimeType, String filename, InputStream stream);                  
+	              byte[] bytes = IOUtils.toByteArray(stream);
+	              System.out.println("File lenght: " + bytes.length);
+	              
+	              Image image = new Image(item.getName(),new Blob( bytes));
+	              Key<Image> key = ObjectifyService.ofy().save().entity(image).now();
+	            }
+	          }
+		} catch (FileUploadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try {
 			
-			  DiskFileItemFactory factory = new DiskFileItemFactory();
-		      // maximum size that will be stored in memory
-		      factory.setSizeThreshold(maxMemSize);
-		      // Location to save data that is larger than maxMemSize.
-		      factory.setRepository(new File("c:\\temp"));
-
-		      // Create a new file upload handler
-		      ServletFileUpload upload = new ServletFileUpload(factory);
-		      
-			// Parse the request to get file items.
-			List<FileItem> fileItems = upload.parseRequest(request);
-
-			// Process the uploaded file items
-			Iterator<FileItem> i = fileItems.iterator();
-
-			while (i.hasNext()) {
-				FileItem fi = (FileItem) i.next();
-				if (!fi.isFormField()) {
-					// Get the uploaded file parameters
-					String fieldName = fi.getFieldName();
-					String fileName = fi.getName();
-					String contentType = fi.getContentType();
-					boolean isInMemory = fi.isInMemory();
-					long sizeInBytes = fi.getSize();
-					
-					
-					byte[] bytes = IOUtils.toByteArray(fi.getInputStream());
-					Blob blob = new Blob(bytes);
-					
-					Image newImage = new Image(fieldName,blob);
-					
-					Key<Image> key = ObjectifyService.ofy().save().entity(newImage).now();
-					Image image = ObjectifyService.ofy().load().type(Image.class).id(key.getId()).now();
-				}
-			}
-			
-		      response.setContentType("text/html");
-		      java.io.PrintWriter out = response.getWriter( );
-		      
-		      out.println("<html>");
-		      out.println("<head>");
-		      out.println("<title>Servlet upload</title>");  
-		      out.println("</head>");
-		      out.println("<body>");
-		      out.println("</body>");
-		      out.println("</html>");
-		      
-		      out.write("Upload successful");
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
