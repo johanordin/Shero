@@ -85,6 +85,7 @@ public class User {
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
+	
 	public List<Item> getItems() {
 		// perform batch load instead of single get() requests for every entity
 		this.items = new ArrayList<Item>(ObjectifyService.ofy().load().refs(itemRefs).values());
@@ -113,11 +114,10 @@ public class User {
 				+ ", addresses=" + addresses + "]";
 	}
 
-	public String serialize() {
+	public void serialize() {
 		this.getItems();
 		this.getAddresses();
 		this.getReceivedRatings();
-		return GSON.toJson(this);
     }
 	
 }
