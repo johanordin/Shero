@@ -11,13 +11,13 @@
 }
 </style>
 
-<div class="text-center" >
+<div class="text-center">
 
     <div flow-init flow-file-success="$file.msg = $message">
 
     <div class="drop" flow-drop="" ng-class="dropClass">
         <span class="btn btn-default" flow-btn="">Upload File
-            <input type="file" multiple="multiple" style="visibility: hidden; position: absolute;">
+            <input type="file" file-model="myFile" multiple="multiple" style="visibility: hidden; position: absolute;">
         </span>
         <b>OR</b>
         Drag And Drop your file here
@@ -36,6 +36,6 @@
     </div>
     
 
-    <button type="submit" class="btn btn-success">Share Item</button>
+    <button ng-click="uploadFile()" type="submit" class="btn btn-success">Share Item</button>
 
 </div>
