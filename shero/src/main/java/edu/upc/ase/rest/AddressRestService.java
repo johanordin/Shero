@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -14,6 +15,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 
 import edu.upc.ase.domain.Address;
+import edu.upc.ase.domain.User;
 
 @Path("/addresses")
 public class AddressRestService {
@@ -32,6 +34,23 @@ public class AddressRestService {
 	public String createAddress(String jsonAddress) {
 		Address newAddress = GSON.fromJson(jsonAddress, Address.class);
 		Key<Address> key = ObjectifyService.ofy().save().entity(newAddress).now();
+		Address address = ObjectifyService.ofy().load().type(Address.class).id(key.getId()).now();
+		return GSON.toJson(address);
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/{id}")
+	public String updateAddress(@PathParam("id") String addressId, String jsonAddress) {
+		// load respective address
+		//Address address = ObjectifyService.ofy().load().type(Address.class).id(Long.parseLong(addressId)).now();
+		
+		// parse new address from request
+		Address updatedAddress = GSON.fromJson(jsonAddress, Address.class);
+		updatedAddress.setId(Long.parseLong(addressId));
+		
+		Key<Address> key = ObjectifyService.ofy().save().entity(updatedAddress).now();
 		Address address = ObjectifyService.ofy().load().type(Address.class).id(key.getId()).now();
 		return GSON.toJson(address);
 	}
