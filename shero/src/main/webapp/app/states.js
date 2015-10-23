@@ -4,7 +4,8 @@ angular.module('SHeroApp')
  	.config(function($stateProvider, $urlRouterProvider) {
  		//redirects /AddItem directly to /AddItem/GeneralInformation
  		$urlRouterProvider.when('/AddItem', '/AddItem/GeneralInformation');
- 		
+    $urlRouterProvider.when('/EditUser', '/EditUser/General');
+
  		//redirects empty states to Home-View
  		$urlRouterProvider.when('', '/Home');
  		$urlRouterProvider.when('#/', '/Home');
@@ -34,9 +35,21 @@ angular.module('SHeroApp')
           	//Edit User
       		.state('editUser', {
       			url: '/EditUser', 
-        		templateUrl: 'app/views/EditUser.html',
+        		templateUrl: 'app/views/EditUser/EditUser.html',
             controller: 'EditUserCtrl'
       		})
+          .state('editUser.general', {
+            url : '/General',
+            templateUrl: 'app/views/EditUser/partials/General.html'
+          })
+          .state('editUser.address', {
+            url: '/Address',
+            templateUrl: 'app/views/EditUser/partials/Address.html'
+          })
+          .state('editUser.password', {
+            url: '/Password',
+            templateUrl: 'app/views/EditUser/partials/Password.html'
+          })
         
           //Add Item
       		.state('addItem', {

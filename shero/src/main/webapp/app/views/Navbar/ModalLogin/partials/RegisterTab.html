@@ -1,17 +1,17 @@
-<form id="registration" name="forms.registration" action="" method="">
-    <label for="register_firstname">First name</label>
+<form id="registration" name="registration" action="" method="" ng-controller="RegisterCtrl">
+    <label for="register_firstname">Firstname</label>
     <input type="text" class="form-control" id="register_firstname" 
            placeholder="First name" 
            ng-model="formData.firstname"
            required 
            autofocus>
     <br>
-    <label for="register_lastname">Last name</label>
-    <input type="text" class="form-control" id="register_lastname" 
+    <label for="register_lastname">Lastname</label>
+    <input type="text" class="form-control" 
+           name="register_lastname"
            placeholder="Last name" 
            ng-model="formData.lastname"
-           required 
-           autofocus>
+           required>
     <br>
     <label for="register_mail">Mail</label>
     <input type="email" class="form-control" id="register_mail"
@@ -22,15 +22,12 @@
     <label for="register_password">Password</label>
     <input type="password" class="form-control" id="register_password" 
            placeholder="Password" 
-           ng-model="passwords.password"
+           ng-model="formData.password"
            required>
     <br>
     <label for="register_repeatPassword">Repeat your password</label>
     <input type="password" class="form-control" id="register_repeatPassword" 
            placeholder="Repeat Password"
-           ng-model="passwords.repeatPassword"
-           data-fv-identical="true"
-           data-fv-identical-field="password"
-           data-fv-identical-message="The password and its confirm are not the same"
+           ng-model="formData.repeatPassword"
            required>
 </form>

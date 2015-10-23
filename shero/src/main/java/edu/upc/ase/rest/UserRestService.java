@@ -222,4 +222,24 @@ public class UserRestService {
 		return GSON.toJson(returnUser);
 	}
 	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/{id}/mail")
+	public String updatePassword(@PathParam("id") String userId, String jsonPassword) {
+		// load respective user
+		User user = ObjectifyService.ofy().load().type(User.class).id(Long.parseLong(userId)).now();
+		// parse password from request
+		JsonObject jsonObj = JSON_PARSER.parse(jsonPassword).getAsJsonObject();
+		String hashedPassword = jsonObj.get("hashedPassword").toString().replace("\"", "");
+		
+		// change password
+		user.setPasswordHash(hashedPassword);
+		
+		// store user with changed password
+		Key<User> key = ObjectifyService.ofy().save().entity(user).now();
+		User returnUser = ObjectifyService.ofy().load().type(User.class).id(key.getId()).now();
+		
+		return GSON.toJson(returnUser);
+	}
 }
