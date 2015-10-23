@@ -12,9 +12,11 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
 
     //variable to hold the input data from the user
     $scope.formData = {};
-    $scope.passwords = {};
+    $scope.sendData = {};
     
     //variable to check whether is user wants to login or to register and switch between the two options
+    //tab = 1 --> login-view
+    //tab = 2 --> register-view
     $scope.tab = 1;
     
     //variables for the labels depending on login or register
@@ -74,16 +76,18 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     
     //function called when the user is in register-view and clicks the register-button
     $scope.registerClicked = function() {
-        if ($scope.passwords.password === $scope.passwords.repeatPassword) {
-            $scope.formData.passwordHash = Sha256.hash($scope.passwords.password);
-            $scope.registerUser();
-            $modalInstance.close();
-        }
+        console.log(registrationForm);
+        $scope.sendData.firstname = $scope.formData.firstname;
+        $scope.sendData.lastname = $scope.formData.lastname;
+        $scope.sendData.emailAddress = $scope.formData.emailAddress;
+        $scope.sendData.passwordHash = Sha256.hash($scope.formData.password);
+        $scope.registerUser();
+        $modalInstance.close();
     }
     
     //function to send data of registering user to server
     $scope.registerUser = function() {
-        var postUserPromise = UsersService.postUser($scope.formData);
+        var postUserPromise = UsersService.postUser($scope.sendData);
         postUserPromise.then(function(response) {
             userDataService.store(response.data);
             console.log("User " + response.data.id + " created!")
