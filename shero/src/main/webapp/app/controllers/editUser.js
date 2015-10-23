@@ -1,5 +1,5 @@
 angular.module('SHeroApp')
-	.controller('EditUserCtrl', function($scope, $http, $location, $rootScope) {
+	.controller('EditUserCtrl', function($scope, $http, $location, $rootScope, userDataService) {
 
 	    $scope.generalForm = {};
 		$scope.addressForm = {};
@@ -28,7 +28,6 @@ angular.module('SHeroApp')
         $scope.init = function() {
         	var addresses = $scope.$storage.user.addresses;
 	       	for (var i = 0; i < addresses.length; i++) {
-    			console.log(addresses[i].id);
     			addressById[addresses[i].id] = addresses[i];
 			}
 		};
@@ -88,7 +87,7 @@ angular.module('SHeroApp')
 	    		// response looks like:
 	    		// {"id":5075345673814016,"country":"countryyy","city":"BarcelonaA","zipcode":"101","street":"Avd. Diagonal"
 				// ,"number":"21","additional":"some additional bullshit"}
-
+                // userDataService.updateUserAddress(response);
 			    console.log("success: " + response);
 			}, function errorCallback(response) {
 			    console.log("error: " + response);

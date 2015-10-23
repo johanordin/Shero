@@ -24,13 +24,24 @@ angular.module('SHeroApp')
             $rootScope.loggedIn = false;
         }
         
-        var updateUserDate = function (userData) {
+        var updateUserData = function (userData) {
             $rootScope.$storage.user = userData;
+        }
+        
+        var updateUserAddress = function (newAddress) {
+/*            for (index = 0; index < $rootScope.$storage.user.addresses.length; ++index) {
+                var adress = $rootScope.$storage.user.addresses[i];
+                if(address.id == newAddress.id) {
+                    console.log (address.id);
+                    console.log(newAddress.id);
+                } 
+            }*/
         }
         
         return {
             store: store,
             delete: deleteUserData,
-            updateUserData: updateUserDate
+            updateUserData: updateUserData,
+            updateUserAddress: updateUserAddress
         };
     })
