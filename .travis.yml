@@ -13,4 +13,5 @@ deploy:
   keyfile: Shero-2015.json
   default: true
   project: shero-2015
+  skip_cleanup: true
 # [END travis_deploy]
