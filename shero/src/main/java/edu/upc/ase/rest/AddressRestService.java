@@ -28,24 +28,11 @@ public class AddressRestService {
 		return GSON.toJson(address);
 	}
 	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public String createAddress(String jsonAddress) {
-		Address newAddress = GSON.fromJson(jsonAddress, Address.class);
-		Key<Address> key = ObjectifyService.ofy().save().entity(newAddress).now();
-		Address address = ObjectifyService.ofy().load().type(Address.class).id(key.getId()).now();
-		return GSON.toJson(address);
-	}
-	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
 	public String updateAddress(@PathParam("id") String addressId, String jsonAddress) {
-		// load respective address
-		//Address address = ObjectifyService.ofy().load().type(Address.class).id(Long.parseLong(addressId)).now();
-		
 		// parse new address from request
 		Address updatedAddress = GSON.fromJson(jsonAddress, Address.class);
 		updatedAddress.setId(Long.parseLong(addressId));

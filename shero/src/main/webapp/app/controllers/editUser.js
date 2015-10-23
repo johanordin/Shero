@@ -53,13 +53,18 @@ angular.module('SHeroApp')
 			});
 	    }; 
 
-	    // TODO: offer possibility to edit/delete an existing, or create a new address
+	    // TODO: offer possibility to delete an existing address
 	    $scope.processNewAddress = function() {
+	    	var userId = $scope.$storage.user.id;
+	    	var address = $scope.addressData;
+	    	address.id = undefined; // TODO: really necessary?
+
 	    	$http({
-	    		method: 'PUT',
-	    		url: '/rest/addresses',
-	    		data: $scope.addressForm
+	    		method: 'POST',
+	    		url: '/rest/users/' + userId + '/addresses',
+	    		data: address
 	    	}).then(function successCallback(response) {
+	    		// TODO: again update local storage
 			    console.log("success: " + response);
 			}, function errorCallback(response) {
 			    console.log("error: " + response);
@@ -83,7 +88,7 @@ angular.module('SHeroApp')
 	    		// response looks like:
 	    		// {"id":5075345673814016,"country":"countryyy","city":"BarcelonaA","zipcode":"101","street":"Avd. Diagonal"
 				// ,"number":"21","additional":"some additional bullshit"}
-				
+
 			    console.log("success: " + response);
 			}, function errorCallback(response) {
 			    console.log("error: " + response);

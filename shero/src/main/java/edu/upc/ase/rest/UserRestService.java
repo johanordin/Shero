@@ -163,6 +163,25 @@ public class UserRestService {
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{id}/addresses")
+	public String createAddress(@PathParam("id") String userId, String jsonAddress) {
+		// load respective user
+		User user = ObjectifyService.ofy().load().type(User.class).id(Long.parseLong(userId)).now();
+		
+		// save new address
+		Address newAddress = GSON.fromJson(jsonAddress, Address.class);
+		Key<Address> key = ObjectifyService.ofy().save().entity(newAddress).now();
+		
+		// reference new address in user
+		user.addAddress(key);
+		ObjectifyService.ofy().save().entity(user).now();
+		
+		Address address = ObjectifyService.ofy().load().type(Address.class).id(key.getId()).now();
+		return GSON.toJson(address);
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}/items")
 	public String createItem(@PathParam("id") String userId, String jsonItem) {
 		// load respective user
