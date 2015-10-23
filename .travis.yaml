@@ -1,0 +1,6 @@
+deploy:
+  provider: gae
+  keyfile: "Shero-2015.json"
+  default: true
+  project: "shero-2015"
+  on: development
