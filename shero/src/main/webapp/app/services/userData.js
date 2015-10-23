@@ -24,8 +24,13 @@ angular.module('SHeroApp')
             $rootScope.loggedIn = false;
         }
         
+        var updateUserDate = function (userData) {
+            $rootScope.$storage.user = userData;
+        }
+        
         return {
             store: store,
-            delete: deleteUserData
+            delete: deleteUserData,
+            updateUserData: updateUserDate
         };
     })

@@ -1,23 +1,28 @@
 <ul class="nav navbar-nav navbar-right">
-  <!-- Show if user is not logged-in --> 
-  <li ng-hide="loggedIn"><a ng-href="#/" ng-click="openModal();">Login</a>
- 
-  <!-- Show if user is logged in -->
-  <li ng-show="loggedIn"><a ui-sref="addItem"><i class="fa fa-plus"></i> Add Item</a></li>
-  <li ng-show="loggedIn" class="dropdown">
-    <a class="dropdown-toggle" 
-       data-toggle="dropdown" 
-       role="button" 
-       aria-haspopup="true" 
-       aria-expanded="false">
+    <!-- Show if user is not logged-in --> 
+    <li ng-hide="loggedIn"><a ng-href="#/" ng-click="openModal();"><i class="fa fa-sign-in"></i> Login</a>
+
+        <!-- Show if user is logged in -->
+        <li ng-show="loggedIn"><a ui-sref="addItem"><i class="fa fa-plus"></i> Add Item</a></li>
+        <li ng-show="loggedIn" class="dropdown">
+        <a class="dropdown-toggle" 
+            data-toggle="dropdown" 
+            role="button" 
+            aria-haspopup="true" 
+            aria-expanded="false">
         <i class="fa fa-user"></i> {{$storage.user.firstname}} {{$storage.user.lastname}} <span class="caret"></span>
-      </a>
-    <ul class="dropdown-menu">
-      <li><a ui-sref="editUser"><i class="fa fa-wrench"></i> Edit</a></li>
-      <li role="separator" class="divider"></li>
-      <li ng-repeat="item in $storage.user.items"><a ui-sref="editItem">{{item.name}}</a></li>
-      <li role="separator" class="divider"></li>
-      <li><a ui-sref="home" ng-click="logout();">Logout</a></li>
-    </ul>
-  </li>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a ui-sref="editUser"><i class="fa fa-pencil"></i> Edit Profile</a></li>
+            <li role="separator" class="divider"></li>
+            <li ng-if="$storeage.user.items.length != 0" ng-repeat="item in $storage.user.items">
+                <a ui-sref="editItem"><i class="fa fa-wrench"></i> {{item.name}}</a>
+            </li>
+            <li ng-if="$storage.user.items.length == 0">
+                <a ui-sref="addItem"><i class="fa fa-plus"></i> Be a SHero!</a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li><a ui-sref="home" ng-click="logout();"><i class="fa fa-sign-out"></i> Logout</a></li>
+        </ul>
+    </li>
 </ul>

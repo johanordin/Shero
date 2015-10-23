@@ -7,7 +7,7 @@
  * adding a new item.
  */
 angular.module('SHeroApp')
-	.controller('AddItemCtrl', function($scope, $http, $location, $rootScope, ItemsService, fileUpload) {
+	.controller('AddItemCtrl', function($scope, $http, $location, $rootScope, ItemsService, userDataService, fileUpload) {
 	    
 		//Data of the user-form which is going to sent to server
 	    $scope.formData = {};
@@ -22,8 +22,7 @@ angular.module('SHeroApp')
 	    $scope.processForm = function() {
             var postItemPromise = ItemsService.postItem($scope.formData);
             postItemPromise.then(function(response) {
-                //TODO reload new user data!
-                console.log("Item " + response.data.id + " created!");
+                userDataService.updateUserData(response.data);
                 alert ("Item created!");
             });
 	    }; 
@@ -50,24 +49,10 @@ angular.module('SHeroApp')
 			}
 		});
     
-//        $scope.uploadFile = function(){
-//            var file = $scope.myFile;
-//            console.log('file is ' );
-//            console.dir(file);
-//            var uploadUrl = "/UploadServlet";
-//            console.dir(uploadUrl);
-//            fileUpload.uploadFileToUrl(file, uploadUrl);
-//        };
-	})
-
-//    .controller('myCtrl', function($scope, fileUpload){
-//    
-//        $scope.uploadFile = function(){
-//            var file = $scope.myFile;
-//            console.log('file is ' );
-//            console.dir(file);
-//            var uploadUrl = "/fileUpload";
-//            fileUpload.uploadFileToUrl(file, uploadUrl);
-//        };
-//    
-//    });
+        $scope.uploadFile = function(){
+            var file = $scope.myFile;
+            var uploadUrl = "/UploadServlet";
+	        console.log('file: ' + file);
+            fileUpload.uploadFileToUrl(file, uploadUrl);
+        };
+	});
