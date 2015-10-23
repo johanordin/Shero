@@ -3,12 +3,16 @@ angular.module('SHeroApp')
 
 	    $scope.generalForm = {};
 		$scope.addressForm = {};
-	    
-	    $scope.formData = {};      
+	    $scope.passwordForm = {};
+
+	    $scope.formData = {};	      
+	    $scope.addressData = {};
 
         $scope.$watch(function() { return $scope.formData.addressId; }, function(addressId) {
         	// addressId changes initially, when initialized, but will be empty
         	if (addressId) {
+        		$scope.generalForm.id = addressId;
+        		$scope.addressData.id = addressId;//addressById[addressId].id;
 				$scope.addressData.country = addressById[addressId].country;
         		$scope.addressData.city = addressById[addressId].city;
         		$scope.addressData.zipcode = addressById[addressId].zipcode;
@@ -34,10 +38,13 @@ angular.module('SHeroApp')
 
 	    $scope.processGeneralForm = function() {
 	    	console.log($scope.generalForm);
+	    	console.log("genId: " + $scope.generalForm.id);
+
+	    	var userId = $scope.$storage.user.id;
 	    	// TODO: hash password?
 	    	$http({
-	    		method: 'POST', // TODO: should be PUT request for update
-	    		url: '/rest/users',
+	    		method: 'PUT', // TODO: should be PUT request for update
+	    		url: '/rest/users/' + userId,
 	    		data: $scope.generalForm
 	    	}).then(function successCallback(response) {
 			    console.log("success: " + response);
@@ -47,10 +54,9 @@ angular.module('SHeroApp')
 	    }; 
 
 	    // TODO: offer possibility to edit/delete an existing, or create a new address
-
-	    $scope.processAddressForm = function() {
+	    $scope.processNewAddress = function() {
 	    	$http({
-	    		method: 'POST',
+	    		method: 'PUT',
 	    		url: '/rest/addresses',
 	    		data: $scope.addressForm
 	    	}).then(function successCallback(response) {
@@ -60,11 +66,42 @@ angular.module('SHeroApp')
 			});
 	    }; 
 
-	    $scope.processPasswordForm = function() {
+	    $scope.processAddressForm = function() {
+	    	console.log($scope.addressData.country);
+	    	console.log($scope.addressData.city);
+	    	console.log($scope.addressData.street);
+
+	    	var addressId = $scope.addressData.id;
+
 	    	$http({
-	    		method: 'POST',
-	    		url: '/rest/TODO',
-	    		data: $scope.addressForm
+	    		method: 'PUT',
+	    		url: '/rest/addresses/' + addressId,
+	    		data: $scope.addressData
+	    	}).then(function successCallback(response) {
+
+	    		// TODO: FABI, please update user data
+	    		// response looks like:
+	    		// {"id":5075345673814016,"country":"countryyy","city":"BarcelonaA","zipcode":"101","street":"Avd. Diagonal"
+				// ,"number":"21","additional":"some additional bullshit"}
+				
+			    console.log("success: " + response);
+			}, function errorCallback(response) {
+			    console.log("error: " + response);
+			});
+	    }; 
+
+	    $scope.processPasswordForm = function() {
+
+	    	// TODO: make sure password and confirmed password match
+
+	    	var hashedPassword = $scope.passwordForm.password;
+	    	var userId = $scope.$storage.user.id; // TODO: find better way to retrieve id...
+	    	console.log("id: " + userId);
+
+	    	$http({
+	    		method: 'PUT',
+	    		url: '/rest/users/' + userId + '/mail',
+	    		data: '{"hashedPassword":"' + hashedPassword + '"}'
 	    	}).then(function successCallback(response) {
 			    console.log("success: " + response);
 			}, function errorCallback(response) {
