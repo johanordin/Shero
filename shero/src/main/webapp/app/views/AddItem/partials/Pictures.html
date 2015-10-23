@@ -15,33 +15,30 @@
 <div class="text-center">
 
 	<div flow-init flow-file-success="$file.msg = $message">
+		
+		<div ng-controller = "AddItemCtrl">
+		
+		    <input type="file" file-model="myFile"/>
 
-		<div class="drop" flow-drop="" ng-class="dropClass">
-			<span class="btn btn-default" flow-btn="">Upload File <input
-				type="file" file-model="myFile" multiple="multiple"
-				style="visibility: hidden; position: absolute;">
-			</span> <b>OR</b> Drag And Drop your file here
+		    <button ng-click="uploadFile()" type="submit" class="btn btn-success">Share Item</button>
 		</div>
-
-		<!--
-    <table>
-        <tr ng-repeat="file in $flow.files">
-            <td>{{$index+1}}</td>
-            <td>{{file.name}}</td>
-            <td>{{file.msg}}</td>
-        </tr>
-    </table>
-    -->
 		<img flow-img="$flow.files[0]" />
-	</div>
+	</div>		
 
-
-	<button ng-click="uploadFile()" type="submit" class="btn btn-success">Share
-		Item</button>
-	<form action="UploadServlet" method="post"
-		enctype="multipart/form-data">
-		<input type="file" name="file" size="50" /> <br /> <input
-			type="submit" value="Upload File" />
-	</form>
-
+	
+<!-- 	<!-- Felix default upload form -->
+<!-- 	<form action="UploadServlet" method="post" -->
+<!-- 		enctype="multipart/form-data"> -->
+<!-- 		<input type="file" name="file" size="50" /> <br /> <input -->
+<!-- 			type="submit" value="Upload File" /> -->
+<!-- 	</form> -->
 </div>
+
+
+<!-- 	<!-- Drag and drop file, dont work -->
+<!--  <div class="drop" flow-drop="" ng-class="dropClass"> -->
+<!-- 	<span class="btn btn-default" flow-btn="">Upload File  -->
+<!-- 		<input type="file" file-model="myFile" style="visibility: hidden; position: absolute;"> -->
+<!-- 	</span>  -->
+<!-- 	<b>OR</b> Drag And Drop your file here -->
+<!-- </div> -->
