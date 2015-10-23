@@ -1,8 +1,16 @@
+
+language: java
+before_install:
+- openssl aes-256-cbc -K $encrypted_c916cffc00fe_key -iv $encrypted_c916cffc00fe_iv
+  -in Shero-2015.json.enc -out Shero-2015.json -d
+
+script:
+- echo "No Script to run"
+
+# [START travis_deploy]
 deploy:
   provider: gae
   keyfile: Shero-2015.json
   default: true
   project: shero-2015
-before_install:
-- openssl aes-256-cbc -K $encrypted_c916cffc00fe_key -iv $encrypted_c916cffc00fe_iv
-  -in Shero-2015.json.enc -out Shero-2015.json -d
+# [END travis_deploy]
