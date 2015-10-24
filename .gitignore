@@ -58,7 +58,7 @@ shero/.settings/
 .loadpath
 
 # Eclipse Core
-shero/.project
+*.project
 
 # External tool builders
 .externalToolBuilders/

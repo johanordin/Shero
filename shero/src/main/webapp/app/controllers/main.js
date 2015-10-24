@@ -2,17 +2,18 @@
 
 /**
  * @ngdoc function
- * @name yeomanApp.controller:MainCtrl
+ * @name SHeroApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the yeomanApp
+ * Main-controller of the SHeroApp. Does literally nothing right now.
  */
-angular.module('yeomanApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-   
-  });
+angular.module('SHeroApp')
+    .controller('MainCtrl', function ($scope, $cookies, UsersService, userDataService) {
+        if ($cookies.get('SHeroUserId') != undefined) {
+            var getUserPromise = UsersService.getUserById($cookies.get('SHeroUserId'));
+            getUserPromise.then(function(response) {
+                userDataService.store(response.data);
+                console.log("User "+ response.data.id +" logged in!");
+            });        
+        };
+    });

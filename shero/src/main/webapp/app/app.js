@@ -1,33 +1,18 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name yeomanApp
- * @description
- * # yeomanApp
- *
- * Main module of the application.
- */
+  /* Create Angular.js and inject dependencies  */
 angular
-  .module('yeomanApp', [
+  .module('SHeroApp', [
+    'gm.datepickerMultiSelect',
     'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngStorage',
+    'ui.router',
+    'ui.bootstrap',
+    'ngTagsInput',
+    'flow'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'app/views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'app/views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });

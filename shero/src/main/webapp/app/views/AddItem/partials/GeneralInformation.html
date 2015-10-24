@@ -1,0 +1,50 @@
+<div class="form-group">
+  <label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="name">Name *</label>
+  <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+  	<input type="text" class="form-control" name="name" ng-model="formData.name" placeholder="Enter the name for the item" style="border-radius: 4px;" required>
+	</div>
+</div>
+
+<div class="form-group">
+  <label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="price">Price *</label>
+  <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12 input-group">
+  	<input type="number" class="form-control" name="price" ng-model="formData.price" placeholder="Enter the price per day for the item" min="0" required>
+  	<div class="input-group-addon">€</div>
+  </div>
+</div>
+
+<div class="form-group">
+	<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="location">Location *</label>
+	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 input-group">
+		<select class="form-control" id="location" ng-model="formData.addressId" style="border-radius: 4px;" required>   
+            <option ng-repeat="address in $storage.user.addresses" value="{{address.id}}">
+                {{address.street}} {{address.number}} ({{address.zipcode}} {{address.city}})
+            </option>
+    </select>
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="description">Description</label>
+  <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group">
+	  <textarea class="form-control" rows="5" name="description" ng-model="formData.description" style="border-radius: 4px;"></textarea>
+  </div>
+</div>
+			
+<div class="form-group">
+  <label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="Tags">Tags</label>
+  <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 input-group" ng-controller="TagsCtrl">
+    <tags-input ng-model="$parent.formData.tags" class="form-control" style="border-radius: 4px;">
+      <auto-complete source="loadTags($query)"></auto-complete>
+    </tags-input>
+  </div>
+</div>
+
+<div class="form-group row">
+	<div class="col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4 col-xs-offset-3 col-xs-5">
+    <a ui-sref="addItem.availability" class="btn btn-block btn-info" ng-disabled="(formData.name == undefined) || (formData.price == undefined) || (formData.addressId == undefined)">
+    Next <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+</div>
