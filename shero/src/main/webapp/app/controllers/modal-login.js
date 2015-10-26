@@ -76,7 +76,6 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     
     //function called when the user is in register-view and clicks the register-button
     $scope.registerClicked = function() {
-        console.log(registrationForm);
         $scope.sendData.firstname = $scope.formData.firstname;
         $scope.sendData.lastname = $scope.formData.lastname;
         $scope.sendData.emailAddress = $scope.formData.emailAddress;

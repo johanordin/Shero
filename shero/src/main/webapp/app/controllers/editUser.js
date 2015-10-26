@@ -27,9 +27,12 @@ angular.module('SHeroApp')
    		// get userId/data of user that is logged in
         $scope.init = function() {
         	var addresses = $scope.$storage.user.addresses;
-	       	for (var i = 0; i < addresses.length; i++) {
-    			addressById[addresses[i].id] = addresses[i];
-			}
+        	
+	       	if (addresses) {
+	        	for (var i = 0; i < addresses.length; i++) {
+	    			addressById[addresses[i].id] = addresses[i];
+				}	
+        	}
 		};
 
 		// call init function when controller is loaded
