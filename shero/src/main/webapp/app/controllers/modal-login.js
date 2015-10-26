@@ -66,11 +66,24 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     }
     
     $scope.loginUser = function() {
-        var getUserPromise = UsersService.getUserByMail();
+        var mail = $scope.formData.mail;
+        var hashedPassword = Sha256.hash($scope.formData.password);
+
+        var getUserPromise = UsersService.getUserByMail(mail, hashedPassword);
         getUserPromise.then(function(response) {
-            userDataService.store(response.data);
-            console.log("User "+ response.data.id +" logged in!");
-            alert("User logged in");
+            console.log("status: " + response.status);
+            console.log("data: " + response.data);
+            if (response.data.status === 'error' || response.status != '200') {
+                // do not proceed with login
+                alert("User could not be logged in.");
+
+                // TODO: should now reopen the login modal
+            } else {
+                // copy data into local storage and initiate session
+                userDataService.store(response.data);
+                console.log("User "+ response.data.id +" logged in!");
+                alert("User logged in");
+            } 
         });
     }
     

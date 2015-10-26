@@ -13,11 +13,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.googlecode.objectify.Key;
@@ -30,7 +30,6 @@ import edu.upc.ase.domain.Availability;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
-import edu.upc.ase.domain.UserRating;
 import edu.upc.ase.rest.test.TestMailService;
 
 @Path("/users")
@@ -56,12 +55,22 @@ public class UserRestService {
 	
 	@GET
 	@Path("/mail/{mail}")
-	public String getUserByMailAddress(@PathParam("mail") String mailAddress) {
-		List<User> users = ObjectifyService.ofy().load().type(User.class).filter("emailAddress", mailAddress).list();
+	public String getUserByMailAddress(@PathParam("mail") String mailAddress, @QueryParam("hashedPassword") String jsonPassword) {
+		logger.info("jsonPassword: " + jsonPassword);
+		String hashedPassword = JSON_PARSER.parse(jsonPassword).getAsString();
+		
+		// find user with this email address
+		List<User> users = ObjectifyService.ofy().load().type(User.class).filter("emailAddress", mailAddress).limit(1).list();
+		User user ;
 		if (!users.isEmpty()) {
-			return GSON.toJson(users.get(0));
+			user = users.get(0);
+			// make sure the passwords match
+			if (hashedPassword != null && hashedPassword.equals(user.getPasswordHash())) {
+				return GSON.toJson(user);
+			}
 		}
-		return "{\"status\":\"unsuccessful\"}";
+		// in all other cases return error
+		return "{\"status\":\"error\"}";
 	}
 	
 	/**
