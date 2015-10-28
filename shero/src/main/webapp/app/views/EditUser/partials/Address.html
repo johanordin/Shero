@@ -2,7 +2,7 @@
 	<div class="form-group">
 		<select class="form-control" id="address" ng-model="formData.addressId" style="border-radius: 4px;" required>
 				<option style="display:none" value="">Select an address</option>
-	            <option ng-repeat="address in $storage.user.addresses" value="{{address.id}}">
+	            <option ng-repeat="address in $storage.SHeroAddresses" value="{{address.id}}">
 	                {{address.street}} {{address.number}} ({{address.zipcode}} {{address.city}})
 	            </option>
 	    </select>

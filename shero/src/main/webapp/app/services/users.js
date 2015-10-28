@@ -16,7 +16,7 @@ angular.module('SHeroApp')
                 method: 'GET',
                 url: '/rest/users/mail/' + mail,
                 // GET request can't contain data, only parameters
-                params: {hashedPassword: password}
+                params: {hashedPassword: password} 
             }).then(function(response){
                 return response;
             })

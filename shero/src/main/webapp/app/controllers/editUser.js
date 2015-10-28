@@ -1,5 +1,5 @@
 angular.module('SHeroApp')
-	.controller('EditUserCtrl', function($scope, $http, $location, $rootScope, userDataService) {
+	.controller('EditUserCtrl', function($scope, $http, $location, $rootScope, SessionStorageService) {
 
 	    $scope.generalForm = {};
 		$scope.addressForm = {};
@@ -26,8 +26,7 @@ angular.module('SHeroApp')
 
    		// get userId/data of user that is logged in
         $scope.init = function() {
-        	var addresses = $scope.$storage.user.addresses;
-        	
+        	var addresses = SessionStorageService.getUserAddressAll();      	
 	       	if (addresses) {
 	        	for (var i = 0; i < addresses.length; i++) {
 	    			addressById[addresses[i].id] = addresses[i];
@@ -42,14 +41,14 @@ angular.module('SHeroApp')
 	    	console.log($scope.generalForm);
 	    	console.log("genId: " + $scope.generalForm.id);
 
-	    	var userId = $scope.$storage.user.id;
+	    	var userId = SessionStorageService.getUserId();
 	    	// TODO: hash password?
 	    	$http({
 	    		method: 'PUT', // TODO: should be PUT request for update
 	    		url: '/rest/users/' + userId,
 	    		data: $scope.generalForm
 	    	}).then(function successCallback(response) {
-			    console.log("success: " + response);
+			    console.log("success: " + JSON.stringify(response.data));
 			}, function errorCallback(response) {
 			    console.log("error: " + response);
 			});
@@ -57,7 +56,7 @@ angular.module('SHeroApp')
 
 	    // TODO: offer possibility to delete an existing address
 	    $scope.processNewAddress = function() {
-	    	var userId = $scope.$storage.user.id;
+	    	var userId = SessionStorageService.getUserId();
 	    	var address = $scope.addressData;
 	    	address.id = undefined; // TODO: really necessary?
 
@@ -66,18 +65,15 @@ angular.module('SHeroApp')
 	    		url: '/rest/users/' + userId + '/addresses',
 	    		data: address
 	    	}).then(function successCallback(response) {
-	    		// TODO: again update local storage
-			    console.log("success: " + response);
+	    		SessionStorageService.addUserAddress(response.data);
+			    console.log("success: " + JSON.stringify(response.data));
+                alert("New address added!");
 			}, function errorCallback(response) {
 			    console.log("error: " + response);
 			});
 	    }; 
 
 	    $scope.processAddressForm = function() {
-	    	console.log($scope.addressData.country);
-	    	console.log($scope.addressData.city);
-	    	console.log($scope.addressData.street);
-
 	    	var addressId = $scope.addressData.id;
 
 	    	$http({
@@ -85,13 +81,9 @@ angular.module('SHeroApp')
 	    		url: '/rest/addresses/' + addressId,
 	    		data: $scope.addressData
 	    	}).then(function successCallback(response) {
-
-	    		// TODO: FABI, please update user data
-	    		// response looks like:
-	    		// {"id":5075345673814016,"country":"countryyy","city":"BarcelonaA","zipcode":"101","street":"Avd. Diagonal"
-				// ,"number":"21","additional":"some additional bullshit"}
-                // userDataService.updateUserAddress(response);
-			    console.log("success: " + response);
+	    		SessionStorageService.updateUserAddress(response.data);
+			    console.log("success: " + JSON.stringify(response.data));
+                alert ("Address changed!");
 			}, function errorCallback(response) {
 			    console.log("error: " + response);
 			});
@@ -102,7 +94,7 @@ angular.module('SHeroApp')
 	    	// TODO: make sure password and confirmed password match
 
 	    	var hashedPassword = $scope.passwordForm.password;
-	    	var userId = $scope.$storage.user.id; // TODO: find better way to retrieve id...
+	    	var userId = SessionStorageService.getUserId();
 	    	console.log("id: " + userId);
 
 	    	$http({

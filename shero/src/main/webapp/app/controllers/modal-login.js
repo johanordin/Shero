@@ -8,7 +8,7 @@
  * Controller of the SHeroApp which is used for all operations inside the Modal for Login and Register.
  * The Login and the register are two views inside of tabs
  */
-angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modalInstance, UsersService, userDataService) {
+angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modalInstance, UsersService, SessionStorageService) {
 
     //variable to hold the input data from the user
     $scope.formData = {};
@@ -72,7 +72,7 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
         var getUserPromise = UsersService.getUserByMail(mail, hashedPassword);
         getUserPromise.then(function(response) {
             console.log("status: " + response.status);
-            console.log("data: " + response.data);
+            console.log("data: " + JSON.stringify(response.data));
             if (response.data.status === 'error' || response.status != '200') {
                 // do not proceed with login
                 alert("User could not be logged in.");
@@ -80,7 +80,7 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
                 // TODO: should now reopen the login modal
             } else {
                 // copy data into local storage and initiate session
-                userDataService.store(response.data);
+                SessionStorageService.store(response.data);
                 console.log("User "+ response.data.id +" logged in!");
                 alert("User logged in");
             } 
@@ -101,7 +101,7 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     $scope.registerUser = function() {
         var postUserPromise = UsersService.postUser($scope.sendData);
         postUserPromise.then(function(response) {
-            userDataService.store(response.data);
+            SessionStorageService.store(response.data);
             console.log("User " + response.data.id + " created!")
             alert("User created");
         });

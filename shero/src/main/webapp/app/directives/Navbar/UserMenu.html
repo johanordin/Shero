@@ -10,15 +10,15 @@
             role="button" 
             aria-haspopup="true" 
             aria-expanded="false">
-        <i class="fa fa-user"></i> {{$storage.user.firstname}} {{$storage.user.lastname}} <span class="caret"></span>
+        <i class="fa fa-user"></i> {{$storage.SHeroFirstname}} {{$storage.SHeroLastname}} <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
             <li><a ui-sref="editUser"><i class="fa fa-pencil"></i> Edit Profile</a></li>
             <li role="separator" class="divider"></li>
-            <li ng-if="$storeage.user.items.length != 0" ng-repeat="item in $storage.user.items">
+            <li ng-if="$storage.SHeroItems.length != 0" ng-repeat="item in $storage.SHeroItems">
                 <a ui-sref="editItem"><i class="fa fa-wrench"></i> {{item.name}}</a>
             </li>
-            <li ng-if="$storage.user.items.length == 0">
+            <li ng-if="$storage.SHeroItems.length == 0">
                 <a ui-sref="addItem"><i class="fa fa-plus"></i> Be a SHero!</a>
             </li>
             <li role="separator" class="divider"></li>

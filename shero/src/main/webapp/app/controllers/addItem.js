@@ -7,7 +7,7 @@
  * adding a new item.
  */
 angular.module('SHeroApp')
-	.controller('AddItemCtrl', function($scope, $http, $location, $rootScope, ItemsService, userDataService, fileUpload) {
+	.controller('AddItemCtrl', function($scope, $http, $location, $rootScope, ItemsService, SessionStorageService, fileUploadService) {
 	    
 		//Data of the user-form which is going to sent to server
 	    $scope.formData = {};
@@ -22,7 +22,7 @@ angular.module('SHeroApp')
 	    $scope.processForm = function() {
             var postItemPromise = ItemsService.postItem($scope.formData);
             postItemPromise.then(function(response) {
-                userDataService.updateUserData(response.data);
+                SessionStorageService.updateUserData(response.data);
                 alert ("Item created!");
             });
 	    }; 
@@ -53,6 +53,6 @@ angular.module('SHeroApp')
             var file = $scope.myFile;
             var uploadUrl = "/UploadServlet";
 	        console.log('file: ' + file);
-            fileUpload.uploadFileToUrl(file, uploadUrl);
+            fileUploadService.uploadFileToUrl(file, uploadUrl);
         };
 	});
