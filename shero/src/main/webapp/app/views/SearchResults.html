@@ -1,1 +1,41 @@
-<p>Search Results!</p>
+<div ng-init="itemlist = [
+{name:'surfboard',rating:2, price:20},
+{name:'thing',rating:6, price:50},
+{name:'car',rating:5, price:100},
+{name:'skateboard',rating:1, price:10},
+]"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-5">
+			<div ng-repeat="item in itemlist">
+				<div class="well well-lg">
+				<div class="row">
+					<div class="col-md-5">
+						<img class="img-thumbnail"  src="img/yeoman.png" alt="100%x180" style="height:180px; width: 180px; object-fit: cover;"></image>
+					</div>
+					<div class="col-md-7">
+						<div class="row">
+							<div class=".col-md-12">
+								<h1>{{item.name}} <small><i class="fa fa-star-o fa-2x pull-right">{{item.rating}}</i></small></h1>
+							</div>
+						</div>
+						<div class="row">
+							<h2>{{item.price}} €<button class="btn btn-default pull-right" type="rent">Rent</button></h2>
+						</div>
+						<div class="row">
+							<a href="#"><i class="fa fa-angle-down fa-2x"></i></a>
+						</row>
+
+					</div>
+				</div>
+			</div>
+
+			//her for å legge til kode for description
+			</div>
+		</div>
+		<div class="col-md-7">Map</div>
+	</div>
+</div>
+
+
+
