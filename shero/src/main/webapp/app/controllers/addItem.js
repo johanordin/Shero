@@ -50,9 +50,21 @@ angular.module('SHeroApp')
 		});
     
         $scope.uploadFile = function(){
-            var file = $scope.myFile;
+            
+        	//var file2 = $scope.flow-drop;
+            console.log('scope  : ' + $scope);
+            //console.log('scope is : ' + scope);
+            //console.log('scope is', scope);
+            console.log('scope is test:');
+            //var e = scope()
+            //console.log('e : ' + e);
+            //console.log('file  : ' + $file);
+            //console.log('flow  : ' + $flow);
+            
+        	var file = $scope.myFile;
             var uploadUrl = "/UploadServlet";
-	        console.log('file: ' + file);
+	        console.log('file  : ' + file);
+	        //console.log('file2 : ' + file2);
             fileUploadService.uploadFileToUrl(file, uploadUrl);
         };
 	});
