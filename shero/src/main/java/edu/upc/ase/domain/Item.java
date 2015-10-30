@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.google.gson.Gson;
-import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
@@ -17,7 +15,6 @@ import com.googlecode.objectify.annotation.OnLoad;
 
 @Entity
 public class Item {
-	private static final Gson GSON = new Gson();
 	private static final Logger logger = Logger.getLogger("Item");
 	
 	@Id
@@ -30,7 +27,7 @@ public class Item {
 	private String imagePath;
 
 	// one item has exactly one address
-	@Ignore
+	@Index
 	private Address address;
 	@Ignore
 	private List<Availability> availabilityPeriods;
@@ -39,8 +36,6 @@ public class Item {
 	@Ignore
 	private List<Tag> tags;
 
-	@Load
-	private transient Ref<Address> addressRef;
 	@Load
 	@Index
 	private transient List<Ref<Availability>> availabilityPeriodRefs = new ArrayList<Ref<Availability>>();
@@ -117,7 +112,6 @@ public class Item {
 	}
 
 	public Address getAddress() {
-		this.address = addressRef == null ? null : addressRef.get();
 		return address;
 	}
 
@@ -140,8 +134,8 @@ public class Item {
 		return imageRefs;
 	}
 
-	public void setAddress(Key<Address> address) { 
-		this.addressRef = Ref.create(address);
+	public void setAddress(Address address) { 
+		this.address = address;
 	}
 	
 	public void addTag(Ref<Tag> tag) {
