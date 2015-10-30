@@ -48,23 +48,54 @@ angular.module('SHeroApp')
 				$scope.isPictue = true;
 			}
 		});
-    
-        $scope.uploadFile = function(){
-            
-        	//var file2 = $scope.flow-drop;
-            console.log('scope  : ' + $scope);
-            //console.log('scope is : ' + scope);
-            //console.log('scope is', scope);
-            console.log('scope is test:');
-            //var e = scope()
-            //console.log('e : ' + e);
-            //console.log('file  : ' + $file);
-            //console.log('flow  : ' + $flow);
-            
-        	var file = $scope.myFile;
+		
+		$scope.obj = {};
+		
+		$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+			  //event.preventDefault();//prevent file from uploading
+				//console.log('flow' + $flow);
+				console.log('flow::fileAdded');
+				//console.log('flowFile' + flowFile);
+		});
+		
+		$scope.test = function($file, $event, $flow ){
+			console.log('$file  	 : ' + $file);
+			console.log('$event  	 : ' + $event);
+			console.log('$flow  	 : ' + $flow);
+			
+			
+			var file = $file;
             var uploadUrl = "/UploadServlet";
 	        console.log('file  : ' + file);
-	        //console.log('file2 : ' + file2);
-            fileUploadService.uploadFileToUrl(file, uploadUrl);
+	        
+			fileUploadService.uploadFileToUrl(file, uploadUrl);
+		}
+		
+		
+		$scope.uploader = {};
+		
+        $scope.uploadFile = function(){
+                        
+        	
+        	console.log('flow  : ' + $scope.uploader);
+        	//console.log(JSON.stringify($scope.uploader));
+        	
+        	//console.log('flow  : ' + $flow);
+        	//console.log(JSON.stringify($flow));
+        	console.log('test  : ');
+        	//console.log(JSON.stringify($scope.obj));
+	        console.log('scope.obj  	 : ' + $scope.obj);
+	        console.log('scope.obj.flow  : ' + $scope.obj.flow);
+	        
+	        var file = $scope.obj.flow;
+        	
+//        	var file = $scope.myFile;
+	        
+            var uploadUrl = "/UploadServlet";
+	        console.log('file  : ' + file);
+//	        
+//	            
+//	        //console.log('file2 : ' + file2);
+	        //fileUploadService.uploadFileToUrl(file, uploadUrl);
         };
 	});

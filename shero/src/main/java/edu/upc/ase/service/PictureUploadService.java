@@ -46,10 +46,16 @@ public class PictureUploadService extends HttpServlet {
 		    while (iterator.hasNext()) {
 	            FileItemStream item = iterator.next();
 	            InputStream stream = item.openStream();
-	            if (item.isFormField()) {
-	              logger.warn("Got a form field: " + item.getFieldName()+ "value="+ item.getName());
-	              System.out.println("Got a form field: " + item.getFieldName()+ "value="+ item.getName());
+	            
+	            if ( item.isFormField() ) {
+		          logger.warn("--> " + item.toString());
+		          System.out.println("-----> " + item.toString());
+		          System.out.println("-----> " + item.getContentType());
+	              logger.warn("Got a form field: " + item.getFieldName() + " value=" + item.getName() );
+	              System.out.println("Got a form field: " + item.getFieldName() + " value=" + item.getName() );
 	              String idForm= item.getFieldName();
+
+	              
 	            } else {
 	              logger.warn("Got an uploaded file: " + item.getFieldName() +
 	                          ", name = " + item.getName()+ "  content="+item.getContentType() + " header="+item.getHeaders());
