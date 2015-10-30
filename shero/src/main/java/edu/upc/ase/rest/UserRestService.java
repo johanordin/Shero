@@ -209,7 +209,8 @@ public class UserRestService {
 		// add address to item
 		Key<Address> addrKey = Key.create(Address.class,
 				Long.parseLong(addressId));
-		item.setAddress(addrKey);
+		Address address = ObjectifyService.ofy().load().type(Address.class).id(Long.parseLong(addressId)).now();
+		item.setAddress(address);
 
 		// 2. retrieve tag ids from json
 		// expected tag format:
