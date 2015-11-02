@@ -248,7 +248,7 @@ public class UserRestService {
 		// update item cache? if not, item will not have referenced entities
 		item.serialize();
 		// return new item
-		return GSON.toJson(returnUser);
+		return GSON.toJson(item);
 	}
 	
 	@PUT
