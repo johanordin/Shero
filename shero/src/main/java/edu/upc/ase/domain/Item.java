@@ -142,6 +142,10 @@ public class Item {
 		this.tagRefs.add(tag);
 	}
 	
+	public void addItemRating(Ref<ItemRating> itemRating) {
+		this.itemRatingRefs.add(itemRating);
+	}
+	
 	public void addAvailableDay(Ref<Availability> day) {
 		this.availabilityPeriodRefs.add(day);
 	}
