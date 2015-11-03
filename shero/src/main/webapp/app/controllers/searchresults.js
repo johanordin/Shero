@@ -1,16 +1,16 @@
-angular.module('ui.bootstrap.demo').controller('PaginationDemoCtrl', function ($scope, $log) {
-  $scope.totalItems = 64;
-  $scope.currentPage = 4;
+angular.module('SHeroApp').controller('SearchResultsCtrl', function($scope) { 
+  $scope.itemlist = [
+  {name:'surfboard',rating:2, price:20},
+  {name:'thing',rating:6, price:50},
+  {name:'car',rating:5, price:100},
+  {name:'skateboard',rating:1, price:10},
+  ]
 
-  $scope.setPage = function (pageNo) {
-    $scope.currentPage = pageNo;
-  };
+  $scope.show = false; 
 
-  $scope.pageChanged = function() {
-    $log.log('Page changed to: ' + $scope.currentPage);
-  };
+  $scope.expand = function(){
+    console.log("show")
+    $scope.show = true;
 
-  $scope.maxSize = 5;
-  $scope.bigTotalItems = 175;
-  $scope.bigCurrentPage = 1;
+  }
 });

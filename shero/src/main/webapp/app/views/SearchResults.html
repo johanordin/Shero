@@ -20,41 +20,32 @@
 								</div>
 							</div>
 							<div class="row">
-								<h2>{{item.price}} €<button class="btn btn-default pull-right" type="rent">Rent</button></h2>
+								<h2>{{item.price  | currency}}<button class="btn btn-default pull-right">Rent</button></h2>
 							</div>
-							<div class="row">
-								<a href="#"><i class="fa fa-angle-down fa-2x"></i></a>
-							</row>
-
+							<div class="row" role="tab" id="headingOne">
+								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fa fa-angle-down fa-2x" ng-click="expand"></i></a>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+								<div class="panel-body">
+									<p>: [Address [id=5024768138936320, country=null, city=Barcelona, zipcode=08001, street=Avd. Diagonal, number=21, additional=null], Address [id=6150668045778944, country=null, city=Madrid, zipcode=10001, street=Schinkenstrasse, number=213, additional=null]]
+										[INFO] Nov 02, 2015 4:44:18 PM edu.upc.ase.serverstartup.SetupDatastoreUtil setupUser
+										[INFO] INFO: items: [Item [id=5587718092357632, name=theItem, price=11.0, description=desc..., imagePath=null, address=null, availabilityPeriods=null, itemRatings=null]]
+										[INFO] Nov 02, 2015 4:44:47 PM com.google.appengine.api.dat persist
+										[INFO] INFO: Time to persist datastore: 30 ms</p>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div ng-controller="PaginationDemoCtrl">
-			<uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+		<div class="col-md-7">
+			<p></p>
 		</div>
 	</div>
-		
-		<div class="col-md-7">Map</div>
-	</div>
 </div>
-
-angular.module('ui.bootstrap.demo').controller('PaginationDemoCtrl', function ($scope, $log) {
-  $scope.totalItems = 64;
-  $scope.currentPage = 4;
-
-  $scope.setPage = function (pageNo) {
-    $scope.currentPage = pageNo;
-  };
-
-  $scope.pageChanged = function() {
-    $log.log('Page changed to: ' + $scope.currentPage);
-  };
-
-  $scope.maxSize = 5;
-  $scope.bigTotalItems = 175;
-  $scope.bigCurrentPage = 1;
-});
 
 
