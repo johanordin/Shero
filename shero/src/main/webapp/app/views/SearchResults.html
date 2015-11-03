@@ -22,12 +22,12 @@
 							<div class="row">
 								<h2>{{item.price  | currency}}<button class="btn btn-default pull-right">Rent</button></h2>
 							</div>
-							<div class="row" role="tab" id="headingOne">
-								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fa fa-angle-down fa-2x" ng-click="expand"></i></a>
+							<div class="row" role="tab" id="heading{{item.name}}">
+								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{item.name}}" aria-expanded="false" aria-controls="collapse{{item.name}}"><i class="fa fa-angle-down fa-2x" ng-click="expand"></i></a>
 							</div>
 						</div>
 						<div class="col-md-12">
-							<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+							<div id="collapse{{item.name}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{item.name}}">
 								<div class="panel-body">
 									<p>: [Address [id=5024768138936320, country=null, city=Barcelona, zipcode=08001, street=Avd. Diagonal, number=21, additional=null], Address [id=6150668045778944, country=null, city=Madrid, zipcode=10001, street=Schinkenstrasse, number=213, additional=null]]
 										[INFO] Nov 02, 2015 4:44:18 PM edu.upc.ase.serverstartup.SetupDatastoreUtil setupUser
