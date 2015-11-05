@@ -43,7 +43,9 @@ public class PictureUploadService extends HttpServlet {
 		  ServletFileUpload upload = new ServletFileUpload();
           try {
 			FileItemIterator iterator = upload.getItemIterator(request);
-		    while (iterator.hasNext()) {
+		    
+			String itemId = "";
+			while (iterator.hasNext()) {
 	            FileItemStream item = iterator.next();
 	            InputStream stream = item.openStream();
 	            
@@ -52,11 +54,17 @@ public class PictureUploadService extends HttpServlet {
 		          System.out.println("-----> " + item.toString());
 		          System.out.println("-----> " + item.getContentType());
 	              logger.warn("Got a form field: " + item.getFieldName() + " value=" + item.getName() );
+	              
 	              System.out.println("Got a form field: " + item.getFieldName() + " value=" + item.getName() );
-	              String idForm= item.getFieldName();
+	              
+	              if ( item.getFieldName().equals("key") ) {
+	            	  itemId = item.getName();
+	            	  System.out.println("===Key->" + item.getFieldName() + " value->" + item.getName() );
+	              }
 
 	              
 	            } else {
+	              //System.out.println("-----> " + item.toString());
 	              logger.warn("Got an uploaded file: " + item.getFieldName() +
 	                          ", name = " + item.getName()+ "  content="+item.getContentType() + " header="+item.getHeaders());
 	              System.out.println("Got an uploaded file: " + item.getFieldName() +
@@ -64,9 +72,10 @@ public class PictureUploadService extends HttpServlet {
 	              // here  save
 	              //success = insertFile(String title,String mimeType, String filename, InputStream stream);                  
 	              byte[] bytes = IOUtils.toByteArray(stream);
-	              System.out.println("File lenght: " + bytes.length);
 	              
-	              Image image = new Image(item.getName(),new Blob( bytes));
+	              System.out.println("File length: " + bytes.length);
+	              System.out.println("ItemId: " + itemId);
+	              Image image = new Image(item.getName(), new Blob( bytes));
 	              Key<Image> key = ObjectifyService.ofy().save().entity(image).now();
 	            }
 	          }

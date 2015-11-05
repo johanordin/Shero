@@ -22,12 +22,11 @@
 <div ng-app="app" 
 	 flow-init
      flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
-     flow-files-submitted="$flow.upload()">
+     flow-files-submitted="test( $files, $event, $flow )">
       
 	<div class="container">
 	  <div>
 	    <div class="thumbnail" ng-hide="$flow.files.length">
-	      <!-- <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" /> -->
           <img src="../../../../img/placeholder_small.jpeg" />
 	    </div>
 	    <h2>Upload an Image</h2>
@@ -60,6 +59,7 @@
 	  
 	</div>
 	<button ng-click="uploadFile()" type="submit" class="btn btn-success">Share Item</button>
+	<button ng-click="triggerImage()"  class="btn btn-success">Upload Picture</button>
 </div>
 
 </div>
