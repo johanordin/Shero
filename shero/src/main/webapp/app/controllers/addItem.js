@@ -24,6 +24,10 @@ angular.module('SHeroApp')
             postItemPromise.then(function(response) {
                 SessionStorageService.updateUserData(response.data);
                 alert ("Item created!");
+                
+                
+                
+                
             });
 	    }; 
   
@@ -51,32 +55,57 @@ angular.module('SHeroApp')
 		
 		$scope.obj = {};
 		
+		
+		// never called
 		$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
-			  //event.preventDefault();//prevent file from uploading
-				//console.log('flow' + $flow);
-				console.log('flow::fileAdded');
+			  event.preventDefault();//prevent file from uploading
+			  console.log('prevent file from uploading');
 				//console.log('flowFile' + flowFile);
 		});
 		
+		var outer_scope_flow = {};
+		var outer_scope_file = {};
+		var outer_scope_event = {};
+		
 		$scope.test = function($file, $event, $flow ){
+			
+			// pass a string with the picture 
+			//$flow.opts.query = { someParam: yourValue, otherParam: otherValue };
+			
 			console.log('$file  	 : ' + $file);
 			console.log('$event  	 : ' + $event);
 			console.log('$flow  	 : ' + $flow);
 			
+			outer_scope_file = $file;
+			outer_scope_flow = $flow;
+			outer_scope_event = $event;
 			
 			var file = $file;
             var uploadUrl = "/UploadServlet";
 	        console.log('file  : ' + file);
 	        
-			fileUploadService.uploadFileToUrl(file, uploadUrl);
+	        //$flow.upload();
+	        //console.log('flow upload  : ');
+		}
+		
+		$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {       
+	        $flow.opts.query = { someParam: yourValue, otherParam: otherValue };
+	    });
+		
+		$scope.triggerImage = function(){
+			
+			var value = "12314124";
+			outer_scope_flow.opts.query = {'key': value};
+			outer_scope_flow.upload();
+			console.log('flow upload  : ');
+			
 		}
 		
 		
 		$scope.uploader = {};
 		
         $scope.uploadFile = function(){
-                        
-        	
+                       
         	console.log('flow  : ' + $scope.uploader);
         	//console.log(JSON.stringify($scope.uploader));
         	
@@ -88,14 +117,10 @@ angular.module('SHeroApp')
 	        console.log('scope.obj.flow  : ' + $scope.obj.flow);
 	        
 	        var file = $scope.obj.flow;
-        	
-//        	var file = $scope.myFile;
 	        
             var uploadUrl = "/UploadServlet";
 	        console.log('file  : ' + file);
-//	        
-//	            
-//	        //console.log('file2 : ' + file2);
+
 	        //fileUploadService.uploadFileToUrl(file, uploadUrl);
         };
 	});

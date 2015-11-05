@@ -24,7 +24,7 @@ public class Item {
 	@Index
 	private Double price;
 	private String description;
-	private String imagePath;
+	private Long imageId;
 
 	// one item has exactly one address
 	@Index
@@ -99,12 +99,12 @@ public class Item {
 		this.price = price;
 	}
 
-	public String getImagePath() {
-		return imagePath;
+	public Long getImageId() {
+		return imageId;
 	}
 
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
+	public void setimageId(Long imageId) {
+		this.imageId = imageId;
 	}
 
 	public Long getId() {
@@ -148,8 +148,9 @@ public class Item {
 	
 	@Override
 	public String toString() {
+		String imageIdStr = Long.toString(imageId);
 		return "Item [id=" + id + ", name=" + name + ", price=" + price
-				+ ", description=" + description + ", imagePath=" + imagePath
+				+ ", description=" + description + ", imageId=" + imageIdStr
 				+ ", address=" + address + ", availabilityPeriods="
 				+ availabilityPeriods + ", itemRatings=" + itemRatings + "]";
 	}
