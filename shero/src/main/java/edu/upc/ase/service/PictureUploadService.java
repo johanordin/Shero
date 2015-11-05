@@ -1,8 +1,11 @@
 package edu.upc.ase.service;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +20,11 @@ import org.apache.log4j.Logger;
 import com.google.appengine.api.datastore.Blob;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Ref;
 
-import edu.upc.ase.domain.Image; 
+import edu.upc.ase.domain.Image;
+import edu.upc.ase.domain.Item;
+import edu.upc.ase.domain.Tag; 
 
 public class PictureUploadService extends HttpServlet {
 
@@ -45,38 +51,58 @@ public class PictureUploadService extends HttpServlet {
 			FileItemIterator iterator = upload.getItemIterator(request);
 		    
 			String itemId = "";
+			
 			while (iterator.hasNext()) {
 	            FileItemStream item = iterator.next();
 	            InputStream stream = item.openStream();
 	            
 	            if ( item.isFormField() ) {
-		          logger.warn("--> " + item.toString());
-		          System.out.println("-----> " + item.toString());
-		          System.out.println("-----> " + item.getContentType());
-	              logger.warn("Got a form field: " + item.getFieldName() + " value=" + item.getName() );
+		          System.out.println("ContentType: " + item.getContentType());
+	              System.out.println("Form field : " + item.getFieldName() );
 	              
-	              System.out.println("Got a form field: " + item.getFieldName() + " value=" + item.getName() );
-	              
-	              if ( item.getFieldName().equals("key") ) {
-	            	  itemId = item.getName();
-	            	  System.out.println("===Key->" + item.getFieldName() + " value->" + item.getName() );
+	              // parse the field with itemId
+	              if ( item.getFieldName().equals("itemId") ) {
+	            	// 
+	                BufferedReader reader = new BufferedReader(new InputStreamReader(item.openStream()));
+	                StringBuffer res = new StringBuffer(); 
+	                String line;
+	                while ((line = reader.readLine()) != null) {
+	                    res.append(line);
+	                }
+	                reader.close();
+	                
+	                System.out.println("imageId: " + res);
+	                itemId = res.toString();
+//	                
+//	                JSONObject jsonObj = new JSONObject(res);
+//	                String count = jsonObj.getInt("count");
+//	            	System.out.println("-#: " + data);
+	            	  
 	              }
 
 	              
 	            } else {
-	              //System.out.println("-----> " + item.toString());
-	              logger.warn("Got an uploaded file: " + item.getFieldName() +
-	                          ", name = " + item.getName()+ "  content="+item.getContentType() + " header="+item.getHeaders());
-	              System.out.println("Got an uploaded file: " + item.getFieldName() +
-	                          ", name = " + item.getName()+ "  content="+item.getContentType() + " header="+item.getHeaders());
-	              // here  save
-	              //success = insertFile(String title,String mimeType, String filename, InputStream stream);                  
+	              System.out.println("Got an uploaded file: " + item.getFieldName() + ", name = " + item.getName()+ "  content="+item.getContentType() + " header="+item.getHeaders());                  
 	              byte[] bytes = IOUtils.toByteArray(stream);
 	              
 	              System.out.println("File length: " + bytes.length);
-	              System.out.println("ItemId: " + itemId);
+	              System.out.println("ItemId     : " + itemId);
+	              
+	              // Create image and store image in datastore 
 	              Image image = new Image(item.getName(), new Blob( bytes));
 	              Key<Image> key = ObjectifyService.ofy().save().entity(image).now();
+	              
+	              // get ImageId from the instance (not needed)
+//	              Long imageId = image.getImageId();
+//		  		  Key<Image> imageKey = Key.create(Image.class, Long.parseLong(imageId.toString()));
+		  		  
+				  Ref<Image> imageRef = Ref.create(key);
+	              
+				  //
+	              Item item1 = ObjectifyService.ofy().load().type(Item.class).id(Long.parseLong(itemId)).now();
+	              item1.addImage(imageRef); //item1.addImage(Ref.create(imageRef));
+	              ObjectifyService.ofy().save().entity(item1).now();
+	              
 	            }
 	          }
 		} catch (FileUploadException e) {

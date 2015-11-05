@@ -24,7 +24,6 @@ public class Item {
 	@Index
 	private Double price;
 	private String description;
-	private Long imageId;
 
 	// one item has exactly one address
 	@Index
@@ -99,14 +98,6 @@ public class Item {
 		this.price = price;
 	}
 
-	public Long getImageId() {
-		return imageId;
-	}
-
-	public void setimageId(Long imageId) {
-		this.imageId = imageId;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -150,12 +141,14 @@ public class Item {
 		this.availabilityPeriodRefs.add(day);
 	}
 	
+	public void addImage(Ref<Image> image) {
+		this.imageRefs.add(image);
+	}
+	
 	@Override
 	public String toString() {
-		String imageIdStr = Long.toString(imageId);
 		return "Item [id=" + id + ", name=" + name + ", price=" + price
-				+ ", description=" + description + ", imageId=" + imageIdStr
-				+ ", address=" + address + ", availabilityPeriods="
+				+ ", description=" + description + ", address=" + address + ", availabilityPeriods="
 				+ availabilityPeriods + ", itemRatings=" + itemRatings + "]";
 	}
 	
