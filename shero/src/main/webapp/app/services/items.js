@@ -13,10 +13,25 @@ angular.module('SHeroApp')
         };
     
         var searchItems = function (name, city, from, to) {
+            params = {};
+
+            if (name) {
+                params.name = name;
+            }
+
+            if (city) {
+                params.city = city;
+            }
+
+            if (from && to) {
+                params.from = from;
+                params.to = to;
+            }
+
             return $http({
                 method: 'GET',
-                url: 'items',
-                params: {name: name, city: city, from: from, to: to}
+                url: '/rest/items',
+                params : params
             }).then(function(response){
                 return response; 
             });

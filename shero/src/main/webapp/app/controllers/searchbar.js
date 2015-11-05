@@ -12,10 +12,6 @@ angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, ItemsSer
 	$scope.isHome = false;
     
     $scope.formData = {};
-    $scope.formData.name = "";
-    $scope.formData.city = "";
-    $scope.formData.from = "";
-    $scope.formData.to = "";
     
     var getCitiesPromise = AddressesService.getAllCities();
     getCitiesPromise.then(function(response) {
@@ -23,9 +19,15 @@ angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, ItemsSer
     });
     
     $scope.processForm = function () {
-        $scope.from = Date.parse($scope.formData.from)/1000;
-        $scope.to = Date.parse($scope.formData.to)/1000;
-        var searchItemsPromise = ItemsService.searchItems($scope.formData.name, $scope.formData.city, $scope.from, $scope.to);
+        console.log($scope.formData.name);
+        console.log($scope.formData.city);
+        console.log($scope.formData.from);
+        console.log($scope.formData.to);
+        
+        var from = $scope.formData.from ? (Date.parse($scope.formData.from)/1000) : '';
+        var to = $scope.formData.to ? (Date.parse($scope.formData.to)/1000) : '';
+
+        var searchItemsPromise = ItemsService.searchItems($scope.formData.name, $scope.formData.city, from, to);
             searchItemsPromise.then(function(response) {
                 console.log(JSON.stringify(response));
                 alert(JSON.stringify(response));
