@@ -22,7 +22,7 @@ angular.module('SHeroApp')
 	    $scope.processForm = function() {
             var postItemPromise = ItemsService.postItem($scope.formData);
             postItemPromise.then(function(response) {
-                SessionStorageService.updateUserData(response.data);
+                SessionStorageService.addUserItem(response.data);
                 alert ("Item created!");
                 
                 

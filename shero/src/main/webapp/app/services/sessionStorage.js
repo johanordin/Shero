@@ -45,6 +45,11 @@ angular.module('SHeroApp')
     
         //function to add a new item at the end of the items array in the sessionStorage
         var addUserItem = function (newItem) {
+            $rootScope.$storage.SHeroItems.push(newItems);  
+        };
+    
+        //function to add a new item at the end of the items array in the sessionStorage
+        var addUserItem = function (newItem) {
             $rootScope.$storage.SHeroItems.push(newItem);  
         };
     
@@ -176,6 +181,10 @@ angular.module('SHeroApp')
         var getUserRatingAll = function () {
             return $rootScope.$storage.SHeroReceivedRatings;  
         };
+
+        var deleteUserAddress = function (addressId) {
+            //TODO Katya, take a look at updateUserAddressSpecific
+        };
         
         return {
             store: storeUserData,
@@ -203,6 +212,7 @@ angular.module('SHeroApp')
             getUserItemSpecific: getUserItemSpecific,
             getUserItemAll: getUserItemAll,
             getUserRatingSpecific: getUserRatingSpecific,
-            getUserRatingAll: getUserRatingAll
+            getUserRatingAll: getUserRatingAll,
+            deleteUserAddress: deleteUserAddress
         };
     })
