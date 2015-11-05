@@ -8,7 +8,7 @@
  * Controller of the SHeroApp which is used for all operations inside the Modal for Login and Register.
  * The Login and the register are two views inside of tabs
  */
-angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modalInstance, UsersService, userDataService) {
+angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modalInstance, UsersService, SessionStorageService) {
 
     //variable to hold the input data from the user
     $scope.formData = {};
@@ -66,17 +66,29 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     }
     
     $scope.loginUser = function() {
-        var getUserPromise = UsersService.getUserByMail();
+        var mail = $scope.formData.mail;
+        var hashedPassword = Sha256.hash($scope.formData.password);
+
+        var getUserPromise = UsersService.getUserByMail(mail, hashedPassword);
         getUserPromise.then(function(response) {
-            userDataService.store(response.data);
-            console.log("User "+ response.data.id +" logged in!");
-            alert("User logged in");
+            console.log("status: " + response.status);
+            console.log("data: " + JSON.stringify(response.data));
+            if (response.data.status === 'error' || response.status != '200') {
+                // do not proceed with login
+                alert("User could not be logged in.");
+
+                // TODO: should now reopen the login modal
+            } else {
+                // copy data into local storage and initiate session
+                SessionStorageService.store(response.data);
+                console.log("User "+ response.data.id +" logged in!");
+                alert("User logged in");
+            } 
         });
     }
     
     //function called when the user is in register-view and clicks the register-button
     $scope.registerClicked = function() {
-        console.log(registrationForm);
         $scope.sendData.firstname = $scope.formData.firstname;
         $scope.sendData.lastname = $scope.formData.lastname;
         $scope.sendData.emailAddress = $scope.formData.emailAddress;
@@ -89,7 +101,7 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     $scope.registerUser = function() {
         var postUserPromise = UsersService.postUser($scope.sendData);
         postUserPromise.then(function(response) {
-            userDataService.store(response.data);
+            SessionStorageService.store(response.data);
             console.log("User " + response.data.id + " created!")
             alert("User created");
         });

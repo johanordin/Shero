@@ -2,7 +2,7 @@
 	<div class="form-group">
 		<select class="form-control" id="address" ng-model="formData.addressId" style="border-radius: 4px;" required>
 				<option style="display:none" value="">Select an address</option>
-	            <option ng-repeat="address in $storage.user.addresses" value="{{address.id}}">
+	            <option ng-repeat="address in $storage.SHeroAddresses" value="{{address.id}}">
 	                {{address.street}} {{address.number}} ({{address.zipcode}} {{address.city}})
 	            </option>
 	    </select>
@@ -53,8 +53,15 @@
 	<br/>
 	<div class="form-group">
 		<div class="col-sm-10">
-			<button type="submit" class="btn btn-success">Update address</button>
+			<button type="submit" ng-click="processAddressForm()" class="btn btn-success">Update address</button>  <!-- added ng-click="processAddressForm()" -->
 		</div>
 	</div>
+	<!-- added "delete-button" -->
+	<div class="form-group">
+		<div class="col-sm-10">
+			<button ng-click="deleteAddress()" class="btn btn-success">Delete address</button>  
+		</div>
+	</div>
+	
 </form>
 <button ng-click="processNewAddress()" class="btn btn-success">Add address</button>

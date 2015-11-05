@@ -8,6 +8,8 @@ import com.googlecode.objectify.ObjectifyService;
 
 import edu.upc.ase.domain.Address;
 import edu.upc.ase.domain.Item;
+import edu.upc.ase.domain.ItemRating;
+import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
 import edu.upc.ase.domain.UserRating;
 import edu.upc.ase.domain.admin.EmailTemplate;
@@ -54,16 +56,32 @@ public class SetupDatastoreUtil {
 		UserRating r2 = new UserRating(fromUser.getId(), toUser.getId(), 3);
 		
 		Item i = new Item("theItem", 11.00, "desc...");
+		i.setAddress(addr);
 		Key<Item> iKey = ObjectifyService.ofy().save().entity(i).now();
+		
+		Item i2 = new Item("an other item", 521.00, "other desc...");
+		i.setAddress(addr2);
+		Key<Item> i2Key = ObjectifyService.ofy().save().entity(i2).now();
+		
+
+		ItemRating itemRating = new ItemRating(i.getId(),from.getId(),2);
+		
+		ObjectifyService.ofy().save().entity(itemRating).now();
 		
 		ObjectifyService.ofy().save().entity(r).now();
 		ObjectifyService.ofy().save().entity(r2).now();
 		
 		from.addItem(iKey);
+		from.addItem(i2Key);
 		
 		Key<User> newUser = ObjectifyService.ofy().save().entity(from).now();
 		
 		User user = ObjectifyService.ofy().load().type(User.class).id(newUser.getId()).now();
+		
+		//Creating and saving new tag
+		Tag tag = new Tag("testtag");
+		Key<Tag> newTag = ObjectifyService.ofy().save().entity(tag).now();
+		
 		logger.info("ratings: " + user.getReceivedRatings());
 		logger.info("addresses: " + user.getAddresses());
 		logger.info("items: " + user.getItems());

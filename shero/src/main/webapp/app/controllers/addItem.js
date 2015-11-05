@@ -7,7 +7,7 @@
  * adding a new item.
  */
 angular.module('SHeroApp')
-	.controller('AddItemCtrl', function($scope, $http, $location, $rootScope, ItemsService, userDataService, fileUpload) {
+	.controller('AddItemCtrl', function($scope, $http, $location, $rootScope, ItemsService, SessionStorageService, fileUploadService) {
 	    
 		//Data of the user-form which is going to sent to server
 	    $scope.formData = {};
@@ -22,8 +22,12 @@ angular.module('SHeroApp')
 	    $scope.processForm = function() {
             var postItemPromise = ItemsService.postItem($scope.formData);
             postItemPromise.then(function(response) {
-                userDataService.updateUserData(response.data);
+                SessionStorageService.addUserItem(response.data);
                 alert ("Item created!");
+                
+                
+                
+                
             });
 	    }; 
   
@@ -48,11 +52,75 @@ angular.module('SHeroApp')
 				$scope.isPictue = true;
 			}
 		});
-    
-        $scope.uploadFile = function(){
-            var file = $scope.myFile;
+		
+		$scope.obj = {};
+		
+		
+		// never called
+		$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+			  event.preventDefault();//prevent file from uploading
+			  console.log('prevent file from uploading');
+				//console.log('flowFile' + flowFile);
+		});
+		
+		var outer_scope_flow = {};
+		var outer_scope_file = {};
+		var outer_scope_event = {};
+		
+		$scope.test = function($file, $event, $flow ){
+			
+			// pass a string with the picture 
+			//$flow.opts.query = { someParam: yourValue, otherParam: otherValue };
+			
+			console.log('$file  	 : ' + $file);
+			console.log('$event  	 : ' + $event);
+			console.log('$flow  	 : ' + $flow);
+			
+			outer_scope_file = $file;
+			outer_scope_flow = $flow;
+			outer_scope_event = $event;
+			
+			var file = $file;
             var uploadUrl = "/UploadServlet";
-	        console.log('file: ' + file);
-            fileUpload.uploadFileToUrl(file, uploadUrl);
+	        console.log('file  : ' + file);
+	        
+	        //$flow.upload();
+	        //console.log('flow upload  : ');
+		}
+		
+		$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {       
+	        $flow.opts.query = { someParam: yourValue, otherParam: otherValue };
+	    });
+		
+		$scope.triggerImage = function(){
+			
+			var value = "12314124";
+			outer_scope_flow.opts.query = {'key': value};
+			outer_scope_flow.upload();
+			console.log('flow upload  : ');
+			
+		}
+		
+		
+		$scope.uploader = {};
+		
+        $scope.uploadFile = function(){
+                       
+        	console.log('flow  : ' + $scope.uploader);
+        	//console.log(JSON.stringify($scope.uploader));
+        	
+        	//console.log('flow  : ' + $flow);
+        	//console.log(JSON.stringify($flow));
+        	console.log('test  : ');
+        	//console.log(JSON.stringify($scope.obj));
+	        console.log('scope.obj  	 : ' + $scope.obj);
+	        console.log('scope.obj.flow  : ' + $scope.obj.flow);
+	        
+	        var file = $scope.obj.flow;
+	        
+            var uploadUrl = "/UploadServlet";
+	        console.log('file  : ' + file);
+
+	        //fileUploadService.uploadFileToUrl(file, uploadUrl);
         };
 	});
