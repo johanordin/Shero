@@ -19,14 +19,16 @@ angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, ItemsSer
     
     var getCitiesPromise = AddressesService.getAllCities();
     getCitiesPromise.then(function(response) {
-        //$scope.cities;
-        console.log(JSON.stringify(response));
+        $scope.cities = response.data;
     });
     
     $scope.processForm = function () {
-        var searchItemsPromise = ItemsService.searchItems($scope.formData.name, $scope.formData.city, $scope.formData.from, $scope.formData.to);
+        $scope.from = Date.parse($scope.formData.from)/1000;
+        $scope.to = Date.parse($scope.formData.to)/1000;
+        var searchItemsPromise = ItemsService.searchItems($scope.formData.name, $scope.formData.city, $scope.from, $scope.to);
             searchItemsPromise.then(function(response) {
                 console.log(JSON.stringify(response));
+                alert(JSON.stringify(response));
             });
     };
 });
