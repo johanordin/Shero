@@ -92,9 +92,21 @@ angular.module('SHeroApp')
 	    simultaneousUploads: 4,
 	    singleFile: true
 	  };
+	  
 	  flowFactoryProvider.on('catchAll', function (event) {
-	    //console.log('catchAll', arguments);
+		//event.preventDefault();//prevent file from uploading
+	    console.log('catchAll', arguments);
 	  });
-	  // Can be used with different implementations of Flow.js
-	  // flowFactoryProvider.factory = fustyFlowFactory;
+	  
+	  flowFactoryProvider.on('flow::fileAdded', function (event, $flow, flowFile) {
+		  //event.preventDefault();//prevent file from uploading
+		  console.log('-> fileAdded called --> from factorys');
+	  });
+	 
+	  flowFactoryProvider.on('filesSubmitted', function (flowEvent, flowObj, files, event) {
+	    //event.preventDefault();//prevent file from uploading
+		console.log('->filesSubmitted called --> from factorys');
+	    console.log(files);
+	  });
+	  
 	}]);
