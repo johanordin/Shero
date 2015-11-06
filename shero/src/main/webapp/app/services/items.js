@@ -12,16 +12,5 @@ angular.module('SHeroApp')
             });
         };
     
-        var searchItems = function (name, city, from, to) {
-            return $http({
-                method: 'GET',
-                url: 'items',
-                params: {name: name, city: city, from: from, to: to}
-            }).then(function(response){
-                return response; 
-            });
-        };
-    
-        return {postItem : postItem,
-               searchItems: searchItems};
+        return {postItem : postItem};
     })

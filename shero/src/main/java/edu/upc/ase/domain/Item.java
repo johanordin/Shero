@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.google.gson.Gson;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
@@ -15,6 +17,7 @@ import com.googlecode.objectify.annotation.OnLoad;
 
 @Entity
 public class Item {
+	private static final Gson GSON = new Gson();
 	private static final Logger logger = Logger.getLogger("Item");
 	
 	@Id
@@ -24,10 +27,10 @@ public class Item {
 	@Index
 	private Double price;
 	private String description;
-	private Long imageId;
+	private String imagePath;
 
 	// one item has exactly one address
-	@Index
+	@Ignore
 	private Address address;
 	@Ignore
 	private List<Availability> availabilityPeriods;
@@ -36,6 +39,8 @@ public class Item {
 	@Ignore
 	private List<Tag> tags;
 
+	@Load
+	private transient Ref<Address> addressRef;
 	@Load
 	@Index
 	private transient List<Ref<Availability>> availabilityPeriodRefs = new ArrayList<Ref<Availability>>();
@@ -99,12 +104,12 @@ public class Item {
 		this.price = price;
 	}
 
-	public Long getImageId() {
-		return imageId;
+	public String getImagePath() {
+		return imagePath;
 	}
 
-	public void setimageId(Long imageId) {
-		this.imageId = imageId;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	public Long getId() {
@@ -112,6 +117,7 @@ public class Item {
 	}
 
 	public Address getAddress() {
+		this.address = addressRef == null ? null : addressRef.get();
 		return address;
 	}
 
@@ -134,16 +140,12 @@ public class Item {
 		return imageRefs;
 	}
 
-	public void setAddress(Address address) { 
-		this.address = address;
+	public void setAddress(Key<Address> address) { 
+		this.addressRef = Ref.create(address);
 	}
 	
 	public void addTag(Ref<Tag> tag) {
 		this.tagRefs.add(tag);
-	}
-	
-	public void addItemRating(Ref<ItemRating> itemRating) {
-		this.itemRatingRefs.add(itemRating);
 	}
 	
 	public void addAvailableDay(Ref<Availability> day) {
@@ -152,9 +154,8 @@ public class Item {
 	
 	@Override
 	public String toString() {
-		String imageIdStr = Long.toString(imageId);
 		return "Item [id=" + id + ", name=" + name + ", price=" + price
-				+ ", description=" + description + ", imageId=" + imageIdStr
+				+ ", description=" + description + ", imagePath=" + imagePath
 				+ ", address=" + address + ", availabilityPeriods="
 				+ availabilityPeriods + ", itemRatings=" + itemRatings + "]";
 	}

@@ -1,13 +1,12 @@
-<form ng-hide="isHome" class="navbar-form navbar-left" role="search" ng-submit="processForm()">
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="What are you looking for?" id="name" name="name" ng-model="formData.name">
-        <select class="form-control" id="city" name="city" ng-model="formData.city">
-            <option ng-repeat="city in cities" value="{{city.city}}">
-                {{city.city}}
-            </option>
-        </select>
-        <input type="date" class="form-control" id="from" name="from" ng-model="formData.from">
-        <input type="date" class="form-control" id="to" name="to" ng-model="formData.to">
-    </div>
-    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+<form ng-hide="searchbarCtrl.isHome" class="navbar-form navbar-left" role="search">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Item" id="item">
+    <select class="form-control" id="location">
+      <option value="" selected disabled>Location</option>
+      <option>Barcelona</option>
+      <option>Munich</option>
+      <option>Paris</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
 </form>

@@ -8,11 +8,11 @@
  * Main-controller of the SHeroApp. Does literally nothing right now.
  */
 angular.module('SHeroApp')
-    .controller('MainCtrl', function ($scope, $cookies, UsersService, SessionStorageService) {
+    .controller('MainCtrl', function ($scope, $cookies, UsersService, userDataService) {
         if ($cookies.get('SHeroUserId') != undefined) {
             var getUserPromise = UsersService.getUserById($cookies.get('SHeroUserId'));
             getUserPromise.then(function(response) {
-                SessionStorageService.store(response.data);
+                userDataService.store(response.data);
                 console.log("User "+ response.data.id +" logged in!");
             });        
         };

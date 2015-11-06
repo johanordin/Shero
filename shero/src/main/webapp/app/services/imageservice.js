@@ -1,5 +1,5 @@
 angular.module('SHeroApp')
-.service('fileUploadService', ['$http', function ($http) {
+.service('fileUpload', ['$http', function ($http) {
     this.uploadFileToUrl = function(file, uploadUrl){
         var formData = new FormData();
         formData.append("file", file);

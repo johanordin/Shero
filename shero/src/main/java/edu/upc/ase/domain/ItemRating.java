@@ -23,10 +23,6 @@ public class ItemRating {
 		this.from = from;
 		this.ratingValue = ratingValue;
 	}
-	
-	public ItemRating( Integer ratingValue) {
-		this.ratingValue = ratingValue;
-	}
 
 	public Long getItem() {
 		return item;

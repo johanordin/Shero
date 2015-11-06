@@ -11,12 +11,10 @@ angular.module('SHeroApp')
             })
         };
     
-        var getUserByMail = function(mail, password) {
+        var getUserByMail = function() {
             return $http({
-                method: 'GET',
-                url: '/rest/users/mail/' + mail,
-                // GET request can't contain data, only parameters
-                params: {hashedPassword: password} 
+                method: "GET",
+                url: "/rest/users/mail/max%40mustermann.de"
             }).then(function(response){
                 return response;
             })

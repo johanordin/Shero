@@ -13,11 +13,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.googlecode.objectify.Key;
@@ -30,6 +30,7 @@ import edu.upc.ase.domain.Availability;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
+import edu.upc.ase.domain.UserRating;
 import edu.upc.ase.rest.test.TestMailService;
 
 @Path("/users")
@@ -55,22 +56,12 @@ public class UserRestService {
 	
 	@GET
 	@Path("/mail/{mail}")
-	public String getUserByMailAddress(@PathParam("mail") String mailAddress, @QueryParam("hashedPassword") String jsonPassword) {
-		logger.info("jsonPassword: " + jsonPassword);
-		String hashedPassword = JSON_PARSER.parse(jsonPassword).getAsString();
-		
-		// find user with this email address
-		List<User> users = ObjectifyService.ofy().load().type(User.class).filter("emailAddress", mailAddress).limit(1).list();
-		User user ;
+	public String getUserByMailAddress(@PathParam("mail") String mailAddress) {
+		List<User> users = ObjectifyService.ofy().load().type(User.class).filter("emailAddress", mailAddress).list();
 		if (!users.isEmpty()) {
-			user = users.get(0);
-			// make sure the passwords match
-			if (hashedPassword != null && hashedPassword.equals(user.getPasswordHash())) {
-				return GSON.toJson(user);
-			}
+			return GSON.toJson(users.get(0));
 		}
-		// in all other cases return error
-		return "{\"status\":\"error\"}";
+		return "{\"status\":\"unsuccessful\"}";
 	}
 	
 	/**
@@ -209,8 +200,7 @@ public class UserRestService {
 		// add address to item
 		Key<Address> addrKey = Key.create(Address.class,
 				Long.parseLong(addressId));
-		Address address = ObjectifyService.ofy().load().type(Address.class).id(Long.parseLong(addressId)).now();
-		item.setAddress(address);
+		item.setAddress(addrKey);
 
 		// 2. retrieve tag ids from json
 		// expected tag format:
@@ -248,7 +238,7 @@ public class UserRestService {
 		// update item cache? if not, item will not have referenced entities
 		item.serialize();
 		// return new item
-		return GSON.toJson(item);
+		return GSON.toJson(returnUser);
 	}
 	
 	@PUT

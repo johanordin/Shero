@@ -8,7 +8,7 @@
  * Controller of the SHeroApp to control the UserMenu (right part of the navbar).
  */
 
-angular.module('SHeroApp').controller('UserMenuCtrl', function($scope, $uibModal, $rootScope, $log, SessionStorageService) {
+angular.module('SHeroApp').controller('UserMenuCtrl', function($scope, $uibModal, $rootScope, $log, userDataService) {
     
   $scope.animationsEnabled = true;
 
@@ -32,6 +32,6 @@ angular.module('SHeroApp').controller('UserMenuCtrl', function($scope, $uibModal
     
 	//If 'Logout' is clicked the cookie is deleted
 	$scope.logout = function() {
-		SessionStorageService.delete();
+		userDataService.delete();
 	};
 });

@@ -7,5 +7,5 @@
  */
 angular.module('SHeroApp')
 	.controller('RegisterCtrl', function($scope) {
-        
+
     });
