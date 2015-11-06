@@ -1,19 +1,14 @@
 <style type="text/css">
 
-.drop {
-	padding: 15px;
-	border: 2px #f1f1f1 dashed;
-	border-radius: 5px;
-	line-height: 34px;
-}
-
-.drop.drag-over {
-	background: #5CB85C;
-	color: #fff
-}
-
 .thumbnail {
-	max-width: 200px; max-height: 150px; line-height: 20px; margin-bottom: 5px;
+    line-height: 20px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    word-break: normal;
+}
+.thumbnail img {
+    max-width: 200px;
+    max-height: 150px;
 }
 
 </style>
@@ -62,10 +57,8 @@
 		  
 		</div>
 		
-		
 		<!-- <button ng-click="triggerImage()"  class="btn btn-success">Upload Picture</button> -->
+		<button type="submit" ng-show="$flow.files.length" class="btn btn-success">Share Item</button>
 	</div>
-
-	<button type="submit" class="btn btn-success">Share Item</button>
 </div>
 
