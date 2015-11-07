@@ -1,18 +1,15 @@
-<div ng-init="itemlist = [
-{name:'surfboard',rating:2, price:20},
-{name:'thing',rating:6, price:50},
-{name:'car',rating:5, price:100},
-{name:'skateboard',rating:1, price:10},
-]"></div>
 <div class="container">
+	<!-- <span> {{ itemlist }}</span>  -->
 	<div class="row">
 		<div class="col-md-5">
 			<div ng-repeat="item in itemlist">
 				<div class="well well-lg">
 					<div class="row">
+						<!-- Picture -->
 						<div class="col-md-5">
 							<img class="img-thumbnail"  src="img/yeoman.png" alt="100%x180" style="height:180px; width: 180px; object-fit: cover;"></image>
 						</div>
+						<!-- Title -->
 						<div class="col-md-7">
 							<div class="row">
 								<div class=".col-md-12">
@@ -20,20 +17,20 @@
 								</div>
 							</div>
 							<div class="row">
-								<h2>{{item.price  | currency}}<button class="btn btn-default pull-right">Rent</button></h2>
+								<h2>{{item.price  | currency : "€"}}<button class="btn btn-default pull-right">Rent</button></h2>
 							</div>
 							<div class="row" role="tab" id="heading{{item.name}}">
 								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{item.name}}" aria-expanded="false" aria-controls="collapse{{item.name}}"><i class="fa fa-angle-down fa-2x" ng-click="expand"></i></a>
 							</div>
 						</div>
+						
+						<!-- Details -->
 						<div class="col-md-12">
 							<div id="collapse{{item.name}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{item.name}}">
 								<div class="panel-body">
-									<p>: [Address [id=5024768138936320, country=null, city=Barcelona, zipcode=08001, street=Avd. Diagonal, number=21, additional=null], Address [id=6150668045778944, country=null, city=Madrid, zipcode=10001, street=Schinkenstrasse, number=213, additional=null]]
-										[INFO] Nov 02, 2015 4:44:18 PM edu.upc.ase.serverstartup.SetupDatastoreUtil setupUser
-										[INFO] INFO: items: [Item [id=5587718092357632, name=theItem, price=11.0, description=desc..., imagePath=null, address=null, availabilityPeriods=null, itemRatings=null]]
-										[INFO] Nov 02, 2015 4:44:47 PM com.google.appengine.api.dat persist
-										[INFO] INFO: Time to persist datastore: 30 ms</p>
+									<p>
+									Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+									</p>
 									</div>
 								</div>
 							</div>

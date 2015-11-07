@@ -1,6 +1,15 @@
 angular.module('SHeroApp')
     .factory('ItemsService', function($q, $timeout, $http, $cookies) {
         
+        var getAllItems = function() {
+            return $http({
+                method: "GET",
+                url: "/rest/items/"
+            }).then(function(response){
+                return response;      
+            })
+        };
+        
         var postItem = function(itemData) {
             var userId = $cookies.get('SHeroUserId');
             return $http({
@@ -12,5 +21,6 @@ angular.module('SHeroApp')
             });
         };
     
-        return {postItem : postItem};
+        return {postItem : postItem,
+        		getAllItems : getAllItems};
     })
