@@ -43,7 +43,7 @@ angular.module('SHeroApp')
             postItemPromise.then(function(response) {
                 SessionStorageService.addUserItem(response.data);
                 
-                alert("Item created!");
+                console.log("Item created!");
                 
                 console.log("response : " + JSON.stringify(response.data));
                 var itemId = response.data.id;
@@ -52,6 +52,7 @@ angular.module('SHeroApp')
     	    	console.log('After item created.');
     	    	$scope.triggerImage(itemId);
                 console.log("Image created!");
+                
                 
                 
             });
@@ -108,6 +109,14 @@ angular.module('SHeroApp')
 	        //$flow.upload();
 		}
 		
+		$scope.redirect = function () {
+			console.log("Redirect");
+			setTimeout(function() { 
+				$location.path("/Home");
+			}, 3000);
+			
+		}
+		
 		
 		$scope.obj = {};
 		$scope.uploader = {};
@@ -115,7 +124,10 @@ angular.module('SHeroApp')
 		var outer_scope_file = {};
 		var outer_scope_event = {};
 		
-		
+		$scope.$on('flow::complete', function (event, $flow, flowFile) {
+			console.log('->Inside complete'); 
+			  
+		});	
 		
 		// never called
 		$scope.$on('flow::filesAdded', function (event, $flow, flowFile) {
