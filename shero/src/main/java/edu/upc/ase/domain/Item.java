@@ -26,18 +26,14 @@ public class Item {
 	private String description;
 
 	// one item has exactly one address
-	@Index
 	private Address address;
-	@Ignore
-	private List<Availability> availabilityPeriods;
+	
+	private List<Availability> availabilityPeriods = new ArrayList<Availability>();
 	@Ignore
 	private List<ItemRating> itemRatings;
 	@Ignore
 	private List<Tag> tags;
 
-	@Load
-	@Index
-	private transient List<Ref<Availability>> availabilityPeriodRefs = new ArrayList<Ref<Availability>>();
 	@Load
 	private transient List<Ref<ItemRating>> itemRatingRefs = new ArrayList<Ref<ItemRating>>();
 	@Load
@@ -107,7 +103,6 @@ public class Item {
 	}
 
 	public List<Availability> getAvailabilityPeriods() {
-		this.availabilityPeriods = new ArrayList<Availability>(ObjectifyService.ofy().load().refs(availabilityPeriodRefs).values());
 		return availabilityPeriods;
 	}
 
@@ -137,8 +132,8 @@ public class Item {
 		this.itemRatingRefs.add(itemRating);
 	}
 	
-	public void addAvailableDay(Ref<Availability> day) {
-		this.availabilityPeriodRefs.add(day);
+	public void addAvailableDay(Availability day) {
+		this.availabilityPeriods.add(day);
 	}
 	
 	public void addImage(Ref<Image> image) {
