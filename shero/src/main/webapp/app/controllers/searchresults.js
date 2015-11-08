@@ -15,12 +15,15 @@ angular.module('SHeroApp')
 	$scope.fetchItems = function() {
 		var getAllItems = ItemsService.getAllItems();
 		getAllItems.then(function(response) {
-			console.log(response.data);
-			console.log(JSON.stringify(response.data));
-			
-			$scope.itemlist = response.data;
-			
-			console.log("scope itemlist: " + $scope.itemlist);
+			$scope.itemlist = response.data;           
+            
+            $scope.itemlist.forEach(function(item) {
+                item.availabilityDates = [];
+                item.availabilityPeriods.forEach(function(availability) {
+                    availabilityDates.push(availability.availabilityDate);
+                });
+            });
+			console.log(JSON.stringify($scope.itemlist));
         });
     }; 
 	
