@@ -1,29 +1,32 @@
 <div ng-init="itemlist = [
-{name:'surfboard',rating:2, price:20},
-{name:'thing',rating:6, price:50},
-{name:'car',rating:5, price:100},
-{name:'skateboard',rating:1, price:10},
+{name:'surfboard',rating:2, price:20, location:'Placa Catalunya 20'},
+{name:'thing',rating:6, price:50, location:'Placa Catalunya 20'},
+{name:'car',rating:5, price:100, location:'Placa Catalunya 20'},
+{name:'skateboard',rating:1, price:10, location:'Placa Catalunya 20'},
 ]"></div>
 <div class="container">
 	<div class="row">
-		<div class="col-md-5">
+		<div class="col-md-8 center-block col-xs-12">
 			<div ng-repeat="item in itemlist">
-				<div class="well well-lg">
+				<div class="well well-lg list">
 					<div class="row">
 						<div class="col-md-5">
-							<img class="img-thumbnail"  src="img/yeoman.png" alt="100%x180" style="height:180px; width: 180px; object-fit: cover;"></image>
+							<img class="img-circle center-block"  src="img/Bike.jpeg" alt="100%x180" style="height:180px; width: 180px; object-fit: cover;"></image>
 						</div>
 						<div class="col-md-7">
 							<div class="row">
-								<div class=".col-md-12">
-									<h1>{{item.name}} <small><i class="fa fa-star-o fa-2x pull-right">{{item.rating}}</i></small></h1>
+								<div class=".col-md-6">
+									<h1>{{item.name}} </h1>
+								</div>
+								<div class=".col-md-6">
+									<div ng-repeat="n in [] | range: item.rating">
+										<small><i class="fa fa-star-o fa-2x pull-right"></i></small>
+									</div>
+
 								</div>
 							</div>
 							<div class="row">
-								<h2>{{item.price  | currency}}<button class="btn btn-default pull-right">Rent</button></h2>
-							</div>
-							<div class="row" role="tab" id="heading{{item.name}}">
-								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{item.name}}" aria-expanded="false" aria-controls="collapse{{item.name}}"><i class="fa fa-angle-down fa-2x" ng-click="expand"></i></a>
+								<h3>{{item.location}}</h3>
 							</div>
 						</div>
 						<div class="col-md-12">
@@ -37,13 +40,16 @@
 									</div>
 								</div>
 							</div>
+
+							<div class="row" role="tab" id="heading{{item.name}}">
+								<div class="col-md-12">
+										<div class="center-block" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{item.name}}" aria-expanded="false" aria-controls="collapse{{item.name}}"><button class="btn btn-circle btn-success" ng-click="expand">Rent</button></div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-7">
-			<p></p>
 		</div>
 	</div>
 </div>

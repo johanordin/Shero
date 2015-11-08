@@ -14,3 +14,26 @@ angular.module('SHeroApp').controller('SearchResultsCtrl', function($scope) {
 
   }
 });
+//to show the rating as stars
+angular.module('SHeroApp').filter('range', function() {
+  return function(input, total) {
+    total = parseInt(total);
+
+    for (var i=0; i<total; i++) {
+      input.push(i);
+    }
+
+    return input;
+  };
+
+  $('#rent').click(function () {
+    if($('button span').hasClass('glyphicon-chevron-down'))
+    {
+      $('#rent').html('Details'); 
+    }
+    else
+    {      
+      $('#rent').html('Rent'); 
+    }
+  });
+});
