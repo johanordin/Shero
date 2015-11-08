@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div ng-init="itemlist = [
 {name:'surfboard',rating:2, price:20, location:'Placa Catalunya 20'},
 {name:'thing',rating:6, price:50, location:'Placa Catalunya 20'},
@@ -5,14 +6,17 @@
 {name:'skateboard',rating:1, price:10, location:'Placa Catalunya 20'},
 ]"></div>
 <div class="container">
+	<!-- <span> {{ itemlist }}</span>  -->
 	<div class="row">
 		<div class="col-md-8 center-block col-xs-12">
 			<div ng-repeat="item in itemlist">
 				<div class="well well-lg list">
 					<div class="row">
+						<!-- Picture -->
 						<div class="col-md-5">
 							<img class="img-circle center-block"  src="img/Bike.jpeg" alt="100%x180" style="height:180px; width: 180px; object-fit: cover;"></image>
 						</div>
+						<!-- Title -->
 						<div class="col-md-7">
 							<div class="row">
 								<div class=".col-md-6">
@@ -27,17 +31,24 @@
 							</div>
 							<div class="row">
 								<h3>{{item.location}}</h3>
+								</div>
+								<div class="row">
+								<h2>{{item.price  | currency : "€"}}</h2>
 							</div>
 						</div>
+						
+						<!-- Details -->
 						<div class="col-md-12">
 							<div id="collapse{{item.name}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{item.name}}">
 								<div class="panel-body">
-									<p>: [Address [id=5024768138936320, country=null, city=Barcelona, zipcode=08001, street=Avd. Diagonal, number=21, additional=null], Address [id=6150668045778944, country=null, city=Madrid, zipcode=10001, street=Schinkenstrasse, number=213, additional=null]]
-										[INFO] Nov 02, 2015 4:44:18 PM edu.upc.ase.serverstartup.SetupDatastoreUtil setupUser
-										[INFO] INFO: items: [Item [id=5587718092357632, name=theItem, price=11.0, description=desc..., imagePath=null, address=null, availabilityPeriods=null, itemRatings=null]]
-										[INFO] Nov 02, 2015 4:44:47 PM com.google.appengine.api.dat persist
-										[INFO] INFO: Time to persist datastore: 30 ms</p>
+									<p>
+									{{item.description}}
+									</p>
 									</div>
+                                <div class="col-lg-4 col-offset-1 col-md-5 col-sm-5 col-xs-12">
+                                  <uib-datepicker ng-model='activeDate' multi-select='item.availabilityDates' name="datepicker"></uib-datepicker>
+                                </div>
+                                {{item.availabilityDates}}
 								</div>
 							</div>
 
