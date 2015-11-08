@@ -1,5 +1,7 @@
 package edu.upc.ase.rest;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -20,6 +22,7 @@ import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
 
 import edu.upc.ase.domain.Item;
+import edu.upc.ase.helper.Util;
 
 @Path("/items")
 public class ItemRestService {
@@ -37,21 +40,36 @@ public class ItemRestService {
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getItemByExactName(@QueryParam("name") String itemName, @QueryParam("city") String cityName, @QueryParam("from") String from, @QueryParam("to") String to) {
+	public String getItemByExactName(@QueryParam("name") String itemName, @QueryParam("city") String cityName, @QueryParam("from") String from, @QueryParam("to") String to, @QueryParam("lo") String lo, @QueryParam("hi") String hi) {
 		// if no additional filters are added, this retrieves all items
 		Query<Item> q = ObjectifyService.ofy().load().type(Item.class);
 		
 		// filters are only added if the query parameter is specified
-		if (from != null && to != null) {
-			q = q.filter("price >=" , Double.valueOf(from)).filter("price <=", Double.valueOf(to));
-		}
-		
 		if (itemName != null) {
 			q = q.filter("name" , itemName); 
 		}
 		
 		if (cityName != null) {
 			q = q.filter("address.city =", cityName);
+		}
+		
+		if (from != null && to != null) {
+			Date start = new Date(Long.parseLong(from));
+			Date end = new Date(Long.parseLong(to));
+			
+			// determine all dates in this time range
+			List<Date> dates = new ArrayList<Date>();
+			dates = Util.getPeriodDates(start, end);
+			
+			// filter if item is available on all specified dates
+			for(Date d : dates) {
+				q = q.filter("availabilityPeriods.availabilityDate", d);
+			}
+		}
+		
+		// filter by price
+		if (lo != null && hi != null) {
+			q = q.filter("price >=" , Double.valueOf(lo)).filter("price <=", Double.valueOf(hi));
 		}
 		
 		// execute query
