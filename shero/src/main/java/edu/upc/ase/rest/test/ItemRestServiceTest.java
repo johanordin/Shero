@@ -54,26 +54,26 @@ public class ItemRestServiceTest {
         helper.tearDown();
     }
     
-	@Test
-	public void testGetItemsByExactname() {
-		
-		String itemsJson = itemRestService.getItemByExactName("Junit", "", "", "");
-		System.out.println("Result:" + itemsJson);
-	}
-	
-	@Test
-	public void testGetAllItems() {
-		
-		String itemsJson = itemRestService.getAllItems();
-		System.out.println("Result:" + itemsJson);
-	}
-	
-	@Test
-	public void testGetItems() {
-		
-		String itemsJson = itemRestService.getItemByNameLocationAvailability("", "", "", "");
-		System.out.println("Result:" + itemsJson);
-	}
+//	@Test
+//	public void testGetItemsByExactname() {
+//		
+//		String itemsJson = itemRestService.getItemByExactName("Junit", "", "", "");
+//		System.out.println("Result:" + itemsJson);
+//	}
+//	
+//	@Test
+//	public void testGetAllItems() {
+//		
+//		String itemsJson = itemRestService.getAllItems();
+//		System.out.println("Result:" + itemsJson);
+//	}
+//	
+//	@Test
+//	public void testGetItems() {
+//		
+//		String itemsJson = itemRestService.getItemByNameLocationAvailability("", "", "", "");
+//		System.out.println("Result:" + itemsJson);
+//	}
 
 	@Test
 	public void testGetItem() {
