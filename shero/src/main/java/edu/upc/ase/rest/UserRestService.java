@@ -231,8 +231,8 @@ public class UserRestService {
 		for (int i = 0; i < availabilityDates.size(); i++) {
 			Date date = new Date(availabilityDates.get(i).getAsLong());
 			Availability availableDay = new Availability(date);
-			Key<Availability> dayKey = ObjectifyService.ofy().save().entity(availableDay).now();
-			item.addAvailableDay(Ref.create(dayKey));
+			ObjectifyService.ofy().save().entity(availableDay).now();
+			item.addAvailableDay(availableDay);
 		}
 		
 		// save and add item to user
