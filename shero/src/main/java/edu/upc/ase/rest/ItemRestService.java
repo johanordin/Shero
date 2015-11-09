@@ -1,5 +1,6 @@
 package edu.upc.ase.rest;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,12 +16,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
 
+import edu.upc.ase.dao.ImageDao;
+import edu.upc.ase.domain.Image;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.helper.Util;
 
@@ -28,6 +32,16 @@ import edu.upc.ase.helper.Util;
 public class ItemRestService {
 	private static final Gson GSON = new Gson();
 	private static final Logger logger = Logger.getLogger("ItemRestService");
+	
+	
+	//For testing purposes
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/allitems")
+	public String getItems() {
+		List<Item> items = ObjectifyService.ofy().load().type(Item.class).list();
+		return GSON.toJson(items);
+	}
 	
 	/**
 	 * see: https://github.com/objectify/objectify/wiki/Queries
@@ -74,6 +88,7 @@ public class ItemRestService {
 		
 		// execute query
 		List<Item> results = q.list();
+		
 		logger.info("query: " + q);
 		
 		return GSON.toJson(results);
@@ -124,5 +139,18 @@ public class ItemRestService {
 		// fix: returns successful even if entity does not exist
 		return "{\"status\":\"successful\"}";
 	}
+	
+	@GET
+	@Path("/image/{id}")
+	@Produces("image/png")
+	public Response getFullImage(@PathParam("id") String id) {
 
+		Image image = ImageDao.getImageById(id);
+
+		// uncomment line below to send non-streamed
+	    // return Response.ok(imageData).build();
+
+	    // uncomment line below to send streamed
+	     return Response.ok(new ByteArrayInputStream(image.getImage().getBytes())).build();
+	}
 }

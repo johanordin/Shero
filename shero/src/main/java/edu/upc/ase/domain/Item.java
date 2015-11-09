@@ -33,6 +33,8 @@ public class Item {
 	private List<ItemRating> itemRatings;
 	@Ignore
 	private List<Tag> tags;
+	
+	private String imageId;
 
 	@Load
 	private transient List<Ref<ItemRating>> itemRatingRefs = new ArrayList<Ref<ItemRating>>();
@@ -116,6 +118,14 @@ public class Item {
 		return tags;
 	}
 	
+	public String getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
+	}
+
 	public List<Ref<Image>> getImageRefs() {
 		return imageRefs;
 	}

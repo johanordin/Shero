@@ -20,7 +20,10 @@ angular.module('SHeroApp')
             $scope.itemlist.forEach(function(item) {
                 item.availabilityDates = [];
                 item.availabilityPeriods.forEach(function(availability) {
-                    availabilityDates.push(availability.availabilityDate);
+                	
+                	// Convert to unixtime
+                	var unixtime = Date.parse(availability.availabilityDate);
+                    item.availabilityDates.push(unixtime);
                 });
             });
 			console.log(JSON.stringify($scope.itemlist));
