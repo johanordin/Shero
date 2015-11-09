@@ -89,9 +89,6 @@ angular.module('SHeroApp')
 	    	address.id = undefined; // TODO: really necessary?
 	    	console.log(address);
 
-			if ($scope.addressForm.country == undefined){
-				alert("Address is empty");
-			} else{
 	    	$http({
 	    		method: 'POST',
 	    		url: '/rest/users/' + userId + '/addresses',
@@ -103,7 +100,7 @@ angular.module('SHeroApp')
 			}, function errorCallback(response) {
 			    console.log("error: " + response);
 			});
-			} 			
+			 			
 	    }; 
 		
 		// update address
