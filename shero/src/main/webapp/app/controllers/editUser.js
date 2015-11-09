@@ -39,15 +39,16 @@ angular.module('SHeroApp')
 
 	    $scope.processGeneralForm = function() {
 	    	console.log($scope.generalForm);
-	    	console.log("genId: " + $scope.generalForm.id);
 
 	    	var userId = SessionStorageService.getUserId();
+	    	console.log("userId: " + userId);
 	    	// TODO: hash password?
 	    	$http({
 	    		method: 'PUT', // TODO: should be PUT request for update
 	    		url: '/rest/users/' + userId,
 	    		data: $scope.generalForm
 	    	}).then(function successCallback(response) {
+	    		SessionStorageService.updateUserData(response.data);
 			    console.log("success: " + JSON.stringify(response.data));
 			}, function errorCallback(response) {
 			    console.log("error: " + response);
