@@ -1,8 +1,21 @@
 
+<div ng-init="itemlist = [
+{name:'surfboard',rating:2, price:20, location:'Placa Catalunya 20'},
+{name:'thing',rating:6, price:50, location:'Placa Catalunya 20'},
+{name:'car',rating:5, price:100, location:'Placa Catalunya 20'},
+{name:'skateboard',rating:1, price:10, location:'Placa Catalunya 20'},
+]"></div>
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 ">
-			<div ng-repeat="item in itemlist">
+            <button ng-click="sort('price')">Price
+                 <span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            </button>
+            <button ng-click="sort('name')">Name
+                 <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            </button>
+			<div ng-repeat="item in itemlist|orderBy:sortKey:reverse">
 				<div class="well">
 					<div class="row">
 						<!-- Picture -->
