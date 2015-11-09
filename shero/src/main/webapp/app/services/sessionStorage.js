@@ -30,7 +30,7 @@ angular.module('SHeroApp')
         //function to delete all userdata from sessionStorage and to delete cookie
         var deleteUserData = function () {
             var expiry = new Date();
-            var date = new Date();
+            var date = new Date(); 
             expiry.setTime(date.getTime()-(30*60*1000)); //Cookie expires before 30 Minutes
             $cookies.put('SHeroUserId', '', {'expires': expiry.toGMTString()})
             
@@ -182,10 +182,15 @@ angular.module('SHeroApp')
             return $rootScope.$storage.SHeroReceivedRatings;  
         };
 
+        //function to delete an address
         var deleteUserAddress = function (addressId) {
-            //TODO Katya, take a look at updateUserAddressSpecific
+            for (var index = 0; index < $rootScope.$storage.SHeroAddresses.length; ++index) {
+                var address = $rootScope.$storage.SHeroAddresses[index];
+                if(address.id == newAddress.id) {
+                    $rootScope.$storage.SHeroAddresses.remove(index);
+                }
+            }
         };
-        
         return {
             store: storeUserData,
             delete: deleteUserData,
