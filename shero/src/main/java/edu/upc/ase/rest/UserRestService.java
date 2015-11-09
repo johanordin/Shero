@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.googlecode.objectify.Key;
@@ -153,11 +154,46 @@ public class UserRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
-	public String updateUser(String jsonUser) {
-		User updatedUser = GSON.fromJson(jsonUser, User.class);
-		Key<User> key = ObjectifyService.ofy().save().entity(updatedUser).now();
-		User user = ObjectifyService.ofy().load().type(User.class).id(key.getId()).now();
-		return GSON.toJson(user);
+	public String updateUser(@PathParam("id") String userId, String jsonUser) {
+		// load respective user
+		User user = ObjectifyService.ofy().load().type(User.class).id(Long.parseLong(userId)).now();
+		
+		JsonObject jsonObj = JSON_PARSER.parse(jsonUser).getAsJsonObject();
+		
+		String firstname = "";
+		String lastname = "";
+		String email = "";
+		
+		JsonElement fname = jsonObj.get("firstname");
+		if (fname != null) {
+			firstname = fname.toString().replace("\"", "");
+		}
+		
+		JsonElement lname = jsonObj.get("lastname");
+		if (lname != null) {
+			lastname = lname.toString().replace("\"", "");
+		}
+		
+		JsonElement mail = jsonObj.get("emailAddress");
+		if (mail != null) {
+			email = mail.toString().replace("\"", "");
+		}
+		
+		if (!firstname.isEmpty()) {
+			user.setFirstname(firstname);
+		}
+		
+		if (!lastname.isEmpty()) {
+			user.setLastname(lastname);
+		}
+		
+		if (!email.isEmpty()) {
+			user.setEmailAddress(email);
+		}
+
+		Key<User> key = ObjectifyService.ofy().save().entity(user).now();
+		User updatedUser = ObjectifyService.ofy().load().type(User.class).id(key.getId()).now();
+		return GSON.toJson(updatedUser);
 	}
 	
 	@DELETE
