@@ -20,7 +20,9 @@ angular.module('SHeroApp')
  			//Search Results
  			.state('searchResult', {
  				url: '/SearchResults',
-        		templateUrl: 'app/views/SearchResults.html'
+        		templateUrl: 'app/views/SearchResults.html',
+            controller: 'SearchResultsCtrl',
+            controllerAs: 'searchResultCtrl'
       		})
         
             //Abstract state

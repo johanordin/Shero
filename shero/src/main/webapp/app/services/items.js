@@ -1,6 +1,15 @@
 angular.module('SHeroApp')
     .factory('ItemsService', function($q, $timeout, $http, $cookies) {
         
+        var getAllItems = function() {
+            return $http({
+                method: "GET",
+                url: "/rest/items/"
+            }).then(function(response){
+                return response;      
+            })
+        };
+        
         var postItem = function(itemData) {
             var userId = $cookies.get('SHeroUserId');
             return $http({
@@ -11,7 +20,7 @@ angular.module('SHeroApp')
                 return response;
             });
         };
-    
+
         var searchItems = function (name, city, from, to) {
             params = {};
 
@@ -38,5 +47,6 @@ angular.module('SHeroApp')
         };
     
         return {postItem : postItem,
-               searchItems: searchItems};
+               searchItems: searchItems,
+        		getAllItems : getAllItems};
     })

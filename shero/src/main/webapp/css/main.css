@@ -139,3 +139,46 @@ body {
 .form-control {
     border-radius: 4px;
 }
+
+.well.list {
+    background-color: #CCFFE5;
+}
+
+.itemtag{
+	white-space:nowrap;
+	position:relative;
+	margin:0 5px 0 10px;
+	displaY:inline-block;
+	height:25px;
+	border-radius: 0 5px 5px 0;
+	padding: 0 25px 0 15px;
+	background:#E8EDF0;
+	border: 1px solid #C7D2D4;
+	color:#999;
+	line-height:23px;
+}
+.itemtag:after{
+	position:absolute;
+	right:0;
+	margin:1px 7px;
+	font-weight:bold;
+	font-size:19px;
+	content:"\00D7";
+}
+.itemtag:before{
+	position:absolute;
+	background:#E8EDF0;
+	content:"\25CF";
+	color:white;
+	text-shadow: 0 0 1px #aaa;
+	font-size:12px;
+	line-height:13px;
+	text-indent:6px;
+	top:3px;
+	left:-10px;
+	width: 18px;
+	height: 18px;
+	transform: rotate(45deg);
+	border-left:1px solid #C7D2D4;
+	border-bottom:1px solid #C7D2D4;
+}
