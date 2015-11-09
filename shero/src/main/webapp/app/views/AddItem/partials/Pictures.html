@@ -1,12 +1,13 @@
 <style type="text/css">
 
-.thumbnail {
-  	line-height: 20px;
+.thumbnail_shero {
+   /* line-height: 20px; */
     margin-bottom: 5px;
-    overflow: hidden;
+    /* overflow: hidden; */
     word-break: normal;
 }
-.thumbnail img {
+
+.thumbnail_shero img {
     max-width: 200px;
     max-height: 150px;
 }
@@ -15,6 +16,7 @@
 
 <div class="text-center" >
 
+	<h2>Upload an Image</h2>
 	<div ng-app="app" 
 		 flow-init
 	     flow-file-added="validate($file)"
@@ -23,21 +25,20 @@
 	     flow-complete="redirect()">
 	      
 		<div class="container">
+		  
 		  <div>
-		    <h2>Upload an Image</h2>
-		    
 		    <!-- Placeholder for images -->
-		    <div class="thumbnail" ng-hide="$flow.files.length">
+		    <div class="thumbnail_shero" ng-hide="$flow.files.length">
 	          <img src="../../../../img/placeholder_small.jpeg" />
 		    </div>
-		    <div class="thumbnail" ng-show="$flow.files.length">
+		    <div class="thumbnail_shero" ng-show="$flow.files.length">
 		      <img flow-img="$flow.files[0]" />
 		    </div>
 		    
 	    	<p>
 			    <!-- <span class="label label-info">Size: {{$flow.getSize()}}</span>  -->
 			    <span class="label label-info">Size: {{$flow.getSize() / 1024 | number:0}} KB</span>
-			    <span class="label label-info">Is Uploading: {{$flow.isUploading()}}</span>
+			    <!-- <span class="label label-info">Is Uploading: {{$flow.isUploading()}}</span> -->
 		  	</p>
 		  	<div ng-repeat="error in errors">
 				{{error.error}} - {{error.file.name}}
