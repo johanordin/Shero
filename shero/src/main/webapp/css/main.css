@@ -141,5 +141,20 @@ body {
 }
 
 .well.list {
-    background-color: #CCFFE5;
+    background-color: #DDFFFF;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.col-centered{
+    float: none !important;
+    margin: 0 auto;
+}
+
+.rentbutton{
+    border-color: #FFFFFF;
+    color: #FFFFFF;
 }

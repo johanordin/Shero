@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-<div ng-init="itemlist = [
-{name:'surfboard',rating:2, price:20, location:'Placa Catalunya 20'},
-{name:'thing',rating:6, price:50, location:'Placa Catalunya 20'},
-{name:'car',rating:5, price:100, location:'Placa Catalunya 20'},
-{name:'skateboard',rating:1, price:10, location:'Placa Catalunya 20'},
-]"></div>
+<div ng-init="ratingAndLocation = {rating: 5, location:'Placa Catalunya 5'}">
+</div>
+
 <div class="container">
 	<!-- <span> {{ itemlist }}</span>  -->
 	<div class="row">
@@ -13,26 +9,28 @@
 				<div class="well well-lg list">
 					<div class="row">
 						<!-- Picture -->
-						<div class="col-md-5">
+						<div class="col-md-5 col-xs-12">
 							<img class="img-circle center-block"  src="img/Bike.jpeg" alt="100%x180" style="height:180px; width: 180px; object-fit: cover;"></image>
 						</div>
-						<!-- Title -->
-						<div class="col-md-7">
+						<!-- Title, location and rating-->
+						<div class="col-md-7 col-xs-12">
 							<div class="row">
-								<div class=".col-md-6">
-									<h1>{{item.name}} </h1>
+								<div class="col-md-6 nopadding">
+									<h1>{{item.name}}</h1>
 								</div>
-								<div class=".col-md-6">
-									<div ng-repeat="n in [] | range: item.rating">
-										<small><i class="fa fa-star-o fa-2x pull-right"></i></small>
-									</div>
-
+								<div class="col-md-6">
+									<button class="btn btn-circle pull-right rentbutton" style="color:white">Rent</button></h2>
 								</div>
 							</div>
 							<div class="row">
-								<h3>{{item.location}}</h3>
+								<div ng-repeat="n in [] | range: ratingAndLocation.rating">
+									<small><i class="fa fa-star-o fa-2x pull-left"></i></small>
 								</div>
-								<div class="row">
+							</div>
+							<div class="row">
+								<h3>{{ratingAndLocation.location}}</h3>
+							</div>
+							<div class="row">
 								<h2>{{item.price  | currency : "€"}}</h2>
 							</div>
 						</div>
@@ -40,29 +38,35 @@
 						<!-- Details -->
 						<div class="col-md-12">
 							<div id="collapse{{item.name}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{item.name}}">
-								<div class="panel-body">
-									<p>
-									{{item.description}}
-									</p>
+								<div class="row">
+									<div class="panel-body">
+										<p>
+											{{item.description}}
+										</p>
 									</div>
-                                <div class="col-lg-4 col-offset-1 col-md-5 col-sm-5 col-xs-12">
-                                  <uib-datepicker ng-model='activeDate' multi-select='item.availabilityDates' name="datepicker"></uib-datepicker>
-                                </div>
-                                {{item.availabilityDates}}
-								</div>
-							</div>
-
-							<div class="row" role="tab" id="heading{{item.name}}">
-								<div class="col-md-12">
-										<div class="center-block" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{item.name}}" aria-expanded="false" aria-controls="collapse{{item.name}}"><button class="btn btn-circle btn-success" ng-click="expand">Rent</button></div>
+									<div class="col-lg-4 col-offset-1 col-md-5 col-sm-5 col-xs-12">
+										<uib-datepicker ng-model='activeDate' multi-select='item.availabilityDates' name="datepicker"></uib-datepicker>
+									</div>
+									{{item.availabilityDates}}
 								</div>
 							</div>
 						</div>
+<!-- Må heller bruke item.id her siden funker ikke når de har like navn -->
+						<div class="row" role="tab" id="heading{{item.name}}">
+							<div class="col-lg-2 col-centered">
+								<a id="expanding" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{item.name}}" aria-expanded="false" aria-controls="collapse{{item.name}}"><i class="fa fa-arrow-circle-down fa-5x" style="color:white" ng-click="expand"></i></a>
+							</div>
+						</div>
+
 					</div>
 				</div>
+
+
+				
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 
 
