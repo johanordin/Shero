@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-<div ng-init="itemlist = [
-{name:'surfboard',rating:2, price:20, location:'Placa Catalunya 20'},
-{name:'thing',rating:6, price:50, location:'Placa Catalunya 20'},
-{name:'car',rating:5, price:100, location:'Placa Catalunya 20'},
-{name:'skateboard',rating:1, price:10, location:'Placa Catalunya 20'},
-]"></div>
 <div class="container">
-	<!-- <span> {{ itemlist }}</span>  -->
 	<div class="row">
 		<div class="col-md-8 center-block col-xs-12">
 			<div ng-repeat="item in itemlist">
@@ -49,6 +41,9 @@
                                   <uib-datepicker ng-model='activeDate' multi-select='item.availabilityDates' name="datepicker"></uib-datepicker>
                                 </div>
                                 {{item.availabilityDates}}
+                                    <div ng-reapeat="tag in items.tags">
+                                        <span class="itemtag">{{tag.text}}</span>
+                                    </div>
 								</div>
 							</div>
 
