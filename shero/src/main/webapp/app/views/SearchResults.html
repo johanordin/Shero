@@ -1,43 +1,48 @@
 
-<div ng-init="ratingAndLocation = {rating: 5, location:'Placa Catalunya 5'}">
-</div>
-
 <div class="container">
 	<div class="row">
-		<div class="col-md-8 center-block col-xs-12">
+		<div class="col-md-12 ">
 			<div ng-repeat="item in itemlist">
-				<div class="well well-lg list">
+				<div class="well">
 					<div class="row">
 						<!-- Picture -->
-						<div class="col-md-5 col-xs-12">
-							<img class="img-circle center-block"  src="img/Bike.jpeg" alt="100%x180" style="height:180px; width: 180px; object-fit: cover;"></image>
+						<div class="col-md-2">
+							<img class="img-thumbnail"  
+                                 src="img/yeoman.png" 
+                                 alt="Couldn't find image-picture"></image>
 						</div>
 						<!-- Title, location and rating-->
-						<div class="col-md-7 col-xs-12">
+						<div class="col-md-10">
 							<div class="row">
-								<div class="col-md-6 nopadding">
-									<h1>{{item.name}}</h1>
+								<div class="col-md-10">
+									<h3 class="searchresult-title">{{item.name}} <small>({{ratingAndLocation.location}})</small></h3>
 								</div>
-								<div class="col-md-6">
-									<button class="btn btn-circle pull-right rentbutton" style="color:white">Rent</button></h2>
-								</div>
-							</div>
-							<div class="row">
 								<div ng-repeat="n in [] | range: ratingAndLocation.rating">
 									<small><i class="fa fa-star-o fa-2x pull-left"></i></small>
 								</div>
 							</div>
-							<div class="row">
-								<h3>{{ratingAndLocation.location}}</h3>
+							<div class="col-md-10">
+								<h4>{{item.price  | currency : "€"}} / day</h4>
 							</div>
-							<div class="row">
-								<h2>{{item.price  | currency : "€"}}</h2>
-							</div>
+                            <div class="col-md-2">
+                                <button class="btn btn-info">Rent</button></h2>
+                            </div>
+						</div>
+                		<div  class="col-md-1 col-centered" role="tab" id="heading{{item.id}}">
+                            <a id="expanding" 
+                               role="button" 
+                               data-toggle="collapse" 
+                               data-parent="#accordion" 
+                               href="/#collapse{{item.id}}" 
+                               aria-expanded="false" 
+                               aria-controls="collapse{{item.id}}">
+                                <i class="fa fa-angle-down fa-3x" ng-click="expand"></i>
+                            </a>
 						</div>
 						
 						<!-- Details -->
 						<div class="col-md-12">
-							<div id="collapse{{item.name}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{item.name}}">
+							<div id="collapse{{item.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{item.id}}">
 								<div class="row">
 									<div class="panel-body">
 										<p>
@@ -54,13 +59,6 @@
 								</div>
 							</div>
 						</div>
-<!-- Må heller bruke item.id her siden funker ikke når de har like navn -->
-						<div class="row" role="tab" id="heading{{item.name}}">
-							<div class="col-lg-2 col-centered">
-								<a id="expanding" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{item.name}}" aria-expanded="false" aria-controls="collapse{{item.name}}"><i class="fa fa-arrow-circle-down fa-5x" style="color:white" ng-click="expand"></i></a>
-							</div>
-						</div>
-
 					</div>
 				</div>
 

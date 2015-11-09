@@ -10,12 +10,19 @@
 
 	// Variable for items
 	$scope.itemlist = {};
+    $scope.itemlist = [
+        {id: '1', name:'surfboard',rating:2, price:20, location:'Placa Catalunya 20'},
+        {id: '2', name:'thing',rating:5, price:50, location:'Placa Catalunya 20'},
+        {id: '3', name:'car',rating:5, price:100, location:'Placa Catalunya 20'},
+        {id: '4', name:'skateboard',rating:1, price:10, location:'Placa Catalunya 20'},
+        ];
+    $scope.ratingAndLocation = {rating: 5, location:'Placa Catalunya 5'};
 	
 	//fetch all items from backend
 	$scope.fetchItems = function() {
 		var getAllItems = ItemsService.getAllItems();
 		getAllItems.then(function(response) {
-			$scope.itemlist = response.data;           
+            //$scope.itemlist = response.data;           
 
       $scope.itemlist.forEach(function(item) {
         item.availabilityDates = [];
