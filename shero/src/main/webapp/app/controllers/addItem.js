@@ -35,26 +35,15 @@ angular.module('SHeroApp')
 			
 		}
 	
-
-		
 	    //onSubmit-function of user-form
 	    $scope.processForm = function() {
             var postItemPromise = ItemsService.postItem($scope.formData);
             postItemPromise.then(function(response) {
                 SessionStorageService.addUserItem(response.data);
                 
-                console.log("Item created!");
-                
-                console.log("response : " + JSON.stringify(response.data));
                 var itemId = response.data.id;
-                console.log("itemId: " + itemId);
-                
-    	    	console.log('After item created.');
     	    	$scope.triggerImage(itemId);
-                console.log("Image created!");
-                
-                
-                
+    	    	//console.log("itemId: " + itemId);
             });
 	    }; 
   
@@ -93,11 +82,8 @@ angular.module('SHeroApp')
 		  return true;
 		}
 		
-		$scope.imageUpload = function($file, $event, $flow ){
-			
-			// pass a string with the picture 
-			//$flow.opts.query = { someParam: yourValue, otherParam: otherValue };
-			
+		// 
+		$scope.imageUpload = function($file, $event, $flow ){			
 //			console.log('scope.test- $file  	 : ' + $file);
 //			console.log('scope.test- $event  	 : ' + $event);
 //			console.log('scope.test -$flow  	 : ' + $flow);
@@ -109,14 +95,15 @@ angular.module('SHeroApp')
 	        //$flow.upload();
 		}
 		
+		// redirect
 		$scope.redirect = function () {
 			console.log("Redirect");
-			setTimeout(function() { 
-				$location.path("/Home");
-			}, 3000);
+			$location.path("/Home");
+//			setTimeout(function() { 
+//				$location.path("/Home");
+//			}, 3000);
 			
 		}
-		
 		
 		$scope.obj = {};
 		$scope.uploader = {};
@@ -148,8 +135,6 @@ angular.module('SHeroApp')
 		    console.log(files);
 		});
 		
-		
-
 		// never used - old upload image function
         $scope.uploadFile = function(){
         	console.log('flow  : ' + $scope.uploader);

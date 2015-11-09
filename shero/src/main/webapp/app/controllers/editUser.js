@@ -36,31 +36,29 @@ angular.module('SHeroApp')
 
 		// call init function when controller is loaded
         $scope.init();
-
+		
+		//update user info
 	    $scope.processGeneralForm = function() {
+			
 	    	console.log($scope.generalForm);
-
 	    	var userId = SessionStorageService.getUserId();
 	    	console.log("userId: " + userId);
-	    	// TODO: hash password?
 	    	$http({
 	    		method: 'PUT', // TODO: should be PUT request for update
 	    		url: '/rest/users/' + userId,
 	    		data: $scope.generalForm
 	    	}).then(function successCallback(response) {
 	    		SessionStorageService.updateUserData(response.data);
-			    console.log("success: " + JSON.stringify(response.data));
+	    		
 			}, function errorCallback(response) {
 			    console.log("error: " + response);
 			});
 	    }; 
-
-	    // TODO: offer possibility to delete an existing address
-		// DID: added delete button and request to delete an address
-		/*
-		$scope.deleteAddress() = function() {
+			    
+			//delete Address
+		$scope.deleteAddress = function() {
 			var addressId = $scope.addressData.id;
-			
+			console.log(addressId);
 			// added check whether input is empty or not
 			if (addressId) {
 	    	$http({
@@ -68,7 +66,7 @@ angular.module('SHeroApp')
 	    		url: '/rest/addresses/' + addressId,
 	    		data: $scope.addressData 
 	    	}).then(function successCallback(response) {
-	    		SessionStorageService.deleteUserAddress(addressId);  // TODO: implement back-end function deleteUserAddress()! ? mayme deleteUserAddress(id??);
+	    		SessionStorageService.deleteUserAddress(addressId);  
 			    console.log("success: " + JSON.stringify(response.data));
                 alert ("Address deleted!");
 			}, function errorCallback(response) {
@@ -80,14 +78,16 @@ angular.module('SHeroApp')
 			
 		}
 		
-		*/
+		
 		// adds new address 
 	    $scope.processNewAddress = function() {
 	    	var userId = SessionStorageService.getUserId();
 	    	var address = $scope.addressData;
 	    	address.id = undefined; // TODO: really necessary?
 
-			if (address){
+			if ($scope.addressForm.country == undefined){
+				alert("Address is empty");
+			} else{
 	    	$http({
 	    		method: 'POST',
 	    		url: '/rest/users/' + userId + '/addresses',
@@ -99,10 +99,10 @@ angular.module('SHeroApp')
 			}, function errorCallback(response) {
 			    console.log("error: " + response);
 			});
-			}
-			
+			} 			
 	    }; 
-
+		
+		// update address
 	    $scope.processAddressForm = function() {
 	    	var addressId = $scope.addressData.id;
 			
@@ -115,7 +115,7 @@ angular.module('SHeroApp')
 	    	}).then(function successCallback(response) {
 	    		SessionStorageService.updateUserAddressSpecific(response.data);
 			    console.log("success: " + JSON.stringify(response.data));
-                alert ("Address changed!");
+                				
 			}, function errorCallback(response) {
 			    console.log("error: " + response);
 			});
@@ -124,12 +124,9 @@ angular.module('SHeroApp')
 	    }; 
 
 	    $scope.processPasswordForm = function() {
-
-	    	// TODO: make sure password and confirmed password match
-			// DID: replaced hashedPassword, added if-else
-
-	    	if ($scope.passwordForm.password.localeCompare($scope.passwordForm.repppassword)) { 
-			//var hashedPassword = $scope.passwordForm.password;
+	    	
+	    if ($scope.passwordForm.password.localeCompare($scope.passwordForm.reppassword) == 0) {
+					
 			var hashedPassword = Sha256.hash($scope.passwordForm.password);
 	    	var userId = SessionStorageService.getUserId();
 	    	console.log("id: " + userId);
@@ -144,13 +141,17 @@ angular.module('SHeroApp')
 			    console.log("error: " + response);
 			});
 		} else {
-			// alert that password and confirmed password dont match
 			alert ("Password and Confirm password don't match!");
 		}
 		
 		
 	    }; 
 
+
+
+		
+		
+		
 	    //react on change of the view in the form and set variable of specified path to true
 		$scope.$watch( function () { return $location.path(); }, function (path) {
 			if (path=="/EditUser/General") {
