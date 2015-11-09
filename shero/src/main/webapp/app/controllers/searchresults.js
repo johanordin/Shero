@@ -35,7 +35,6 @@ angular.module('SHeroApp')
 	$scope.expand = function(){
 		console.log("show")
 		$scope.show = true;
-		$scope.fetchItems();
 	};
   
 

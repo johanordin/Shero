@@ -6,7 +6,7 @@
 					<div class="row">
 						<!-- Picture -->
 						<div class="col-md-5">
-							<img class="img-circle center-block"  src="img/Bike.jpeg" alt="100%x180" style="height:180px; width: 180px; object-fit: cover;"></image>
+							<img class="img-circle center-block"  src="img/yeoman.png" alt="100%x180" style="height:180px; width: 180px; object-fit: cover;"></image>
 						</div>
 						<!-- Title -->
 						<div class="col-md-7">
@@ -31,7 +31,7 @@
 						
 						<!-- Details -->
 						<div class="col-md-12">
-							<div id="collapse{{item.name}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{item.name}}">
+							<div id="collapse{{item.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{item.name}}">
 								<div class="panel-body">
 									<p>
 									{{item.description}}
@@ -47,9 +47,9 @@
 								</div>
 							</div>
 
-							<div class="row" role="tab" id="heading{{item.name}}">
+							<div class="row" role="tab" id="heading{{item.id}}">
 								<div class="col-md-12">
-										<div class="center-block" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{item.name}}" aria-expanded="false" aria-controls="collapse{{item.name}}"><button class="btn btn-circle btn-success" ng-click="expand">Rent</button></div>
+										<div class="center-block" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{item.id}}" aria-expanded="false" aria-controls="collapse{{item.id}}"><button class="btn btn-circle btn-success" ng-click="expand">Rent</button></div>
 								</div>
 							</div>
 						</div>
