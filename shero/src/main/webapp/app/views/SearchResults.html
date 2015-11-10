@@ -1,63 +1,78 @@
-<div class="container">
-	<div class="row">
-		<div class="col-md-8 center-block col-xs-12">
-			<div ng-repeat="item in itemlist">
-				<div class="well well-lg list">
-					<div class="row">
-						<!-- Picture -->
-						<div class="col-md-5">
-							<img class="img-circle center-block"  src="img/yeoman.png" alt="100%x180" style="height:180px; width: 180px; object-fit: cover;"></image>
-						</div>
-						<!-- Title -->
-						<div class="col-md-7">
-							<div class="row">
-								<div class=".col-md-6">
-									<h1>{{item.name}} </h1>
-								</div>
-								<div class=".col-md-6">
-									<div ng-repeat="n in [] | range: item.rating">
-										<small><i class="fa fa-star-o fa-2x pull-right"></i></small>
-									</div>
-
-								</div>
-							</div>
-							<div class="row">
-								<h3>{{item.location}}</h3>
-								</div>
-								<div class="row">
-								<h2>{{item.price  | currency : "€"}}</h2>
-							</div>
-						</div>
-						
-						<!-- Details -->
-						<div class="col-md-12">
-							<div id="collapse{{item.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{item.name}}">
-								<div class="panel-body">
-									<p>
-									{{item.description}}
-									</p>
-									</div>
-                                <div class="col-lg-4 col-offset-1 col-md-5 col-sm-5 col-xs-12">
-                                  <uib-datepicker ng-model='activeDate' multi-select='item.availabilityDates' name="datepicker"></uib-datepicker>
-                                </div>
-                                {{item.availabilityDates}}
-                                    <div ng-reapeat="tag in items.tags">
-                                        <span class="itemtag">{{tag.text}}</span>
-                                    </div>
-								</div>
-							</div>
-
-							<div class="row" role="tab" id="heading{{item.id}}">
-								<div class="col-md-12">
-										<div class="center-block" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{item.id}}" aria-expanded="false" aria-controls="collapse{{item.id}}"><button class="btn btn-circle btn-success" ng-click="expand">Rent</button></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="col-md-12">
+    <div class="btn-group-sm pull-right" role="group">
+        Sort by
+        <button type="button" 
+            class="btn btn-primary " 
+            ng-click="sort('price')">... price
+            <span class="glyphicon sort-icon" 
+                  ng-show="sortKey=='price'" 
+                  ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}">
+            </span>
+        </button>
+        <button type="button" 
+            class="btn btn-primary" 
+            ng-click="sort('name')">... name
+            <span class="glyphicon sort-icon" 
+                  ng-show="sortKey=='name'" 
+                  ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}">
+            </span>
+        </button>
+    </div>
+    <div class="col-md-12" dir-paginate="item in itemlist|orderBy:sortKey:reverse|itemsPerPage:10">     
+        <br>
+        <div class="col-md-12 row well-sm searchresult-heading">
+            <div class="col-md-2">
+                <img class="img-thumbnail"  
+                     src="img/yeoman.png" 
+                     alt="Couldn't find image-picture">
+                </image>
+            </div>
+            <div class="col-md-7 searchresult-title">
+                <h4> {{item.name}} <small>({{item.location}})</small></h4>
+            </div>
+            <div class="col-md-3">
+                <uib-rating class="pull-right" ng-model="item.rating" 
+                    max="5" 
+                    readonly="true"  
+                    aria-labelledby="default-rating"
+                    state-on="'fa fa-star fa-2x'"
+                    state-off="'fa fa-star-o fa-2x'">
+                </uib-rating>  
+            </div>
+            <div class="col-md-7">
+                <h4>{{item.price  | currency : "€"}} / day</h4>
+            </div>
+            <div class="col-md-3">
+                <div class="btn-group pull-right" role="group">
+                    <button type="button" id="toggle{{item.id}}" class="btn btn-primary" data-toggle="collapse" data-target="#{{item.id}}">
+                        Details
+                    </button>
+                    <button type="button" id="rent{{item.id}}" class="btn btn-success">
+                        Rent
+                    </button>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 collapse" id="{{item.id}}">
+            <br>
+            <div class="col-md-3">
+                <uib-datepicker ng-model='activeDate' multi-select='item.availabilityDates' name="datepicker"></uib-datepicker>
+            </div>
+            <div class="col-md-6">
+                <p>{{item.description}}</p>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12" ng-reapeat="tag in items.tags" ng-hide="items.tags.length == 0">
+                    <span class="itemtag pull-right">{{tag.text}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <dir-pagination-controls
+        max-size="5"
+        direction-links="true"
+        boundary-links="true" >
+    </dir-pagination-controls>
 </div>
-
 

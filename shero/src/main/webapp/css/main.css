@@ -140,7 +140,19 @@ body {
     border-radius: 4px;
 }
 
-.well.list {
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.col-centered{
+    float: none !important;
+    margin: 0 auto;
+}
+
+.rentbutton{
+    border-color: #FFFFFF;
+    color: #FFFFFF;
     background-color: #CCFFE5;
 }
 

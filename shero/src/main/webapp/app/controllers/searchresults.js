@@ -5,67 +5,31 @@
  * # SearchResultsCtrl
  * Controller of the SHeroApp
  */
-angular.module('SHeroApp')
-	.controller('SearchResultsCtrl', function($scope, $location, ItemsService) { 
-  
-	// Variable for items
-	$scope.itemlist = {};
+ angular.module('SHeroApp')
+ .controller('SearchResultsCtrl', function($scope, $location, ItemsService) { 
+     $scope.itemlist = {};
 	
-	//fetch all items from backend
-	$scope.fetchItems = function() {
-		var getAllItems = ItemsService.getAllItems();
-		getAllItems.then(function(response) {
-			$scope.itemlist = response.data;           
-            
-            $scope.itemlist.forEach(function(item) {
-                item.availabilityDates = [];
-                item.availabilityPeriods.forEach(function(availability) {
-                	
-                	// Convert to unixtime
+     $scope.fetchItems = function() {
+         var getAllItems = ItemsService.getAllItems();
+         getAllItems.then(function(response) {
+             $scope.itemlist = response.data;           
+             $scope.itemlist.forEach(function(item) {
+                 item.availabilityDates = [];
+                 item.availabilityPeriods.forEach(function(availability) {
+                     // Convert to unixtime
                 	var unixtime = Date.parse(availability.availabilityDate);
                     item.availabilityDates.push(unixtime);
-                });
-            });
-			console.log(JSON.stringify($scope.itemlist));
-        });
-    }; 
-	
-    // Call fetch items function when controller is loaded
-    $scope.fetchItems();
-	
-	$scope.show = false; 
-	
-	$scope.expand = function(){
-		console.log("show")
-		$scope.show = true;
-	};
-  
+                 });
+             });
+         });
+     }; 
 
-  
-  
-  
-  
-});
-//to show the rating as stars
-angular.module('SHeroApp').filter('range', function() {
-  return function(input, total) {
-    total = parseInt(total);
 
-    for (var i=0; i<total; i++) {
-      input.push(i);
-    }
+     $scope.fetchItems();
+     
+     $scope.sort = function(keyname){
+         $scope.sortKey = keyname;   //set the sortKey to the param passed
+         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+     }
 
-    return input;
-  };
-
-  $('#rent').click(function () {
-    if($('button span').hasClass('glyphicon-chevron-down'))
-    {
-      $('#rent').html('Details'); 
-    }
-    else
-    {      
-      $('#rent').html('Rent'); 
-    }
-  });
 });
