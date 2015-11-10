@@ -2,12 +2,51 @@
     <div class="form-group">
         <input type="text" class="form-control" placeholder="What are you looking for?" id="name" name="name" ng-model="formData.name">
         <select class="form-control" id="city" name="city" ng-model="formData.city">
+            <option value="" disabled selected hidden>Where</option>
             <option ng-repeat="city in cities" value="{{city.city}}">
                 {{city.city}}
             </option>
         </select>
-        <input type="text" class="form-control" id="from" name="from" ng-model="formData.from">
-        <input type="text" class="form-control" id="to" name="to" ng-model="formData.to">  
+        <p class="input-group" style="margin: 0; width: 11em;">
+            <input type="text" 
+                   class="form-control" 
+                   uib-datepicker-popup="dd.MM.yyyy" 
+                   ng-model="formData.from" 
+                   is-open="datepickerStatus.fromOpened" 
+                   min-date="minDate" 
+                   max-date="maxDate" 
+                   datepicker-options="dateOptions" 
+                   ng-required="true" 
+                   close-text="Close" 
+                   placeholder="From"/>
+            <span class="input-group-btn">
+                <button type="button" 
+                        class="btn btn-default" 
+                        ng-click="fromOpen($event)">
+                    <i class="fa fa-calendar"></i>
+                </button>
+            </span>
+        </p>
+        <p class="input-group" style="margin: 0; width: 11em;">
+            <input type="text" 
+                   class="form-control" 
+                   uib-datepicker-popup="dd.MM.yyyy" 
+                   ng-model="formData.to" 
+                   is-open="datepickerStatus.toOpened" 
+                   min-date="minDate" 
+                   max-date="maxDate" 
+                   datepicker-options="dateOptions" 
+                   ng-required="true" 
+                   close-text="Close"
+                   placeholder="To"/>
+            <span class="input-group-btn">
+                <button type="button" 
+                        class="btn btn-default" 
+                        ng-click="toOpen($event)">
+                    <i class="fa fa-calendar"></i>
+                </button>
+            </span>
+        </p>
     </div>
     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
 </form>
