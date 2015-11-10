@@ -6,16 +6,18 @@
 {name:'skateboard',rating:1, price:10, location:'Placa Catalunya 20'},
 ]"></div>
 
-<div class="container">
+<div class="container">    
 	<div class="row">
-		<div class="col-md-12 ">
-            <button ng-click="sort('price')">Price
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-success " ng-click="sort('price')">Price
                  <span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
             </button>
-            <button ng-click="sort('name')">Name
-                 <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            <button type="button" class="btn btn-info" ng-click="sort('name')">Name
+                <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
             </button>
-			<div ng-repeat="item in itemlist|orderBy:sortKey:reverse">
+        </div>
+		<div class="col-md-12 ">
+			<div dir-paginate="item in itemlist|orderBy:sortKey:reverse|itemsPerPage:3">
 				<div class="well">
 					<div class="row">
 						<!-- Picture -->
@@ -74,13 +76,19 @@
 						</div>
 					</div>
 				</div>
-
-
 				
 			</div>
 		</div>
 	</div>
+    <!-- Sets some values for the dir-pagination lib -->
+    <dir-pagination-controls
+        max-size="5"
+        direction-links="true"
+        boundary-links="true" >
+    </dir-pagination-controls>
 </div>
 </div>
+
+
 
 
