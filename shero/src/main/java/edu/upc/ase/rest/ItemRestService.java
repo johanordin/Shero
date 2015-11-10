@@ -21,9 +21,12 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.cmd.Query;
+import com.googlecode.objectify.cmd.SimpleQuery;
 
-import edu.upc.ase.dao.ImageDao;
+import edu.upc.ase.dao.ItemDao;
+import edu.upc.ase.domain.Address;
 import edu.upc.ase.domain.Image;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.helper.Util;
@@ -140,17 +143,34 @@ public class ItemRestService {
 		return "{\"status\":\"successful\"}";
 	}
 	
+	//Get image response by ID of Item
 	@GET
 	@Path("/image/{id}")
 	@Produces("image/png")
 	public Response getFullImage(@PathParam("id") String id) {
 
-		Image image = ImageDao.getImageById(id);
-
+		Item item = new ItemDao().getItemById(id);
+		List<Ref<Image>> refs = item.getImageRefs();
+		Image image = refs.get(0).getValue();
+		
+		//Image image = ImageDao.getImageById(id);
+		
 		// uncomment line below to send non-streamed
 	    // return Response.ok(imageData).build();
 
 	    // uncomment line below to send streamed
 	     return Response.ok(new ByteArrayInputStream(image.getImage().getBytes())).build();
+	}
+	
+	@GET
+	@Path("/itemsuggestions")
+	public String getItemSuggestions() {
+		
+		SimpleQuery<Item> simpleQuery = ObjectifyService.ofy().load().type(Item.class);
+
+		List<Item> items = simpleQuery.project("name").distinct(true).list();
+		
+		logger.info(items.toString());
+		return GSON.toJson(items);
 	}
 }
