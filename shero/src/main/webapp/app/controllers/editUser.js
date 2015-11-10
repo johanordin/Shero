@@ -41,18 +41,15 @@ angular.module('SHeroApp')
 	    $scope.processGeneralForm = function() {
 			
 	    	console.log($scope.generalForm);
-	    	console.log("genId: " + $scope.generalForm.id);
 	    	var userId = SessionStorageService.getUserId();
+	    	console.log("userId: " + userId);
 	    	$http({
 	    		method: 'PUT', // TODO: should be PUT request for update
 	    		url: '/rest/users/' + userId,
 	    		data: $scope.generalForm
 	    	}).then(function successCallback(response) {
-	    		SessionStorageService.updateUserFirstname($scope.generalForm.firstname);
-	    		SessionStorageService.updateUserLastname($scope.generalForm.lastname);
-	    		SessionStorageService.updateUserEmailAddress($scope.generalForm.email);
-				console.log("success: " + JSON.stringify(response.data));
-				alert ("Information was changed!");
+	    		SessionStorageService.updateUserData(response.data);
+	    		
 			}, function errorCallback(response) {
 			    console.log("error: " + response);
 			});
@@ -87,7 +84,6 @@ angular.module('SHeroApp')
 	    	var userId = SessionStorageService.getUserId();
 	    	var address = $scope.addressData;
 	    	address.id = undefined; // TODO: really necessary?
-	    	console.log(address);
 
 	    	$http({
 	    		method: 'POST',
@@ -138,7 +134,6 @@ angular.module('SHeroApp')
 	    		data: '{"hashedPassword":"' + hashedPassword + '"}'
 	    	}).then(function successCallback(response) {
 			    console.log("success: " + response);
-				alert ("Password changed!");
 			}, function errorCallback(response) {
 			    console.log("error: " + response);
 			});
