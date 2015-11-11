@@ -39,7 +39,12 @@ public class Item {
 	private String imageId;
 	
 	private Date created;
-
+	
+	// count of all ratings
+	private int numRatings;
+	// sum of all ratings' values
+	private int sumRatings;
+	
 	@Load
 	private transient List<Ref<ItemRating>> itemRatingRefs = new ArrayList<Ref<ItemRating>>();
 	@Load
@@ -164,6 +169,19 @@ public class Item {
 		this.created = created;
 	}
 	
+	public int getNumRatings() {
+		return numRatings;
+	}
+	
+	public void updateRatingCount(int value) {
+		this.sumRatings += value;
+		this.numRatings++;
+	}
+	
+	public int getSumRatings() {
+		return sumRatings;
+	}
+
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", name=" + name + ", price=" + price
