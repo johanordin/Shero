@@ -8,7 +8,7 @@
  * Controller of the SHeroApp which is used to control the search-fields inside of the navbar.
  */
 
-angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, $rootScope, $location, ItemsService, AddressesService, sharedItemList) {
+angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, $location, ItemsService, AddressesService, SearchResultService) {
 	$scope.isHome = false;
     
     $scope.formData = {};
@@ -42,8 +42,7 @@ angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, $rootSco
 
         var searchItemsPromise = ItemsService.searchItems($scope.formData.name, $scope.formData.city, from, to);
             searchItemsPromise.then(function(response) {
-                console.log(JSON.stringify(response.data));
-                $rootScope.itemList = response.data; 
+                SearchResultService.setSearchResults(response.data); 
                 $location.path("/SearchResults");
             });
     };

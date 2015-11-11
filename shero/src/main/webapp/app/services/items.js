@@ -1,5 +1,4 @@
 angular.module('SHeroApp')
-
     .factory('ItemsService', function($q, $timeout, $http, $cookies) {
         
         var getAllItems = function() {

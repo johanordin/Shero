@@ -7,18 +7,14 @@
  */
 
 angular.module('SHeroApp')
-	.controller('SearchResultsCtrl', function($scope, $rootScope, $location, ItemsService, sharedItemList) { 
+	.controller('SearchResultsCtrl', function($scope, ItemsService, SearchResultService) { 
   
 	// Variable for items
-	$scope.itemlist = $rootScope.itemList;             //NEW by Max
-
-	
-	//$scope.itemlist = newItemService.getItems();
-	//console.log("items: " + $scope.itemlist);
+	$scope.itemlist = SearchResultService.getSearchResults();
 		
 	//fetch all items from backend
 	$scope.fetchItems = function() {
-		$scope.itemlist = $rootScope.itemList;                
+        $scope.itemlist = SearchResultService.getSearchResults();                
         $scope.itemlist.forEach(function(item) {
             item.availabilityDates = [];
             item.taglist = [];
@@ -30,11 +26,12 @@ angular.module('SHeroApp')
             item.tags.forEach(function(tag) {
                item.taglist.push(tag.text); 
             });
+            item.meanRating = item.sumRatings / item.numRatings;
          });
      };  
 
      $scope.updateItems = function() {
-    	 $scope.itemlist = $rootScope.itemList;  	 
+    	 $scope.itemlist = SearchResultService.getSearchResults();
      };
     
     $scope.fetchItems();
@@ -42,8 +39,11 @@ angular.module('SHeroApp')
      $scope.sort = function(keyname){
     	 $scope.sortKey = keyname;   //set the sortKey to the param passed
          $scope.reverse = !$scope.reverse; //if true make it false and vice versa
-         $scope.updateItems();
-         
+         $scope.updateItems();      
      }
+     
+     $scope.$watch('SearchResultService.getSearchResults()', function (newSearchResults) {
+        $scope.itemlist = newSearchResults; 
+    });
 
 });
