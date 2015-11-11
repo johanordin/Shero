@@ -17,6 +17,14 @@
                   ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}">
             </span>
         </button>
+        <button type="button" 
+            class="btn btn-primary" 
+            ng-click="sort('created')">... novelty
+            <span class="glyphicon sort-icon" 
+                  ng-show="sortKey=='created'" 
+                  ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}">
+            </span>
+        </button>
     </div>
     <div class="col-md-12" dir-paginate="item in itemlist|orderBy:sortKey:reverse|itemsPerPage:10">     
         <br>
