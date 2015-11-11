@@ -96,9 +96,18 @@ public class TestItemRestServices {
 		user.addItem(itemKey);
 		ObjectifyService.ofy().save().entity(user).now();
 		
-		ItemRating itemRating = new ItemRating(itemKey.getId(), userKey.getId(), df.getNumberBetween(0, 5));
+		int ratingValue = df.getNumberBetween(0, 5);
+		ItemRating itemRating = new ItemRating(itemKey.getId(), userKey.getId(), ratingValue);
+		item.updateRatingCount(ratingValue);
 		ObjectifyService.ofy().save().entity(itemRating).now();
-		ItemRating itemRating2 = new ItemRating(itemKey.getId(), user2Key.getId(), df.getNumberBetween(0, 5));
+		
+		ratingValue = df.getNumberBetween(0, 5);
+		ItemRating itemRating2 = new ItemRating(itemKey.getId(), user2Key.getId(), ratingValue);
+		item.updateRatingCount(ratingValue);
+		
+		// save item again to store updated rating counts
+		ObjectifyService.ofy().save().entity(item).now();
+		
 		ObjectifyService.ofy().save().entity(itemRating2).now();
 		logger.info("Saved successfully.");
 	    return "{\"status\":\"done\"}";
