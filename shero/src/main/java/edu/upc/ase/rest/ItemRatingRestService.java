@@ -9,28 +9,50 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 
+import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.ItemRating;
 
 @Path("/itemratings")
 public class ItemRatingRestService {
-
+	private static final JsonParser JSON_PARSER = new JsonParser();
 	private static final Gson GSON = new Gson();
 	
 	/**
-	 * Expected input from frontend: 
-	 * {"firstname":"fname","lastname":"lname","emailAddress":"abc@def.com","items":[],"addresses":[],"userRatings":[]}
+	 * Expected format: {"itemId": 141421415215, "userId": 315353155315, "rating":[1..5]}
+	 * @return
 	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String createItemRating(String jsonItemRating) {
-		ItemRating newItemRating = GSON.fromJson(jsonItemRating, ItemRating.class);
-		Key<ItemRating> key = ObjectifyService.ofy().save().entity(newItemRating).now();
-		ItemRating itemRating = ObjectifyService.ofy().load().type(ItemRating.class).id(key.getId()).now();
-		return GSON.toJson(itemRating);
+		JsonObject jsonObj = JSON_PARSER.parse(jsonItemRating).getAsJsonObject();
+		String itemId = jsonObj.get("itemId") != null ? jsonObj.get("itemId").toString().replace("\"", "") : null;
+		String userId = jsonObj.get("userId") != null ? jsonObj.get("userId").toString().replace("\"", "") : null;
+		String ratingValue = jsonObj.get("rating") != null ? jsonObj.get("rating").toString().replace("\"", "") : null;
+		
+		ItemRating itemRating;
+		
+		// all parameters have to be set
+		if (itemId != null && userId != null && ratingValue != null) {
+			itemRating = new ItemRating(Long.parseLong(itemId), Long.parseLong(userId), Integer.valueOf(ratingValue));
+			
+			Key<ItemRating> ratingKey = ObjectifyService.ofy().save().entity(itemRating).now();		
+			ItemRating newRating = ObjectifyService.ofy().load().type(ItemRating.class).id(ratingKey.getId()).now();
+			
+			// once rating has been successfully created, update rating counts on respective item
+			Item item = ObjectifyService.ofy().load().type(Item.class).id(Long.parseLong(itemId)).now();
+			item.updateRatingCount(Integer.valueOf(ratingValue));
+			
+			return GSON.toJson(newRating);
+		}
+
+		// in other cases return error
+		return "{\"status\":\"error\"}";
 	}
 	
 	@GET
