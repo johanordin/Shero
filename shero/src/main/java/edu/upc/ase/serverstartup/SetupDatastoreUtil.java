@@ -1,5 +1,6 @@
 package edu.upc.ase.serverstartup;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -7,6 +8,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 
 import edu.upc.ase.domain.Address;
+import edu.upc.ase.domain.Availability;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.ItemRating;
 import edu.upc.ase.domain.Tag;
@@ -49,14 +51,31 @@ public class SetupDatastoreUtil {
 		to.addAddress(addrKey2);
 		
 		UserRating r = new UserRating();
-		r.setRatingValue(1);
+		r.setRatingValue(4);
 		r.setFrom(fromUser.getId());
 		r.setTo(toUser.getId());
 		
 		UserRating r2 = new UserRating(fromUser.getId(), toUser.getId(), 3);
+		
+		
+		
+		Date date = new Date(2015, 11, 24);
+		Availability days = new Availability(date);
+		
 
 		Item i = new Item("Surfboard", 150.0, "A surfboard is an elongated platform used in the sport of surfing. This surfboard is relatively light, but is strong enough to support an individual standing on them while riding a breaking wave. This surfboard was invented in ancient Hawaii.");
 		Item i2 = new Item("Tennis ball", 2000.0, "A tennis ball is a ball designed for the sport of tennis. Tennis balls are yellow at major sporting events, but in recreational play can be virtually any color. Tennis balls are covered in a fibrous felt which modifies their aerodynamic properties, and each has a white curvilinear oval covering it.");
+		Item i3 = new Item("Golf", 10.0, "A tennis ball is a ball designed for the sport of tennis. Tennis balls are yellow at major sporting events, but in recreational play can be virtually any color. Tennis balls are covered in a fibrous felt which modifies their aerodynamic properties, and each has a white curvilinear oval covering it.");
+		i.setAddress(addr);
+		i.addAvailableDay(days);
+		i2.setAddress(addr);
+		i3.setAddress(addr2);
+		
+		
+
+		
+		
+		
 		Key<Item> iKey = ObjectifyService.ofy().save().entity(i).now();
 		Key<Item> iKey2 = ObjectifyService.ofy().save().entity(i2).now();
 		

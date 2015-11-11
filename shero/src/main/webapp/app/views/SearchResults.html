@@ -26,17 +26,18 @@
             </span>
         </button>
     </div>
-    <div class="col-md-12" dir-paginate="item in itemlist|orderBy:sortKey:reverse|itemsPerPage:10">     
-        <br>
+    <div class="col-md-12" dir-paginate="item in itemlist | orderBy:sortKey:reverse | itemsPerPage:10">     
         <div class="col-md-12 row well-sm searchresult-heading">
             <div class="col-md-2">
                 <img class="img-thumbnail"  
                      src="/rest/items/image/{{item.id}}" 
-                     alt="Couldn't find image-picture">
+                     alt="Couldn't find image">
                 </image>
             </div>
             <div class="col-md-7 searchresult-title">
-                <h4> {{item.name}} <small>({{item.location}})</small></h4>
+                <h4> {{item.name}} 
+                    <small>({{item.address.street}} {{item.address.number}}, {{item.address.zipcode}} {{item.address.city}})</small>
+                </h4>
             </div>
             <div class="col-md-3">
                 <uib-rating class="pull-right" ng-model="item.rating" 
@@ -64,15 +65,15 @@
         </div>
         <div class="col-md-12 collapse" id="{{item.id}}">
             <br>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <uib-datepicker ng-model='activeDate' multi-select='item.availabilityDates' name="datepicker"></uib-datepicker>
             </div>
             <div class="col-md-6">
-                <p>{{item.description}}</p>
+                <p class="text-justify">{{item.description}}</p>
             </div>
-            <div class="col-md-3">
-                <div class="col-md-12" ng-reapeat="tag in items.tags" ng-hide="items.tags.length == 0">
-                    <span class="itemtag pull-right">{{tag.text}}</span>
+            <div class="col-md-2">
+                <div class="col-md-12" ng-repeat="tag in item.taglist" ng-hide="item.taglist.length == 0">
+                    <span class="itemtag pull-right">{{tag}}</span>
                 </div>
             </div>
         </div>

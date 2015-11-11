@@ -1,4 +1,5 @@
 angular.module('SHeroApp')
+
     .factory('ItemsService', function($q, $timeout, $http, $cookies) {
         
         var getAllItems = function() {
@@ -31,11 +32,13 @@ angular.module('SHeroApp')
             if (city) {
                 params.city = city;
             }
-
-            if (from && to) {
-                params.from = from;
-                params.to = to;
-            }
+            
+            // TODO: Request not working with from/to parameters
+            // valid request but always returns an empty list. 
+//            if (from && to) {
+//                params.from = from;
+//                params.to = to;
+//            }
 
             return $http({
                 method: 'GET',
