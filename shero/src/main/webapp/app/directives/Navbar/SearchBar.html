@@ -1,6 +1,11 @@
 <form ng-hide="isHome" class="navbar-form navbar-left" role="search" ng-submit="processForm()">
     <div class="form-group">
-        <input type="text" class="form-control" placeholder="What are you looking for?" id="name" name="name" ng-model="formData.name">
+        <input type="text" 
+               class="form-control" 
+               placeholder="What are you looking for?" 
+               id="name" 
+               name="name" 
+               ng-model="formData.name">
         <select class="form-control" id="city" name="city" ng-model="formData.city">
             <option value="" disabled selected hidden>Where</option>
             <option ng-repeat="city in cities" value="{{city.city}}">
@@ -15,8 +20,7 @@
                    is-open="datepickerStatus.fromOpened" 
                    min-date="minDate" 
                    max-date="maxDate" 
-                   datepicker-options="dateOptions" 
-                   ng-required="true" 
+                   datepicker-options="dateOptions"  
                    close-text="Close" 
                    placeholder="From"/>
             <span class="input-group-btn">
@@ -36,7 +40,6 @@
                    min-date="minDate" 
                    max-date="maxDate" 
                    datepicker-options="dateOptions" 
-                   ng-required="true" 
                    close-text="Close"
                    placeholder="To"/>
             <span class="input-group-btn">

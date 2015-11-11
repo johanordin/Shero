@@ -10,9 +10,6 @@
 
 angular.module('SHeroApp')
 	.controller('TagsCtrl', function($scope, $http, $resource, tagService) {
-	   	  
-   	  	//holds selected tags
-  	  	$scope.tags = [];
 
 		//loads tags from server
 	  	$scope.allTags;

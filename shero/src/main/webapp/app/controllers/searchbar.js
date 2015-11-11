@@ -37,34 +37,14 @@ angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, $rootSco
     });
     
     $scope.processForm = function () {
-        console.log($scope.formData.name);
-        console.log($scope.formData.city);
-        console.log($scope.formData.from);
-        console.log($scope.formData.to);
-        
-        var from = $scope.formData.from ? (Date.parse($scope.formData.from)/1000) : '';
-        var to = $scope.formData.to ? (Date.parse($scope.formData.to)/1000) : '';
-        
-        console.log(from);
-        console.log(to);
-        
-        //TODO: send data to search result and update itemslist
-        //Alt 1: pass searchbar parameters to searchresults and do request in searchresult.
-        //Alt 2: do request here and pass the response.data to searchresult.
-        
+        var from = $scope.formData.from ? (Date.parse($scope.formData.from)) : '';
+        var to = $scope.formData.to ? (Date.parse($scope.formData.to)) : '';
+
         var searchItemsPromise = ItemsService.searchItems($scope.formData.name, $scope.formData.city, from, to);
-            
-        	searchItemsPromise.then(function(response) {	
-            	console.log("Respons: " + JSON.stringify(response));
+            searchItemsPromise.then(function(response) {
                 console.log(JSON.stringify(response.data));
-                
                 $rootScope.itemList = response.data; 
-                //newItemService.addItems(response.data);
-                $location.path("/SearchResults");//NEW
-                
-                
-                
-                
+                $location.path("/SearchResults");
             });
     };
 });
