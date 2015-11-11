@@ -61,7 +61,7 @@ public class SetupDatastoreUtil {
 		
 		Date date = new Date(2015, 11, 24);
 		Availability days = new Availability(date);
-		
+		ObjectifyService.ofy().save().entity(days).now();
 
 		Item i = new Item("Surfboard", 150.0, "A surfboard is an elongated platform used in the sport of surfing. This surfboard is relatively light, but is strong enough to support an individual standing on them while riding a breaking wave. This surfboard was invented in ancient Hawaii.");
 		Item i2 = new Item("Tennis ball", 2000.0, "A tennis ball is a ball designed for the sport of tennis. Tennis balls are yellow at major sporting events, but in recreational play can be virtually any color. Tennis balls are covered in a fibrous felt which modifies their aerodynamic properties, and each has a white curvilinear oval covering it.");
