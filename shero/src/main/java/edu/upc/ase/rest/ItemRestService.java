@@ -26,7 +26,6 @@ import com.googlecode.objectify.cmd.Query;
 import com.googlecode.objectify.cmd.SimpleQuery;
 
 import edu.upc.ase.dao.ItemDao;
-import edu.upc.ase.domain.Address;
 import edu.upc.ase.domain.Image;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.helper.Util;
@@ -127,6 +126,8 @@ public class ItemRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
 	public String updateItem(String jsonItem) {
+		// TODO: use id to retrieve item and update specific attributes,
+		// avoid overriding everything that is not specified in request
 		Item updatedItem = GSON.fromJson(jsonItem, Item.class);
 		Key<Item> key = ObjectifyService.ofy().save().entity(updatedItem).now();
 		Item item = ObjectifyService.ofy().load().type(Item.class).id(key.getId()).now();
