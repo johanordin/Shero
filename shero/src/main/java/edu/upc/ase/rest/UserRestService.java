@@ -1,6 +1,7 @@
 package edu.upc.ase.rest;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -236,6 +237,10 @@ public class UserRestService {
 		Item item = GSON.fromJson(jsonItem, Item.class);
 		logger.info("item: " + item);
 
+		// set creation time
+		Calendar cal = Calendar.getInstance();
+		item.setCreated(cal.getTime());
+				
 		//****** RETRIEVE REFERENCED ENTITIES BY ID *******/
 		
 		// 1. retrieve address id from json

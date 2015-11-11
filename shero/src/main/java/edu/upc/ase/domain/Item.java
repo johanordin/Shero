@@ -1,6 +1,8 @@
 package edu.upc.ase.domain;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -35,6 +37,8 @@ public class Item {
 	private List<Tag> tags;
 	
 	private String imageId;
+	
+	private Date created;
 
 	@Load
 	private transient List<Ref<ItemRating>> itemRatingRefs = new ArrayList<Ref<ItemRating>>();
@@ -51,13 +55,15 @@ public class Item {
 		this.name = name;
 		this.price = price;
 		this.description = description;
+		
+		// set creation time
+		Calendar cal = Calendar.getInstance();
+		this.created = cal.getTime();
 	}
 
 	public Item(String name, Double price, String description, Address address,
 			List<Availability> availabilityPeriods, List<Tag> tags) {
-		this.name = name;
-		this.price = price;
-		this.description = description;
+		this(name, price, description);
 		this.address = address;
 		this.availabilityPeriods = availabilityPeriods;
 		this.tags = tags;
@@ -150,13 +156,23 @@ public class Item {
 		this.imageRefs.add(image);
 	}
 	
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", name=" + name + ", price=" + price
-				+ ", description=" + description + ", address=" + address + ", availabilityPeriods="
-				+ availabilityPeriods + ", itemRatings=" + itemRatings + "]";
+				+ ", description=" + description + ", address=" + address
+				+ ", availabilityPeriods=" + availabilityPeriods
+				+ ", itemRatings=" + itemRatings + ", tags=" + tags
+				+ ", imageId=" + imageId + ", created=" + created + "]";
 	}
-	
+
 	public void serialize() {
 		this.getAddress();
 		this.getAvailabilityPeriods();
