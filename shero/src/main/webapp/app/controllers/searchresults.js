@@ -10,11 +10,11 @@ angular.module('SHeroApp')
 	.controller('SearchResultsCtrl', function($scope, ItemsService, SearchResultService) { 
   
 	// Variable for items
-	$scope.itemlist = SearchResultService.getSearchResults();
+	$scope.itemlist = {};
 		
 	//fetch all items from backend
 	$scope.fetchItems = function() {
-        $scope.itemlist = SearchResultService.getSearchResults();                
+        $scope.itemlist = SearchResultService.getSearchResults();
         $scope.itemlist.forEach(function(item) {
             item.availabilityDates = [];
             item.taglist = [];
@@ -28,22 +28,19 @@ angular.module('SHeroApp')
             });
             item.meanRating = item.sumRatings / item.numRatings;
          });
-     };  
-
-     $scope.updateItems = function() {
-    	 $scope.itemlist = SearchResultService.getSearchResults();
-     };
+     }; 
+     
+     $scope.$watch(function () { return SearchResultService.getSearchResults(); }, function (newVal) {
+        $scope.fetchItems(); 
+    });
     
-    $scope.fetchItems();
+    angular.element(document).ready(function () {
+        $scope.fetchItems();
+    });
      
      $scope.sort = function(keyname){
     	 $scope.sortKey = keyname;   //set the sortKey to the param passed
-         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
-         $scope.updateItems();      
+         $scope.reverse = !$scope.reverse; //if true make it false and vice versa     
      }
-     
-     $scope.$watch('SearchResultService.getSearchResults()', function (newSearchResults) {
-        $scope.itemlist = newSearchResults; 
-    });
 
 });
