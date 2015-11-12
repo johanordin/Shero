@@ -68,6 +68,7 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     $scope.loginUser = function() {
         var mail = $scope.formData.mail;
         var hashedPassword = Sha256.hash($scope.formData.password);
+        console.log(hashedPassword);
 
         var getUserPromise = UsersService.getUserByMail(mail, hashedPassword);
         getUserPromise.then(function(response) {
@@ -103,7 +104,6 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
         postUserPromise.then(function(response) {
             SessionStorageService.store(response.data);
             console.log("User " + response.data.id + " created!")
-            alert("User created");
         });
     }
 });
