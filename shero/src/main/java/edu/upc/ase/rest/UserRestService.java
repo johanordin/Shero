@@ -259,12 +259,15 @@ public class UserRestService {
 		JsonArray tags = jsonObj.getAsJsonArray("tags");
 		for (int i = 0; i < tags.size(); i++) {
 			JsonObject tag = tags.get(i).getAsJsonObject();
-			String tagId = tag.get("id").toString().replace("\"", "");
-
-			Key<Tag> tagKey = Key.create(Tag.class,
-					Long.parseLong(tagId.toString()));
-			Ref<Tag> tagRef = Ref.create(tagKey);
-			item.addTag(tagRef);
+			String tagId = tag.get("id") != null ? tag.get("id").toString().replace("\"", "") : null;
+			
+			// only add tags that already exist in database
+			if (tagId != null) {
+				Key<Tag> tagKey = Key.create(Tag.class,
+						Long.parseLong(tagId.toString()));
+				Ref<Tag> tagRef = Ref.create(tagKey);
+				item.addTag(tagRef);
+			}
 		}
 				
 		// create and store availability entities
