@@ -31,13 +31,11 @@ angular.module('SHeroApp')
             if (city) {
                 params.city = city;
             }
-            
-            // TODO: Request not working with from/to parameters
-            // valid request but always returns an empty list. 
-//            if (from && to) {
-//                params.from = from;
-//                params.to = to;
-//            }
+             
+            if (from && to) {
+                params.from = from;
+                params.to = to;
+            }
 
             return $http({
                 method: 'GET',
