@@ -1,8 +1,8 @@
 package edu.upc.ase.serverstartup;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 
@@ -20,19 +20,18 @@ import edu.upc.ase.domain.admin.EmailTemplate;
 
 public class SetupDatastoreUtil {
 	
-	private static final Logger logger = Logger.getLogger("SetupDatastoreUtil");
-
-	//Initialize EMailTemplate
-	public static void setupEMailTemplate() {
-
-	List<EmailTemplate> emailTemplates = ObjectifyService.ofy().load().type(EmailTemplate.class)
-			.filter("name", "WelcomeTemplate").list();
+	//private static final Logger logger = Logger.getLogger("SetupDatastoreUtil");
+		//Initialize EMailTemplate
+		public static void setupEMailTemplate() {
 	
-	if(emailTemplates.isEmpty()){
-		//If not create now Email Template
-		EmailTemplate emailTemplate = new EmailTemplate("WelcomeTemplate", HTML_TEMPLATE);
-		ObjectifyService.ofy().save().entity(emailTemplate).now();
-	}
+		List<EmailTemplate> emailTemplates = ObjectifyService.ofy().load().type(EmailTemplate.class)
+				.filter("name", "WelcomeTemplate").list();
+		
+		if(emailTemplates.isEmpty()){
+			//If not create now Email Template
+			EmailTemplate emailTemplate = new EmailTemplate("WelcomeTemplate", HTML_TEMPLATE);
+			ObjectifyService.ofy().save().entity(emailTemplate).now();
+		}
 	}
 	
 	public static void setupUser() {
@@ -71,23 +70,41 @@ public class SetupDatastoreUtil {
 		u2.addAddress(address5);
 		u3.addAddress(address6);
 		
-		Date d1 = new Date(2015, 11, 13);
-		Date d2 = new Date(2015, 11, 14);
-		Date d3 = new Date(2015, 11, 15);
-		Date d4 = new Date(2015, 11, 16);
-		Date d5 = new Date(2015, 11, 20);
-		Date d6 = new Date(2015, 11, 21);
-		Date d7 = new Date(2015, 11, 22);
-		Date d8 = new Date(2015, 11, 23);
-		Date d9 = new Date(2015, 11, 27);
-		Date d10 = new Date(2015, 11, 28);
-		Date d11 = new Date(2015, 12, 1);
-		Date d12 = new Date(2015, 12, 2);
-		Date d13 = new Date(2015, 12, 3);
-		Date d14 = new Date(2015, 12, 10);
-		Date d15 = new Date(2015, 12, 11);
-		Date d16 = new Date(2015, 12, 12);
-		Date d17 = new Date(2015, 12, 31);
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2015, 11, 13);
+		Date d1 = calendar.getTime();
+		calendar.set(2015, 11, 14);
+		Date d2 = calendar.getTime();
+		calendar.set(2015, 11, 15);
+		Date d3 = calendar.getTime();
+		calendar.set(2015, 11, 16);
+		Date d4 = calendar.getTime();
+		calendar.set(2015, 11, 20);
+		Date d5 = calendar.getTime();
+		calendar.set(2015, 11, 21);
+		Date d6 = calendar.getTime();
+		calendar.set(2015, 11, 22);
+		Date d7 = calendar.getTime();
+		calendar.set(2015, 11, 23);
+		Date d8 = calendar.getTime();
+		calendar.set(2015, 11, 27);
+		Date d9 = calendar.getTime();
+		calendar.set(2015, 11, 28);
+		Date d10 = calendar.getTime();
+		calendar.set(2015, 12, 1);
+		Date d11 = calendar.getTime();
+		calendar.set(2015, 12, 2);
+		Date d12 = calendar.getTime();
+		calendar.set(2015, 12, 3);
+		Date d13 = calendar.getTime();
+		calendar.set(2015, 12, 10);
+		Date d14 = calendar.getTime();
+		calendar.set(2015, 12, 11);
+		Date d15 = calendar.getTime();
+		calendar.set(2015, 12, 12);
+		Date d16 = calendar.getTime();
+		calendar.set(2015, 12, 31);
+		Date d17 = calendar.getTime();
 		
 		Availability days1 = new Availability(d1);
 		Availability days2 = new Availability(d2);
