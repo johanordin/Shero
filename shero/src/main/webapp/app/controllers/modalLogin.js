@@ -68,7 +68,6 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
     $scope.loginUser = function() {
         var mail = $scope.formData.mail;
         var hashedPassword = Sha256.hash($scope.formData.password);
-        console.log(hashedPassword);
 
         var getUserPromise = UsersService.getUserByMail(mail, hashedPassword);
         getUserPromise.then(function(response) {
