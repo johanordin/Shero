@@ -72,6 +72,7 @@ public class SetupDatastoreUtil {
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2015, 10, 13, 0, 0, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
 		Date d1 = calendar.getTime();
 		calendar.set(2015, 10, 14, 0, 0, 0);
 		Date d2 = calendar.getTime();
