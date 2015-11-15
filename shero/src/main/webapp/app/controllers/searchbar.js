@@ -37,8 +37,13 @@ angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, $locatio
     });
     
     $scope.processForm = function () {
-        var from = $scope.formData.from ? (Date.parse($scope.formData.from)) : '';
-        var to = $scope.formData.to ? (Date.parse($scope.formData.to)) : '';
+    	// calendar seems to return timestamps based on local time, which is not necessarily UTC
+    	// Date.getTimezoneOffset() returns the time-zone offset from UTC, in minutes
+    	var d = new Date();
+    	var offset = (-1) * d.getTimezoneOffset() * 60000;
+    	
+        var from = $scope.formData.from ? (Date.parse($scope.formData.from) + offset) : '';
+        var to = $scope.formData.to ? (Date.parse($scope.formData.to) + offset) : '';
 
         var searchItemsPromise = ItemsService.searchItems($scope.formData.name, $scope.formData.city, from, to);
             searchItemsPromise.then(function(response) {
