@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
@@ -28,6 +29,7 @@ import com.googlecode.objectify.cmd.SimpleQuery;
 import edu.upc.ase.dao.ItemDao;
 import edu.upc.ase.domain.Image;
 import edu.upc.ase.domain.Item;
+import edu.upc.ase.helper.GsonUTCDateAdapter;
 import edu.upc.ase.helper.Util;
 
 @Path("/items")
@@ -93,7 +95,8 @@ public class ItemRestService {
 		
 		logger.info("query: " + q);
 		
-		return GSON.toJson(results);
+		Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new GsonUTCDateAdapter()).create();
+		return gson.toJson(results);  
 	}
 	
 	@GET
