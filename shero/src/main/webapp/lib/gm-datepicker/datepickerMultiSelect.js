@@ -27,7 +27,11 @@
     .config(['$provide', '$injector', function($provide, $injector) {
       var delegate = function($delegate) {
         var directive = $delegate[0];
-  
+        
+        var date = new Date();
+    	// Date.getTimezoneOffset() returns the time-zone offset from UTC, in minutes
+    	var offset = (-1) * date.getTimezoneOffset() * 60000;
+	    
         /* Override compile */
         var link = directive.link;
   
@@ -62,7 +66,8 @@
             function update() {
               angular.forEach(scope.rows, function(row) {
                 angular.forEach(row, function(day) {
-                  day.selected = selectedDates.indexOf(day.date.setHours(0, 0, 0, 0)) > -1
+                  // date here is also retrieved in local time, therefore UTC alignment required
+                  day.selected = selectedDates.indexOf(day.date.setHours(0, 0, 0, 0) + offset) > -1
                 });
               });
             }
@@ -84,7 +89,10 @@
         link: function(scope, elem, attrs, ctrls) {
           var selectedDates;
           var selectRange;
-  
+          
+          var date = new Date();
+          var offset = (-1) * date.getTimezoneOffset() * 60000;
+      	
           /* Called when directive is compiled */
           scope.$on('requestSelectedDates', function() {
             scope.$broadcast('update', selectedDates);
@@ -101,8 +109,9 @@
   
           scope.$watch(attrs.ngModel, function(newVal, oldVal) {
             if(!newVal) return;
-  
-            var dateVal = newVal.getTime();
+            
+            // calendar returns newVal date object in local time, which is not necessarily UTC
+            var dateVal = newVal.getTime() + offset;
   
             if(selectRange) {
               /* reset range */
@@ -116,12 +125,12 @@
   
               /* Start on the next day to prevent duplicating the
                 first date */
-              tempVal = new Date(tempVal).setHours(24);
+              tempVal = new Date(tempVal).setUTCHours(24);
               while(tempVal < maxVal) {
                 selectedDates.push(tempVal);
                 /* Set a day ahead after pushing to prevent
                   duplicating last date */
-                tempVal = new Date(tempVal).setHours(24);
+                tempVal = new Date(tempVal).setUTCHours(24);
               }
             } else {
               if(selectedDates.indexOf(dateVal) < 0) {
