@@ -3,6 +3,7 @@ package edu.upc.ase.serverstartup;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 
@@ -71,6 +72,7 @@ public class SetupDatastoreUtil {
 		u3.addAddress(address6);
 		
 		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
 		calendar.set(2015, 10, 13, 0, 0, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 		Date d1 = calendar.getTime();

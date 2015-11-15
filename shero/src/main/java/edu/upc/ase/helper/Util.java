@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public final class Util {
 
@@ -21,8 +22,10 @@ public final class Util {
 
 		// get calendar to manipulate and retrieve new dates
 		Calendar currDate = Calendar.getInstance();
+		currDate.setTimeZone(TimeZone.getTimeZone("GMT"));
 		currDate.setTime(start);
 		Calendar rangeEnd = Calendar.getInstance();
+		rangeEnd.setTimeZone(TimeZone.getTimeZone("GMT"));
 		rangeEnd.setTime(end);
 
 		// add all dates between start and end to list (excl. start, incl. end)
