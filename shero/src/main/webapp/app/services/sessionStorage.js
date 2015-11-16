@@ -1,5 +1,5 @@
 angular.module('SHeroApp')
-    .factory('SessionStorageService', function($cookies, $sessionStorage, $rootScope) {
+    .factory('SessionStorageService', function($cookies, $sessionStorage, $rootScope, $filter) {
     
         $rootScope.$storage = $sessionStorage;
     
@@ -157,12 +157,11 @@ angular.module('SHeroApp')
         };
     
         var getUserItemSpecific = function (itemId) {
-            for (var index = 0; index < $rootScope.$storage.SHeroItems.length; ++index) {
-                var item = $rootScope.$storage.SHeroItems[index];
-                if(item.id == itemId) {
-                    return item;
-                }
-            }
+            var item = $filter('filter')($rootScope.$storage.SHeroItems, function (d) {
+                return d.id == itemId;
+            });
+            console.log(JSON.stringify(item));
+            return item;
         };
         
         var getUserItemAll = function () {

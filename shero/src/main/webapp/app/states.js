@@ -4,7 +4,7 @@ angular.module('SHeroApp')
  	.config(function($stateProvider, $urlRouterProvider) {
  		//redirects /AddItem directly to /AddItem/GeneralInformation
  		$urlRouterProvider.when('/AddItem', '/AddItem/GeneralInformation');
-    $urlRouterProvider.when('/EditUser', '/EditUser/General');
+        $urlRouterProvider.when('/EditUser', '/EditUser/General');
 
  		//redirects empty states to Home-View
  		$urlRouterProvider.when('', '/Home');
@@ -24,15 +24,6 @@ angular.module('SHeroApp')
             controller: 'SearchResultsCtrl',
             controllerAs: 'searchResultCtrl'
       		})
-        
-            //Abstract state
-      		//Acts as parent for all states which need authentication
- 			//.state('app', {
- 			//	abstract: true,
- 				/*data: {
-        			requireLogin: true
-      			}*/
- 			//})
         
           	//Edit User
       		.state('editUser', {
@@ -78,8 +69,9 @@ angular.module('SHeroApp')
 
           //Edit item
 	      .state('editItem', {
-	      	url: '/EditItem', 
-	        templateUrl: 'app/views/EditItem.html'
+	      	url: '/EditItem/:itemId', 
+	        templateUrl: 'app/views/EditItem.html',
+            controller: 'EditItemCtrl'
 	      })
  	})
 

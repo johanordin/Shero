@@ -16,7 +16,7 @@
             <li><a ui-sref="editUser"><i class="fa fa-pencil"></i> Edit Profile</a></li>
             <li role="separator" class="divider"></li>
             <li ng-if="$storage.SHeroItems.length != 0" ng-repeat="item in $storage.SHeroItems">
-                <a ui-sref="editItem"><i class="fa fa-wrench"></i> {{item.name}}</a>
+                <a ui-sref="editItem({itemId: {{item.id}}})"><i class="fa fa-wrench"></i> {{item.name}}</a>
             </li>
             <li ng-if="$storage.SHeroItems.length == 0">
                 <a ui-sref="addItem"><i class="fa fa-plus"></i> Be a SHero!</a>
