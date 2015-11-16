@@ -1,6 +1,6 @@
 angular.module('SHeroApp')
     .factory('ItemsService', function($q, $timeout, $http, $cookies) {
-        
+    
         var getAllItems = function() {
             return $http({
                 method: "GET",
@@ -36,6 +36,8 @@ angular.module('SHeroApp')
                 params.from = from;
                 params.to = to;
             }
+            
+            console.log(JSON.stringify(params));
 
             return $http({
                 method: 'GET',
@@ -46,7 +48,29 @@ angular.module('SHeroApp')
             });
         };
     
+        var getSuggestions = function () {
+            return $http({
+                method: "GET",
+                url: "/rest/items/itemsuggestions"
+            }).then(function(response){
+                return response;      
+            })
+        };
+    
+        var getItemSuggestions = function () {
+            var itemNames = [];
+            var distinctItemsPromise = getSuggestions();
+            distinctItemsPromise.then(function(response) {
+                response.data.forEach (function(item) {
+                    var jsonItem = {"name": item.name};
+                    itemNames.push(jsonItem);
+                });
+            });
+            return itemNames;
+        };
+    
         return {postItem : postItem,
-               searchItems: searchItems,
-        		getAllItems : getAllItems};
+                searchItems: searchItems,
+        		getAllItems: getAllItems,
+                getItemSuggestions: getItemSuggestions};
     })

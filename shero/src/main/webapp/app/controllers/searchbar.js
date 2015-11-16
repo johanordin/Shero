@@ -10,8 +10,12 @@
 
 angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, $location, ItemsService, AddressesService, SearchResultService) {
 	$scope.isHome = false;
+    $scope.itemSuggestions = ItemsService.getItemSuggestions();
+    $scope.citySuggestions = AddressesService.getCitySuggestions();
     
     $scope.formData = {};
+    $scope.formData.item = {};
+    $scope.formData.city = {};
     
     $scope.datepickerStatus = {
         fromOpened: false,
@@ -31,21 +35,16 @@ angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, $locatio
         $scope.datepickerStatus.toOpened = true;
     };
     
-    var getCitiesPromise = AddressesService.getAllCities();
-    getCitiesPromise.then(function(response) {
-        $scope.cities = response.data;
-    });
-    
     $scope.processForm = function () {
     	// calendar seems to return timestamps based on local time, which is not necessarily UTC
     	// Date.getTimezoneOffset() returns the time-zone offset from UTC, in minutes
     	var d = new Date();
     	var offset = (-1) * d.getTimezoneOffset() * 60000;
-    	
+  
         var from = $scope.formData.from ? (Date.parse($scope.formData.from) + offset) : '';
         var to = $scope.formData.to ? (Date.parse($scope.formData.to) + offset) : '';
 
-        var searchItemsPromise = ItemsService.searchItems($scope.formData.name, $scope.formData.city, from, to);
+        var searchItemsPromise = ItemsService.searchItems($scope.formData.item.title, $scope.formData.city.title, from, to);
             searchItemsPromise.then(function(response) {
                 SearchResultService.setSearchResults(response.data); 
                 $location.path("/SearchResults");

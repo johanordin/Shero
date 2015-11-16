@@ -15,5 +15,6 @@ angular
     'ui.bootstrap',
     'ngTagsInput',
     'flow',
-    'angularUtils.directives.dirPagination'
+    'angularUtils.directives.dirPagination',
+    'angucomplete-alt'
   ])

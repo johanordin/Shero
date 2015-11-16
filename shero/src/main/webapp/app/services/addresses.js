@@ -10,5 +10,17 @@ angular.module('SHeroApp')
             });
         };
     
-        return {getAllCities: getAllCities};
+        var getCitySuggestions = function () {
+            var cityNames = [];
+            var distinctCitiesPromise = getAllCities();
+            distinctCitiesPromise.then(function(response) {
+                response.data.forEach (function(item) {
+                    var jsonItem = {"name": item.city};
+                    cityNames.push(jsonItem);
+                });
+            });
+            return cityNames;
+        };
+    
+        return {getCitySuggestions: getCitySuggestions};
     })

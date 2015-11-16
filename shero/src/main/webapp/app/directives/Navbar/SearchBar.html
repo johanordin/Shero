@@ -1,17 +1,33 @@
-<form ng-hide="isHome" class="navbar-form navbar-left" role="search" ng-submit="processForm()">
+<form ng-hide="isHome" class="navbar-form navbar-left" role="form" ng-submit="processForm()">
     <div class="form-group">
-        <input type="text" 
-               class="form-control" 
-               placeholder="What are you looking for?" 
-               id="name" 
-               name="name" 
-               ng-model="formData.name">
-        <select class="form-control" id="city" name="city" ng-model="formData.city">
-            <option value="" disabled selected hidden>Where</option>
-            <option ng-repeat="city in cities" value="{{city.city}}">
-                {{city.city}}
-            </option>
-        </select>
+        <angucomplete-alt id="items"
+                      placeholder="Search items"
+                      pause="100"
+                      selected-object="formData.item"
+                      local-data="itemSuggestions"
+                      search-fields="name"
+                      title-field="name"
+                      minlength="1"
+                      input-class="form-control form-control-small"
+                      text-searching="Searching for items..."
+                      match-class="highlight">
+        </angucomplete-alt>
+    </div>
+    <div class="form-group">
+        <angucomplete-alt id="cities"
+                      placeholder="Search cities"
+                      pause="100"
+                      selected-object="formData.city"
+                      local-data="citySuggestions"
+                      search-fields="name"
+                      title-field="name"
+                      minlength="1"
+                      input-class="form-control form-control-small"
+                      text-searching="Searching for cities..."
+                      match-class="highlight">
+        </angucomplete-alt>
+    </div>
+    <div class="form-group">
         <p class="input-group" style="margin: 0; width: 11em;">
             <input type="text" 
                    class="form-control" 
@@ -31,6 +47,8 @@
                 </button>
             </span>
         </p>
+    </div>
+    <div class="form-group">
         <p class="input-group" style="margin: 0; width: 11em;">
             <input type="text" 
                    class="form-control" 
@@ -51,5 +69,7 @@
             </span>
         </p>
     </div>
+    
     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
 </form>
+{{formData}}
