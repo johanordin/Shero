@@ -70,7 +70,11 @@
         <div class="col-md-12 collapse searchresult-footer" id="{{item.id}}">
             <br>
             <div class="col-md-4">
-                <uib-datepicker ng-model='activeDate' multi-select='item.availabilityDates' name="datepicker"></uib-datepicker>
+                <uib-datepicker ng-model='activeDate' 
+                                multi-select='item.availabilityDates' 
+                                name="datepicker"
+                                date-disabled="disabled(date, mode)">
+                </uib-datepicker>
             </div>
             <div class="col-md-6">
                 <p class="text-justify">{{item.description}}</p>

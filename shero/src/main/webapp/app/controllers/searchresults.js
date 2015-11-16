@@ -42,5 +42,10 @@ angular.module('SHeroApp')
     	 $scope.sortKey = keyname;   //set the sortKey to the param passed
          $scope.reverse = !$scope.reverse; //if true make it false and vice versa     
      }
+     
+     $scope.disabled = function(date, mode) {
+         //return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+         return true;
+     };
 
 });
