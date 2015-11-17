@@ -73,6 +73,12 @@ angular.module('SHeroApp')
 	        templateUrl: 'app/views/EditItem.html',
             controller: 'EditItemCtrl'
 	      })
+        
+        .state('myRentals', {
+            url: '/MyRentals',
+            templateUrl: 'app/views/MyRentals.html',
+            controller: 'MyRentalsCtrl'
+        })
  	})
 
 
