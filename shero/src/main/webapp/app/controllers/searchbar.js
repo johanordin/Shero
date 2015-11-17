@@ -41,6 +41,13 @@ angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, $locatio
     	var d = new Date();
     	var offset = (-1) * d.getTimezoneOffset() * 60000;
   
+        if (!$scope.formData.item) {
+            $scope.formData.item = {};
+        }
+        if(!$scope.formData.city) {
+            $scope.formData.city = {};
+        }
+        
         var from = $scope.formData.from ? (Date.parse($scope.formData.from) + offset) : '';
         var to = $scope.formData.to ? (Date.parse($scope.formData.to) + offset) : '';
 
