@@ -100,9 +100,12 @@ public class User {
 		this.addresses = new ArrayList<Address>(ObjectifyService.ofy().load().refs(addressRefs).values());
 		return addresses;
 	}
-	public void addItem(Key<Item> item) {
+	public void addItem(Item item) {
 		itemRefs.add(Ref.create(item));
+		item.setOwnerId(this.id);
+		ObjectifyService.ofy().save().entity(item).now();
 	}
+	
 	public void addAddress(Key<Address> address) {
 		addressRefs.add(Ref.create(address));
 	}
