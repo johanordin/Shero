@@ -38,6 +38,7 @@ public class Item {
 	
 	private String imageId;
 	
+	private Long ownerId;
 	private Date created;
 	
 	// count of all ratings
@@ -181,6 +182,14 @@ public class Item {
 	public int getSumRatings() {
 		return sumRatings;
 	}
+	
+	public Long getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
+	}
 
 	@Override
 	public String toString() {
@@ -188,7 +197,9 @@ public class Item {
 				+ ", description=" + description + ", address=" + address
 				+ ", availabilityPeriods=" + availabilityPeriods
 				+ ", itemRatings=" + itemRatings + ", tags=" + tags
-				+ ", imageId=" + imageId + ", created=" + created + "]";
+				+ ", imageId=" + imageId + ", ownerId=" + ownerId
+				+ ", created=" + created + ", numRatings=" + numRatings
+				+ ", sumRatings=" + sumRatings + "]";
 	}
 
 	public void serialize() {
