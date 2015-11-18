@@ -63,8 +63,16 @@
                         <button type="button" id="rent{{item.id}}" class="btn btn-success">
                             Rent
                         </button>
-
                     </div>
+                </div>
+                <div class="col-md-7"> 
+                </div>
+                <div class="col-md-3">
+                	<div class="btn-group pull-right" role="group">
+		                <button class="btn btn-sm btn-primary" ng-click="openContactModal({{item.ownerId}});"><span class="fa fa-envelope-o"></span>
+		                    Contact
+		                </button>
+		            </div>
                 </div>
             </div>
             <div class="col-md-12 collapse searchresult-footer" id="{{item.id}}">
