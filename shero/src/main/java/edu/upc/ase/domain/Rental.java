@@ -20,7 +20,9 @@ public class Rental {
 	@Index
 	private Long itemId; // which item is he renting
 	private List<Date> period;
-	
+	// rental (that is, the item rented) should be rated only once
+	Boolean itemRated = false;
+
 	public Rental() {
 	}
 	
@@ -58,9 +60,19 @@ public class Rental {
 		return rentalId;
 	}
 
+	public Boolean getItemRated() {
+		return itemRated;
+	}
+	
+	public void setItemRated() {
+		this.itemRated = true;
+	}
+
 	@Override
 	public String toString() {
 		return "Rental [rentalId=" + rentalId + ", userId=" + userId
-				+ ", itemId=" + itemId + ", period=" + period + "]";
+				+ ", itemId=" + itemId + ", period=" + period + ", itemRated="
+				+ itemRated + "]";
 	}
+	
 }
