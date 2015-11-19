@@ -18,6 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -28,10 +29,11 @@ import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.Result;
 
 import edu.upc.ase.domain.Address;
-import edu.upc.ase.domain.Availability;
 import edu.upc.ase.domain.Item;
+import edu.upc.ase.domain.Rental;
 import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
+import edu.upc.ase.helper.GsonUTCDateAdapter;
 import edu.upc.ase.rest.test.TestMailService;
 
 @Path("/users")
@@ -312,5 +314,14 @@ public class UserRestService {
 		User returnUser = ObjectifyService.ofy().load().type(User.class).id(key.getId()).now();
 		
 		return GSON.toJson(returnUser);
+	}
+	
+	@GET
+	@Path("/{id}/rentals")
+	public String getRentalsByUserId(@PathParam("id") String userId) {
+		// find rentals for a given userId
+		List<Rental> rentals = ObjectifyService.ofy().load().type(Rental.class).filter("userId", Long.parseLong(userId)).list();
+		Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new GsonUTCDateAdapter()).create();
+		return gson.toJson(rentals);
 	}
 }

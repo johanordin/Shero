@@ -21,6 +21,9 @@ public class Rental {
 	private Long itemId; // which item is he renting
 	private List<Date> period;
 	
+	public Rental() {
+	}
+	
 	public Rental(Long userId, Long itemId, List<Date> period) {
 		this.userId = userId;
 		this.itemId = itemId;
