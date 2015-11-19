@@ -27,6 +27,7 @@ angular.module('SHeroApp')
                item.taglist.push(tag.text); 
             });
             item.meanRating = item.sumRatings / item.numRatings;
+            item.imgUrl = "/rest/items/image/" + item.id;
          });
      }; 
      

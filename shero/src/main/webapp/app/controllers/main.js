@@ -13,7 +13,6 @@ angular.module('SHeroApp')
             var getUserPromise = UsersService.getUserById($cookies.get('SHeroUserId'));
             getUserPromise.then(function(response) {
                 SessionStorageService.store(response.data);
-                console.log("User "+ response.data.id +" logged in!");
             });        
         };
     });

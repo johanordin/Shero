@@ -37,8 +37,6 @@ angular.module('SHeroApp')
                 params.to = to;
             }
             
-            console.log(JSON.stringify(params));
-
             return $http({
                 method: 'GET',
                 url: '/rest/items',

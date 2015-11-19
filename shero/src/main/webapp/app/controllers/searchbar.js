@@ -9,7 +9,7 @@
  */
 
 angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, $location, ItemsService, AddressesService, SearchResultService) {
-	$scope.isHome = false;
+	
     $scope.itemSuggestions = ItemsService.getItemSuggestions();
     $scope.citySuggestions = AddressesService.getCitySuggestions();
     
