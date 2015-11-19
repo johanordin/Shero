@@ -403,21 +403,45 @@ public class SetupDatastoreUtil {
 		ObjectifyService.ofy().save().entity(i10).now();
 		ObjectifyService.ofy().save().entity(i11).now();
 		
-		u1.addItem(item4);
-		u1.addItem(item5);
-		u1.addItem(item6);
-		u1.addItem(item8);
-		u1.addItem(item9);
-		u1.addItem(item10);
-		u2.addItem(item2);
-		u2.addItem(item3);
-		u2.addItem(item11);
-		u3.addItem(item1);
-		u3.addItem(item7);
+		u1.addItem(i4);
+		u1.addItem(i5);
+		u1.addItem(i6);
+		u1.addItem(i8);
+		u1.addItem(i9);
+		u1.addItem(i10);
+		u2.addItem(i2);
+		u2.addItem(i3);
+		u2.addItem(i11);
+		u3.addItem(i1);
+		u3.addItem(i7);
 		
 		ObjectifyService.ofy().save().entity(u1).now();
 		ObjectifyService.ofy().save().entity(u2).now();
 		ObjectifyService.ofy().save().entity(u3).now();
+		
+		i4.setOwnerId(u1.getId());
+		i5.setOwnerId(u1.getId());
+		i6.setOwnerId(u1.getId());
+		i8.setOwnerId(u1.getId());
+		i9.setOwnerId(u1.getId());
+		i10.setOwnerId(u1.getId());
+		i2.setOwnerId(u2.getId());
+		i3.setOwnerId(u2.getId());
+		i11.setOwnerId(u2.getId());
+		i1.setOwnerId(u3.getId());
+		i7.setOwnerId(u3.getId());
+		
+		ObjectifyService.ofy().save().entity(i1).now();
+		ObjectifyService.ofy().save().entity(i2).now();
+		ObjectifyService.ofy().save().entity(i3).now();
+		ObjectifyService.ofy().save().entity(i4).now();
+		ObjectifyService.ofy().save().entity(i5).now();
+		ObjectifyService.ofy().save().entity(i6).now();
+		ObjectifyService.ofy().save().entity(i7).now();
+		ObjectifyService.ofy().save().entity(i8).now();
+		ObjectifyService.ofy().save().entity(i9).now();
+		ObjectifyService.ofy().save().entity(i10).now();
+		ObjectifyService.ofy().save().entity(i11).now();
 	}
 	
 	private static String HTML_TEMPLATE = "<html>" + "<head>" + "<title>Welcome to Shero!</title>" + "</head>"

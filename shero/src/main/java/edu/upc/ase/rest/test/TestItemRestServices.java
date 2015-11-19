@@ -93,7 +93,7 @@ public class TestItemRestServices {
 		item.addTag(Ref.create(tag2Key));
 		
 		Key<Item> itemKey = ObjectifyService.ofy().save().entity(item).now();
-		user.addItem(itemKey);
+		user.addItem(item);
 		ObjectifyService.ofy().save().entity(user).now();
 		
 		int ratingValue = df.getNumberBetween(0, 5);

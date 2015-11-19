@@ -280,8 +280,8 @@ public class UserRestService {
 		}
 		
 		// save and add item to user
-		Key<Item> itemKey = ObjectifyService.ofy().save().entity(item).now();
-		user.addItem(itemKey);
+		ObjectifyService.ofy().save().entity(item).now();
+		user.addItem(item);
 		
 		// save user
 		Key<User> userKey = ObjectifyService.ofy().save().entity(user).now();
