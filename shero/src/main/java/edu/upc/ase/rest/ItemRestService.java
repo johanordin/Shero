@@ -81,7 +81,7 @@ public class ItemRestService {
 			
 			// filter if item is available on all specified dates
 			for(Date d : dates) {
-				q = q.filter("availabilityPeriods.availabilityDate", d);
+				q = q.filter("availabilityPeriods", d);
 			}
 		}
 		
@@ -153,17 +153,21 @@ public class ItemRestService {
 	@Produces("image/png")
 	public Response getFullImage(@PathParam("id") String id) {
 
-		Item item = new ItemDao().getItemById(id);
+		Item item = new ItemDao().getItemById(id); 
 		List<Ref<Image>> refs = item.getImageRefs();
-		Image image = refs.get(0).getValue();
-		
-		//Image image = ImageDao.getImageById(id);
-		
-		// uncomment line below to send non-streamed
-	    // return Response.ok(imageData).build();
+		if (!refs.isEmpty()) {
+			Image image = refs.get(0).getValue();
+			
+			//Image image = ImageDao.getImageById(id);
+			
+			// uncomment line below to send non-streamed
+		    // return Response.ok(imageData).build();
 
-	    // uncomment line below to send streamed
-	     return Response.ok(new ByteArrayInputStream(image.getImage().getBytes())).build();
+		    // uncomment line below to send streamed
+		     return Response.ok(new ByteArrayInputStream(image.getImage().getBytes())).build();
+		} else {
+			return Response.status(404).entity("Image not found.").build();
+		}
 	}
 	
 	@GET

@@ -20,13 +20,14 @@ angular.module('SHeroApp')
             item.taglist = [];
             item.availabilityPeriods.forEach(function(availability) {
                 // Convert to unixtime
-                var unixtime = Date.parse(availability.availabilityDate);
+                var unixtime = Date.parse(availability);
                 item.availabilityDates.push(unixtime);
              });
             item.tags.forEach(function(tag) {
                item.taglist.push(tag.text); 
             });
             item.meanRating = item.sumRatings / item.numRatings;
+            item.imgUrl = "/rest/items/image/" + item.id;
          });
      }; 
      

@@ -9,7 +9,7 @@
  */
 
 angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, $location, ItemsService, AddressesService, SearchResultService) {
-	$scope.isHome = false;
+	
     $scope.itemSuggestions = ItemsService.getItemSuggestions();
     $scope.citySuggestions = AddressesService.getCitySuggestions();
     
@@ -52,9 +52,9 @@ angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, $locatio
         var to = $scope.formData.to ? (Date.parse($scope.formData.to) + offset) : '';
 
         var searchItemsPromise = ItemsService.searchItems($scope.formData.item.title, $scope.formData.city.title, from, to);
-            searchItemsPromise.then(function(response) {
-                SearchResultService.setSearchResults(response.data); 
-                $location.path("/SearchResults");
-            });
+        searchItemsPromise.then(function(response) {
+            SearchResultService.setSearchResults(response.data); 
+            $location.path("/SearchResults");
+        });
     };
 });
