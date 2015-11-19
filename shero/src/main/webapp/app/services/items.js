@@ -20,6 +20,15 @@ angular.module('SHeroApp')
                 return response;
             });
         };
+    
+        var deleteItem = function (itemId) {
+            return $http({
+                method: "DELETE",
+                url: 'rest/items/'+itemId
+            }).then(function(response) {
+                return response;
+            });
+        };
 
         var searchItems = function (name, city, from, to) {
             params = {};
@@ -85,6 +94,7 @@ angular.module('SHeroApp')
     
         return {
             postItem : postItem,
+            deleteItem: deleteItem,
             searchItems: searchItems,
         	getAllItems: getAllItems,
             getItemSuggestions: getItemSuggestions,
