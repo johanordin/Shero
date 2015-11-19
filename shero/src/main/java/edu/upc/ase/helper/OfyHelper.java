@@ -12,6 +12,7 @@ import edu.upc.ase.domain.Availability;
 import edu.upc.ase.domain.Image; 
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.ItemRating;
+import edu.upc.ase.domain.Rental;
 import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
 import edu.upc.ase.domain.UserRating;
@@ -36,6 +37,7 @@ public class OfyHelper implements ServletContextListener {
 		ObjectifyService.register(Tag.class);
 		ObjectifyService.register(EmailTemplate.class);
 		ObjectifyService.register(Image.class);
+		ObjectifyService.register(Rental.class);
 		
 		
 		//Doesnt work because of " java.lang.IllegalStateException: 
