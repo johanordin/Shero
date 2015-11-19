@@ -29,8 +29,8 @@ public class Item {
 
 	// one item has exactly one address
 	private Address address;
-	
-	private List<Availability> availabilityPeriods = new ArrayList<Availability>();
+	@Index
+	private List<Date> availabilityPeriods = new ArrayList<Date>();
 	@Ignore
 	private List<ItemRating> itemRatings;
 	@Ignore
@@ -50,7 +50,6 @@ public class Item {
 	private transient List<Ref<ItemRating>> itemRatingRefs = new ArrayList<Ref<ItemRating>>();
 	@Load
 	private transient List<Ref<Tag>> tagRefs = new ArrayList<Ref<Tag>>();
-	
 	@Load
 	private transient List<Ref<Image>> imageRefs = new ArrayList<Ref<Image>>();
 	
@@ -68,7 +67,7 @@ public class Item {
 	}
 
 	public Item(String name, Double price, String description, Address address,
-			List<Availability> availabilityPeriods, List<Tag> tags) {
+			List<Date> availabilityPeriods, List<Tag> tags) {
 		this(name, price, description);
 		this.address = address;
 		this.availabilityPeriods = availabilityPeriods;
@@ -116,7 +115,7 @@ public class Item {
 		return address;
 	}
 
-	public List<Availability> getAvailabilityPeriods() {
+	public List<Date> getAvailabilityPeriods() {
 		return availabilityPeriods;
 	}
 
@@ -154,8 +153,12 @@ public class Item {
 		this.itemRatingRefs.add(itemRating);
 	}
 	
-	public void addAvailableDay(Availability day) {
+	public void addAvailableDay(Date day) {
 		this.availabilityPeriods.add(day);
+	}
+	
+	public void removeAvailabilityPeriod(List<Date> period) {
+		this.availabilityPeriods.removeAll(period);
 	}
 	
 	public void addImage(Ref<Image> image) {

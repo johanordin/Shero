@@ -274,9 +274,7 @@ public class UserRestService {
 		JsonArray availabilityDates = jsonObj.getAsJsonArray("selectedDates");
 		for (int i = 0; i < availabilityDates.size(); i++) {
 			Date date = new Date(availabilityDates.get(i).getAsLong());
-			Availability availableDay = new Availability(date);
-			ObjectifyService.ofy().save().entity(availableDay).now();
-			item.addAvailableDay(availableDay);
+			item.addAvailableDay(date);
 		}
 		
 		// save and add item to user

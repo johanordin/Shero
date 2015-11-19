@@ -81,7 +81,7 @@ public class ItemRestService {
 			
 			// filter if item is available on all specified dates
 			for(Date d : dates) {
-				q = q.filter("availabilityPeriods.availabilityDate", d);
+				q = q.filter("availabilityPeriods", d);
 			}
 		}
 		
