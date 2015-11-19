@@ -5,13 +5,24 @@
  <div class="modal-body">
 	<form class="form-horizontal">
 	    <label>Name</label>
-	    <input type="text">
+	    <input type="text" class="form-control" id="name" 
+		    placeholder="Your name" 
+		    ng-model="formData.name"
+		    required 
+		    autofocus>
 	    <br>
 	    <label>E-Mail</label>   
-	    <input type="mail">
+	    <input type="mail" class="form-control" id="mail" 
+	       placeholder="Mail" 
+	       ng-model="formData.mail"
+	       required 
+	       autofocus>
 	    <br>
 	    <label>Message</label>
-	    <input type="text">
+	    <textarea class="form-control" rows="5" id="comment" 
+	       ng-model="formData.message"
+	       required 
+	       autofocus></textarea>
 	</form>
  </div>
 
