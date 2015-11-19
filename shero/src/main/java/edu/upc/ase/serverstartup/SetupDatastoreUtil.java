@@ -12,7 +12,6 @@ import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 
 import edu.upc.ase.domain.Address;
-import edu.upc.ase.domain.Availability;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.ItemRating;
 import edu.upc.ase.domain.Tag;
