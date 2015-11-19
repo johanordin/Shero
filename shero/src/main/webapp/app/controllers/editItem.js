@@ -1,5 +1,5 @@
 angular.module('SHeroApp')
-    .controller('EditItemCtrl', function ($scope, $stateParams, $location ItemsService, SessionStorageService) {
+    .controller('EditItemCtrl', function ($scope, $stateParams, $location, ItemsService, SessionStorageService) {
         $scope.itemId = $stateParams.itemId;
     
         var rawItem = SessionStorageService.getUserItemSpecific($scope.itemId);
