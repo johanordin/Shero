@@ -160,7 +160,6 @@ angular.module('SHeroApp')
             var item = $filter('filter')($rootScope.$storage.SHeroItems, function (d) {
                 return d.id == itemId;
             });
-            console.log(JSON.stringify(item));
             return item;
         };
         
