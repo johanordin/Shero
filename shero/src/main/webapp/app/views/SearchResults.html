@@ -33,7 +33,7 @@
             <div class="col-md-12 well-sm searchresult-heading">
                 <div class="col-md-2">
                     <img class="img-thumbnail"  
-                         src="/rest/items/image/{{item.id}}"
+                         src="{{item.imgUrl}}"
                          onerror="if (this.src != 'img/placeholder_small.jpeg') this.src = 'img/placeholder_small.jpeg';"
                          alt="Couldn't find image">
                     </image>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-md-3">
                 	<div class="btn-group pull-right" role="group">
-		                <button class="btn btn-sm btn-primary" ng-click="openContactModal({{item.ownerId}});"><span class="fa fa-envelope-o"></span>
+		                <button class="btn btn-sm btn-primary" ng-click="openContactModal({{item.ownerId}});"><span class="fa fa-envelope-o"></span> <!--  -->
 		                    Contact
 		                </button>
 		            </div>

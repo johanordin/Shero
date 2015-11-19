@@ -22,18 +22,29 @@ angular.module('SHeroApp')
             })
         };
     
-        var getUserById = function(id) {
+        var getUserById = function(userId) {
             return $http({
                 method: "GET",
-                url: "/rest/users/id/"+id
+                url: "/rest/users/id/"+userId
             }).then(function(response){
                 return response;      
+            })
+        };
+    
+        var getRentedItems = function (userId) {
+            return $http({
+                method: "GET",
+                //@TODO change url!
+                url: "/rest/items"
+            }).then (function(response){
+                return response;
             })
         };
     
         return {
             postUser : postUser,
             getUserByMail: getUserByMail,
-            getUserById: getUserById
+            getUserById: getUserById,
+            getRentedItems: getRentedItems
         };
     })

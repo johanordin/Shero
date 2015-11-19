@@ -1,14 +1,12 @@
 angular.module('SHeroApp')
-    .factory('SearchResultService', function() {
-        
-        var searchResults = {};
+    .factory('SearchResultService', function($localStorage) {
     
         var setSearchResults = function (results) {
-            searchResults = results;
+            $localStorage.SHeroSearchItems = results;
         };
         
         var getSearchResults = function () {
-            return searchResults;  
+            return $localStorage.SHeroSearchItems;  
         };
     
         return {setSearchResults: setSearchResults,

@@ -7,7 +7,7 @@
  */
 
 angular.module('SHeroApp')
-	.controller('SearchResultsCtrl', function($scope, ItemsService, SearchResultService) { 
+	.controller('SearchResultsCtrl', function($scope, $uibModal, ItemsService, SearchResultService) { 
   
 	// Variable for items
 	$scope.itemlist = {};
@@ -27,6 +27,7 @@ angular.module('SHeroApp')
                item.taglist.push(tag.text); 
             });
             item.meanRating = item.sumRatings / item.numRatings;
+            item.imgUrl = "/rest/items/image/" + item.id;
          });
      }; 
      
@@ -47,5 +48,24 @@ angular.module('SHeroApp')
          //return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
          return true;
      };
+     
+     
+     // Send email Modal
+     $scope.animationsEnabled = true;
+
+     $scope.openContactModal = function(itemId) {
+       var modalQuestions = $uibModal.open({
+         animation: $scope.animationsEnabled,
+         templateUrl: 'app/views/ModalQuestions.html',
+         controller: 'ModalQuestionsCtrl'
+       });
+       modalQuestions.result.then(function () {
+       });
+     };
+
+     $scope.toggleAnimation = function () {
+       $scope.animationsEnabled = !$scope.animationsEnabled;
+     };
+     
 
 });
