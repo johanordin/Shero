@@ -20,6 +20,15 @@ angular.module('SHeroApp')
                 return response;
             });
         };
+    
+        var deleteItem = function (itemId) {
+            return $http({
+                method: "DELETE",
+                url: 'rest/items/'+itemId
+            }).then(function(response) {
+                return response;
+            });
+        };
 
         var searchItems = function (name, city, from, to) {
             params = {};
@@ -67,8 +76,28 @@ angular.module('SHeroApp')
             return itemNames;
         };
     
-        return {postItem : postItem,
-                searchItems: searchItems,
-        		getAllItems: getAllItems,
-                getItemSuggestions: getItemSuggestions};
+        var getNeededItemInfo = function (item) {
+            item.availabilityDates = [];
+            item.taglist = [];
+            item.availabilityPeriods.forEach(function(availability) {
+                // Convert to unixtime
+                var unixtime = Date.parse(availability);
+                item.availabilityDates.push(unixtime);
+             });
+            item.tags.forEach(function(tag) {
+               item.taglist.push(tag.text); 
+            });
+            item.meanRating = item.sumRatings / item.numRatings;
+            item.imgUrl = "/rest/items/image/" + item.id;
+            return item;
+        };
+    
+        return {
+            postItem : postItem,
+            deleteItem: deleteItem,
+            searchItems: searchItems,
+        	getAllItems: getAllItems,
+            getItemSuggestions: getItemSuggestions,
+            getNeededItemInfo: getNeededItemInfo
+        };
     })

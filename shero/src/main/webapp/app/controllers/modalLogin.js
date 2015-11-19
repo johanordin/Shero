@@ -82,7 +82,6 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
                 // copy data into local storage and initiate session
                 SessionStorageService.store(response.data);
                 console.log("User "+ response.data.id +" logged in!");
-                alert("User logged in");
             } 
         });
     }
