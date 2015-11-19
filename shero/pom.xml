@@ -70,7 +70,7 @@
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-testing</artifactId>
             <version>${appengine.version}</version>
-            <scope>test</scope>
+<!--             <scope>test</scope> -->
         </dependency>
         <dependency>
             <groupId>com.google.appengine</groupId>

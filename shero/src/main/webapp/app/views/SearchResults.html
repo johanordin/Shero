@@ -1,1 +1,104 @@
-<p>Search Results!</p>
+<div class="col-md-12">
+    <div class="col-md-12">
+        <div class="btn-group-sm pull-right" role="group">
+            Sort by
+            <button type="button" 
+                class="btn btn-primary " 
+                ng-click="sort('price')">... price
+                <span class="glyphicon sort-icon" 
+                      ng-show="sortKey=='price'" 
+                      ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}">
+                </span>
+            </button>
+            <button type="button" 
+                class="btn btn-primary" 
+                ng-click="sort('name')">... name
+                <span class="glyphicon sort-icon" 
+                      ng-show="sortKey=='name'" 
+                      ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}">
+                </span>
+            </button>
+            <button type="button" 
+                class="btn btn-primary" 
+                ng-click="sort('created')">... novelty
+                <span class="glyphicon sort-icon" 
+                      ng-show="sortKey=='created'" 
+                      ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}">
+                </span>
+            </button>
+        </div> 
+    </div>
+    <br/><br/>
+    <div class="col-md-12 searchresult-container" dir-paginate="item in itemlist | orderBy:sortKey:reverse | itemsPerPage:10">     
+            <div class="col-md-12 well-sm searchresult-heading">
+                <div class="col-md-2">
+                    <img class="img-thumbnail"  
+                         src="{{item.imgUrl}}"
+                         onerror="if (this.src != 'img/placeholder_small.jpeg') this.src = 'img/placeholder_small.jpeg';"
+                         alt="Couldn't find image">
+                    </image>
+                </div>
+                <div class="col-md-7 searchresult-title">
+                    <h4> {{item.name}} 
+                        <small>({{item.address.street}} {{item.address.number}}, {{item.address.zipcode}} {{item.address.city}})</small>
+                    </h4>
+                </div>
+                <div class="col-md-3">
+                    <uib-rating class="pull-right" ng-model="item.meanRating" 
+                        max="5" 
+                        readonly="true"  
+                        aria-labelledby="default-rating"
+                        state-on="'fa fa-star fa-2x'"
+                        state-off="'fa fa-star-o fa-2x'">
+                    </uib-rating>  
+                </div>
+                <div class="col-md-7">
+                    <h4>{{item.price  | currency : "€"}} / day</h4>
+                </div>
+                <div class="col-md-3">
+                    <div class="btn-group pull-right" role="group">
+                        <button type="button" id="toggle{{item.id}}" class="btn btn-primary" data-toggle="collapse" data-target="#{{item.id}}">
+                            Details
+                        </button>
+                        <button type="button" id="rent{{item.id}}" class="btn btn-success">
+                            Rent
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-7"> 
+                </div>
+                <div class="col-md-3">
+                	<div class="btn-group pull-right" role="group">
+		                <button class="btn btn-sm btn-primary" ng-click="openContactModal({{item.ownerId}});"><span class="fa fa-envelope-o"></span> <!--  -->
+		                    Contact
+		                </button>
+		            </div>
+                </div>
+            </div>
+            <div class="col-md-12 collapse searchresult-footer" id="{{item.id}}">
+                <br>
+                <div class="col-md-4">
+                    <uib-datepicker ng-model='activeDate' 
+                                    multi-select='item.availabilityDates' 
+                                    name="datepicker"
+                                    date-disabled="disabled(date, mode)">
+                    </uib-datepicker>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-justify">{{item.description}}</p>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-12" ng-repeat="tag in item.taglist" ng-hide="item.taglist.length == 0">
+                        <span class="itemtag pull-right">{{tag}}</span>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    <dir-pagination-controls
+        max-size="5"
+        direction-links="true"
+        boundary-links="true" >
+    </dir-pagination-controls>
+</div>
+

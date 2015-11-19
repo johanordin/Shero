@@ -4,12 +4,14 @@ import java.util.Date;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 @Entity
 public class Availability {
 
 	@Id Long id;
 	// granularity of availability is day-wise
+	@Index
 	private Date availabilityDate;
 	
 	public Availability() {

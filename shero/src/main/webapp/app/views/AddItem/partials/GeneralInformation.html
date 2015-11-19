@@ -17,10 +17,11 @@
 	<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="location">Location *</label>
 	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 input-group">
 		<select class="form-control" id="location" ng-model="formData.addressId" style="border-radius: 4px;" required>   
-            <option ng-repeat="address in $storage.user.addresses" value="{{address.id}}">
+            <option ng-repeat="address in $storage.SHeroAddresses" value="{{address.id}}">
                 {{address.street}} {{address.number}} ({{address.zipcode}} {{address.city}})
             </option>
-    </select>
+        </select>
+        <a ui-sref="editUser.address" ng-if="$storage.SHeroAddresses.length == 0"><i class="fa fa-plus"></i> Add your first address!</a>
 	</div>
 </div>
 

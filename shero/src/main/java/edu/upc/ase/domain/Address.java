@@ -12,7 +12,6 @@ public class Address {
 	private String country;
 	@Index
 	private String city;
-	@Index
 	private String zipcode;
 	private String street;
 	private String number; 

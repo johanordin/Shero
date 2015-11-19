@@ -4,7 +4,7 @@ angular.module('SHeroApp')
  	.config(function($stateProvider, $urlRouterProvider) {
  		//redirects /AddItem directly to /AddItem/GeneralInformation
  		$urlRouterProvider.when('/AddItem', '/AddItem/GeneralInformation');
-    $urlRouterProvider.when('/EditUser', '/EditUser/General');
+        $urlRouterProvider.when('/EditUser', '/EditUser/General');
 
  		//redirects empty states to Home-View
  		$urlRouterProvider.when('', '/Home');
@@ -20,17 +20,10 @@ angular.module('SHeroApp')
  			//Search Results
  			.state('searchResult', {
  				url: '/SearchResults',
-        		templateUrl: 'app/views/SearchResults.html'
+        		templateUrl: 'app/views/SearchResults.html',
+            controller: 'SearchResultsCtrl',
+            controllerAs: 'searchResultCtrl'
       		})
-        
-            //Abstract state
-      		//Acts as parent for all states which need authentication
- 			//.state('app', {
- 			//	abstract: true,
- 				/*data: {
-        			requireLogin: true
-      			}*/
- 			//})
         
           	//Edit User
       		.state('editUser', {
@@ -76,7 +69,44 @@ angular.module('SHeroApp')
 
           //Edit item
 	      .state('editItem', {
-	      	url: '/EditItem', 
-	        templateUrl: 'app/views/EditItem.html'
+	      	url: '/EditItem/:itemId', 
+	        templateUrl: 'app/views/EditItem.html',
+            controller: 'EditItemCtrl'
 	      })
- 	});
+        
+        .state('myRentals', {
+            url: '/MyRentals',
+            templateUrl: 'app/views/MyRentals.html',
+            controller: 'MyRentalsCtrl'
+        })
+ 	})
+
+
+.config(['flowFactoryProvider', function (flowFactoryProvider) {
+	  flowFactoryProvider.defaults = {
+	    target: '/UploadServlet',
+	    testChunks: false,
+	    permanentErrors: [404, 500, 501],
+	    maxChunkRetries: 1,
+	    chunkRetryInterval: 5000,
+	    simultaneousUploads: 4,
+	    singleFile: true
+	  };
+	  
+	  flowFactoryProvider.on('catchAll', function (event) {
+		//event.preventDefault();//prevent file from uploading
+	    console.log('catchAll', arguments);
+	  });
+	  
+	  flowFactoryProvider.on('flow::fileAdded', function (event, $flow, flowFile) {
+		  //event.preventDefault();//prevent file from uploading
+		  console.log('-> fileAdded called --> from factorys');
+	  });
+	 
+	  flowFactoryProvider.on('filesSubmitted', function (flowEvent, flowObj, files, event) {
+	    //event.preventDefault();//prevent file from uploading
+		console.log('->filesSubmitted called --> from factorys');
+	    console.log(files);
+	  });
+	  
+	}]);

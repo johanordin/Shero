@@ -13,7 +13,9 @@ public class Image {
 	@Index
 	private String name; 
 	private Blob image; 
-	
+
+	public Image() {
+	}
 	public Image(String name, Blob image) {
 		super();
 		this.name = name;
@@ -35,4 +37,13 @@ public class Image {
 	public void setImage(Blob image) {
 		this.image = image;
 	}
+	
+	public Long getImageId() {
+		return id;
+	}
+
+		
+	
+	
+	
 }

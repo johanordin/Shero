@@ -1,17 +1,20 @@
 <!doctype html>
 <html lang="en" ng-app="SHeroApp"  ng-controller="MainCtrl" style="overflow-y: scroll;">
-  <head>
-    <meta charset="utf-8">
-    <title>SHero</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <head>
+        <meta charset="utf-8">
+        <title>SHero</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="lib/tags-input/ng-tags-input.css">
-    <link rel="stylesheet" href="lib/tags-input/ng-tags-input.bootstrap.css">
-  </head>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/searchresults.css">
+        <link rel="stylesheet" href="css/searchbar.css">
+
+        <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="lib/tags-input/ng-tags-input.css">
+        <link rel="stylesheet" href="lib/tags-input/ng-tags-input.bootstrap.css">
+    </head>
   <body>
 
     <!-- INCLUDES NAVIGATION -->
@@ -43,24 +46,34 @@
     <script src="lib/gm-datepicker/datepickerMultiSelect.js"></script>
     <script src="lib/tags-input/ng-tags-input.js"></script>
     <script src="lib/sha256/sha256.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-flow/2.6.1/ng-flow-standalone.min.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+    <script src="lib/pagination/dirPagination.js"></script>
+    <script src="lib/ng-flow/ng-flow-standalone.min.js"></script>
+    <script src="lib/ng-storage/ngStorage.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angucomplete-alt/2.1.0/angucomplete-alt.min.js"></script>
 
     <script src="app/app.js"></script>
     <script src="app/states.js"></script>
     <script src="app/directives.js"></script>
-    <script src="app/services/imageservice.js"></script>
+      
+    <script src="app/services/upload.js"></script>
     <script src="app/services/tags.js"></script>
     <script src="app/services/users.js"></script>
-    <script src="app/services/userData.js"></script>
+    <script src="app/services/sessionStorage.js"></script>
     <script src="app/services/items.js"></script>
+    <script src="app/services/searchResults.js"></script>
+    <script src="app/services/addresses.js"></script>
+      
     <script src="app/controllers/main.js"></script>
     <script src="app/controllers/searchbar.js"></script>
     <script src="app/controllers/usermenu.js"></script>
     <script src="app/controllers/addItem.js"></script>
     <script src="app/controllers/editUser.js"></script>
     <script src="app/controllers/tags.js"></script>
-    <script src="app/controllers/modal-login.js"></script>
+    <script src="app/controllers/modalLogin.js"></script>
     <script src="app/controllers/register.js"></script>
+    <script src="app/controllers/searchresults.js"></script>
+    <script src="app/controllers/editItem.js"></script>
+    <script src="app/controllers/myRentals.js"></script>
+    <script src="app/controllers/modalQuestions.js"></script>
   </body>
 </html>

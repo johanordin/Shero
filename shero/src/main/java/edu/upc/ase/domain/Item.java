@@ -1,11 +1,11 @@
 package edu.upc.ase.domain;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.google.gson.Gson;
-import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
@@ -17,7 +17,6 @@ import com.googlecode.objectify.annotation.OnLoad;
 
 @Entity
 public class Item {
-	private static final Gson GSON = new Gson();
 	private static final Logger logger = Logger.getLogger("Item");
 	
 	@Id
@@ -27,28 +26,30 @@ public class Item {
 	@Index
 	private Double price;
 	private String description;
-	private String imagePath;
 
 	// one item has exactly one address
-	@Ignore
 	private Address address;
-	@Ignore
-	private List<Availability> availabilityPeriods;
+	@Index
+	private List<Date> availabilityPeriods = new ArrayList<Date>();
 	@Ignore
 	private List<ItemRating> itemRatings;
 	@Ignore
 	private List<Tag> tags;
-
-	@Load
-	private transient Ref<Address> addressRef;
-	@Load
-	@Index
-	private transient List<Ref<Availability>> availabilityPeriodRefs = new ArrayList<Ref<Availability>>();
+	
+	private String imageId;
+	
+	private Long ownerId;
+	private Date created;
+	
+	// count of all ratings
+	private int numRatings;
+	// sum of all ratings' values
+	private int sumRatings;
+	
 	@Load
 	private transient List<Ref<ItemRating>> itemRatingRefs = new ArrayList<Ref<ItemRating>>();
 	@Load
 	private transient List<Ref<Tag>> tagRefs = new ArrayList<Ref<Tag>>();
-	
 	@Load
 	private transient List<Ref<Image>> imageRefs = new ArrayList<Ref<Image>>();
 	
@@ -59,13 +60,15 @@ public class Item {
 		this.name = name;
 		this.price = price;
 		this.description = description;
+		
+		// set creation time
+		Calendar cal = Calendar.getInstance();
+		this.created = cal.getTime();
 	}
 
 	public Item(String name, Double price, String description, Address address,
-			List<Availability> availabilityPeriods, List<Tag> tags) {
-		this.name = name;
-		this.price = price;
-		this.description = description;
+			List<Date> availabilityPeriods, List<Tag> tags) {
+		this(name, price, description);
 		this.address = address;
 		this.availabilityPeriods = availabilityPeriods;
 		this.tags = tags;
@@ -104,25 +107,15 @@ public class Item {
 		this.price = price;
 	}
 
-	public String getImagePath() {
-		return imagePath;
-	}
-
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
-
 	public Long getId() {
 		return id;
 	}
 
 	public Address getAddress() {
-		this.address = addressRef == null ? null : addressRef.get();
 		return address;
 	}
 
-	public List<Availability> getAvailabilityPeriods() {
-		this.availabilityPeriods = new ArrayList<Availability>(ObjectifyService.ofy().load().refs(availabilityPeriodRefs).values());
+	public List<Date> getAvailabilityPeriods() {
 		return availabilityPeriods;
 	}
 
@@ -136,30 +129,82 @@ public class Item {
 		return tags;
 	}
 	
+	public String getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
+	}
+
 	public List<Ref<Image>> getImageRefs() {
 		return imageRefs;
 	}
 
-	public void setAddress(Key<Address> address) { 
-		this.addressRef = Ref.create(address);
+	public void setAddress(Address address) { 
+		this.address = address;
 	}
 	
 	public void addTag(Ref<Tag> tag) {
 		this.tagRefs.add(tag);
 	}
 	
-	public void addAvailableDay(Ref<Availability> day) {
-		this.availabilityPeriodRefs.add(day);
+	public void addItemRating(Ref<ItemRating> itemRating) {
+		this.itemRatingRefs.add(itemRating);
 	}
 	
+	public void addAvailableDay(Date day) {
+		this.availabilityPeriods.add(day);
+	}
+	
+	public void removeAvailabilityPeriod(List<Date> period) {
+		this.availabilityPeriods.removeAll(period);
+	}
+	
+	public void addImage(Ref<Image> image) {
+		this.imageRefs.add(image);
+	}
+	
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	
+	public int getNumRatings() {
+		return numRatings;
+	}
+	
+	public void updateRatingCount(int value) {
+		this.sumRatings += value;
+		this.numRatings++;
+	}
+	
+	public int getSumRatings() {
+		return sumRatings;
+	}
+	
+	public Long getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
+	}
+
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", name=" + name + ", price=" + price
-				+ ", description=" + description + ", imagePath=" + imagePath
-				+ ", address=" + address + ", availabilityPeriods="
-				+ availabilityPeriods + ", itemRatings=" + itemRatings + "]";
+				+ ", description=" + description + ", address=" + address
+				+ ", availabilityPeriods=" + availabilityPeriods
+				+ ", itemRatings=" + itemRatings + ", tags=" + tags
+				+ ", imageId=" + imageId + ", ownerId=" + ownerId
+				+ ", created=" + created + ", numRatings=" + numRatings
+				+ ", sumRatings=" + sumRatings + "]";
 	}
-	
+
 	public void serialize() {
 		this.getAddress();
 		this.getAvailabilityPeriods();

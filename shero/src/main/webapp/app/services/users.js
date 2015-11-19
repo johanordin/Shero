@@ -11,27 +11,40 @@ angular.module('SHeroApp')
             })
         };
     
-        var getUserByMail = function() {
+        var getUserByMail = function(mail, password) {
             return $http({
-                method: "GET",
-                url: "/rest/users/mail/max%40mustermann.de"
+                method: 'GET',
+                url: '/rest/users/mail/' + mail,
+                // GET request can't contain data, only parameters
+                params: {hashedPassword: password} 
             }).then(function(response){
                 return response;
             })
         };
     
-        var getUserById = function(id) {
+        var getUserById = function(userId) {
             return $http({
                 method: "GET",
-                url: "/rest/users/id/"+id
+                url: "/rest/users/id/"+userId
             }).then(function(response){
                 return response;      
+            })
+        };
+    
+        var getRentedItems = function (userId) {
+            return $http({
+                method: "GET",
+                //@TODO change url!
+                url: "/rest/items"
+            }).then (function(response){
+                return response;
             })
         };
     
         return {
             postUser : postUser,
             getUserByMail: getUserByMail,
-            getUserById: getUserById
+            getUserById: getUserById,
+            getRentedItems: getRentedItems
         };
     })
