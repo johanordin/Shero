@@ -68,11 +68,6 @@
                 <div class="col-md-7"> 
                 </div>
                 <div class="col-md-3">
-                	<div class="btn-group pull-right" role="group">
-		                <button class="btn btn-sm btn-primary" ng-click="openContactModal({{item.ownerId}});"><span class="fa fa-envelope-o"></span> <!--  -->
-		                    Contact
-		                </button>
-		            </div>
                 </div>
             </div>
             <div class="col-md-12 collapse searchresult-footer" id="{{item.id}}">
@@ -86,6 +81,11 @@
                 </div>
                 <div class="col-md-6">
                     <p class="text-justify">{{item.description}}</p>
+                    <div class="btn-group pull-right" role="group">
+		                <button class="btn btn-sm btn-primary" ng-click="openContactModal({{item.ownerId}});"><span class="fa fa-envelope-o"></span>
+		                    Contact
+		                </button>
+		            </div>
                 </div>
                 <div class="col-md-2">
                     <div class="col-md-12" ng-repeat="tag in item.taglist" ng-hide="item.taglist.length == 0">
