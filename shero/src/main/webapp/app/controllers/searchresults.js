@@ -69,5 +69,22 @@ angular.module('SHeroApp')
        $scope.animationsEnabled = !$scope.animationsEnabled;
      };
      
+     $scope.openRentItemModal = function(item) {
+       var modalQuestions = $uibModal.open({
+         animation: $scope.animationsEnabled,
+         templateUrl: 'app/views/ModalRentItem.html',
+         controller: 'ModalRentItemCtrl',
+         size : 'lg',
+         resolve: {
+             item: function () {
+               return item;
+             }
+           }
+       });
+       modalQuestions.result.then(function () {
+       });
+     };
+     
+     
 
 });

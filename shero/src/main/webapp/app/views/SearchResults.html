@@ -60,7 +60,7 @@
                         <button type="button" id="toggle{{item.id}}" class="btn btn-primary" data-toggle="collapse" data-target="#{{item.id}}">
                             Details
                         </button>
-                        <button type="button" id="rent{{item.id}}" class="btn btn-success">
+                        <button type="button" id="rent{{item.id}}" class="btn btn-success" ng-click="openRentItemModal({{item}});">
                             Rent
                         </button>
                     </div>
