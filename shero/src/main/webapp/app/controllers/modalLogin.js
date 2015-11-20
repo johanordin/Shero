@@ -71,8 +71,6 @@ angular.module('SHeroApp').controller('ModalLoginCtrl', function ($scope, $modal
 
         var getUserPromise = UsersService.getUserByMail(mail, hashedPassword);
         getUserPromise.then(function(response) {
-            console.log("status: " + response.status);
-            console.log("data: " + JSON.stringify(response.data));
             if (response.data.status === 'error' || response.status != '200') {
                 // do not proceed with login
                 alert("User could not be logged in.");

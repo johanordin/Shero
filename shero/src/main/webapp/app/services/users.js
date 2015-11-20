@@ -34,8 +34,7 @@ angular.module('SHeroApp')
         var getRentedItems = function (userId) {
             return $http({
                 method: "GET",
-                //@TODO change url!
-                url: "/rest/users/"+userId+"/rentals"
+                url: "/rest/users/"+userId+"/rentals/items"
             }).then (function(response){
                 return response;
             })

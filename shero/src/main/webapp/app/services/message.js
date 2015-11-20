@@ -7,7 +7,6 @@ angular.module('SHeroApp')
                 url: "/rest/users", //TODO: valid rest url
                 data: formData
             }).then(function(response){
-            	console.log("resp: " + response);
                 return response;
             })
         };

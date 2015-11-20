@@ -76,6 +76,28 @@ angular.module('SHeroApp')
             return itemNames;
         };
     
+        var rentItem = function (rentalData) {
+            var userId = $cookies.get('SHeroUserId');
+            rentalData.userId = userId;
+            return $http({
+	    		method: 'POST',
+	    		url: '/rest/rentals',
+	    		data: rentalData
+	    	}).then(function(response){
+                return response;
+            });
+        }
+        
+        var rateItem = function (rateData) {
+            return $http({
+	    		method: 'POST',
+	    		url: '/rest/itemratings',
+	    		data: rateData
+	    	}).then(function(response){
+                return response;
+            });
+        }
+    
         var getNeededItemInfo = function (item) {
             item.availabilityDates = [];
             item.taglist = [];
@@ -98,6 +120,8 @@ angular.module('SHeroApp')
             searchItems: searchItems,
         	getAllItems: getAllItems,
             getItemSuggestions: getItemSuggestions,
+            rentItem: rentItem,
+            rateItem: rateItem,
             getNeededItemInfo: getNeededItemInfo
         };
     })

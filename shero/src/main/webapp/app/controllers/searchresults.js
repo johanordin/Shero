@@ -37,6 +37,17 @@ angular.module('SHeroApp')
          //return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
          return true;
      };
+    
+    //rent item --> itemId + period [1447977600000,1447977600000]
+    $scope.rent = function(itemId, period) {
+        var rentalData = {};
+        rentalData.itemId = itemId;
+        rentalData.period = period;
+        var rentItemPromise = ItemsService.rentItem(rentalData);
+        rentItemPromise.then(function(response) {
+            console.log(JSON.stringify(response.data));
+        });
+    }
      
      
      // Send email Modal
