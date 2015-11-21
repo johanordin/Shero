@@ -10,7 +10,7 @@
     <label class="col-lg-2 col-md-12 col-sm-12 col-xs-12" for="datepicker">Available dates</label>
     <div class="col-lg-4 col-offset-1 col-md-5 col-sm-5 col-xs-12">
       <uib-datepicker ng-model='activeDate' 
-      				  multi-select='formData.availabilityDates' 
+      				  multi-select='formData.selectedDates' 
       				  name='datepicker'
       				  date-disabled='disabled(date, mode)'>
       </uib-datepicker>
@@ -30,7 +30,10 @@
           </div>
           <div class="row" ng-repeat='d in formData.selectedDates | orderBy' style="padding-top: 0.5em;">
             <span class="col-lg-10 col-md-10 col-sm-10 col-xs-10">{{d | date : 'dd. MMMM yyyy'}}</span>
-            <button class='col-lg-1 col-md-1 col-sm-1 col-xs-1 btn btn-xs btn-warning' ng-click='removeDateFromSelected(d)'><i class="fa fa-times"></i></button>
+            <button class='col-lg-1 col-md-1 col-sm-1 col-xs-1 btn btn-xs btn-warning' 
+                    ng-click='removeDateFromSelected(d)'>
+                <i class="fa fa-times">
+                </i></button>
           </div>
         </div>
       </div>
@@ -42,6 +45,6 @@
  </div>
 
 <div class="modal-footer">
-    <button class="btn btn-info" type="submit" ng-click="okClicked()">Rent</button>
+    <button class="btn btn-info" type="submit" ng-click="okClicked()" ng-disabled="formData.selectedDates.length == 0">Rent</button>
     <button class="btn btn-default" type="button" ng-click="cancelClicked()">Cancel</button>
 </div>

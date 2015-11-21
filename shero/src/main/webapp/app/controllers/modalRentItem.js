@@ -7,20 +7,17 @@
  * # 
  * 
  */
-angular.module('SHeroApp').controller('ModalRentItemCtrl', function ($scope, $modalInstance, item) {
+angular.module('SHeroApp').controller('ModalRentItemCtrl', function ($scope, $modalInstance, ItemsService, item) {
 
 	//Data of the user-form which is going to sent to server
     $scope.formData = {};
     
     $scope.item = item
-    console.log("item: " + $scope.item.name);
+
     
-    // adjust time with UTC/GMT
-    var timestamp = new Date().setUTCHours(0, 0, 0, 0);
-    
-    $scope.formData.selectedDates=[timestamp];
-    $scope.formData.tags = [];
-    $scope.formData.availabilityDates = $scope.item.availabilityDates;
+    $scope.formData.selectedDates=[];
+    //console.log (JSON.stringify($scope.item.availabilityDates));
+    //console.log (JSON.stringify($scope.formData.selectedDates));
     
     //Variables for DatePicker
     $scope.activeDate = null;
@@ -30,8 +27,13 @@ angular.module('SHeroApp').controller('ModalRentItemCtrl', function ($scope, $mo
 	
 	// TODO: need to disable the dates that not are available
     $scope.disabled = function(date, mode) {
-        return ( ( date.getDay() === 0 || date.getDay() === 6 ) );
-        //return true;
+        var disabled = true;
+        $scope.item.availabilityDates.forEach(function (availableDate) {
+            if (date.setUTCHours(0, 0, 0, 0) === availableDate) {
+                disabled = false;
+            }
+        });
+        return disabled;
     };
 	
 	
@@ -41,7 +43,7 @@ angular.module('SHeroApp').controller('ModalRentItemCtrl', function ($scope, $mo
 	};
 	
     $scope.okClicked = function () {
-        console.log("Ok");
+        $scope.rent($scope.item.id, $scope.formData.selectedDates);
     };
 
     //function called when the user clicks the cancel-button
@@ -49,5 +51,15 @@ angular.module('SHeroApp').controller('ModalRentItemCtrl', function ($scope, $mo
         $modalInstance.dismiss('cancel');
     };
     
-    
+        //rent item --> itemId + period [1447977600000,1447977600000]
+    $scope.rent = function(itemId, period) {
+        var rentalData = {};
+        rentalData.itemId = itemId;
+        rentalData.period = period;
+        var rentItemPromise = ItemsService.rentItem(rentalData);
+        rentItemPromise.then(function(response) {
+            console.log(JSON.stringify(response.data));
+            $modalInstance.dismiss('cancel');
+        });
+    }
 });
