@@ -25,11 +25,17 @@ angular.module('SHeroApp').controller('ModalRentItemCtrl', function ($scope, $mo
 	
 	$scope.title = 'Rent a Item';
 	
+	var date = new Date();
+	// Date.getTimezoneOffset() returns the time-zone offset from UTC, in minutes
+	var offset = (-1) * date.getTimezoneOffset() * 60000;
+	
 	// TODO: need to disable the dates that not are available
     $scope.disabled = function(date, mode) {
         var disabled = true;
         $scope.item.availabilityDates.forEach(function (availableDate) {
-            if (date.setUTCHours(0, 0, 0, 0) === availableDate) {
+        	console.log("NO- date: " + date + ", available: " + availableDate);
+            if ((date.setHours(0, 0, 0, 0) + offset) === availableDate) {
+            	console.log("YES- date: " + date + ", available: " + availableDate);
                 disabled = false;
             }
         });
