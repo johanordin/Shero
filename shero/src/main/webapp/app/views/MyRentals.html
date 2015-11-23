@@ -47,7 +47,7 @@
                 <uib-rating class="pull-right" ng-model="item.userRating"
                     ng-click="openModal({{item}});"
                     max="5" 
-                    readonly="false"  
+                    readonly="item.itemRated"  
                     aria-labelledby="default-rating"
                     state-on="'fa fa-star fa-2x'"
                     state-off="'fa fa-star-o fa-2x'">
