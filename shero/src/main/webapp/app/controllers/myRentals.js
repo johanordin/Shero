@@ -9,6 +9,10 @@ angular.module('SHeroApp')
             rentedItemsPromise.then(function(response) {
                 console.log(JSON.stringify(response.data));
                 $scope.rentedItems = response.data;
+                
+                $scope.rentedItems.forEach(function(item) {
+                    ItemsService.getNeededItemInfo(item);
+                });
             });
         };
     
@@ -24,5 +28,5 @@ angular.module('SHeroApp')
         };
     
         $scope.getRentedItems();
-
+         
     });
