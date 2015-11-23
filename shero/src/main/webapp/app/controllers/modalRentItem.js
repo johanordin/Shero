@@ -14,10 +14,7 @@ angular.module('SHeroApp').controller('ModalRentItemCtrl', function ($scope, $mo
     
     $scope.item = item
 
-    
     $scope.formData.selectedDates=[];
-    //console.log (JSON.stringify($scope.item.availabilityDates));
-    //console.log (JSON.stringify($scope.formData.selectedDates));
     
     //Variables for DatePicker
     $scope.activeDate = null;

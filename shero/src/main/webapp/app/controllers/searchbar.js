@@ -23,7 +23,7 @@ angular.module('SHeroApp').controller('SearchBarCtrl', function($scope, $locatio
     };
     $scope.dateOptions = {
         formatYear: 'yyyy',
-        startingDay: 1
+        startingDay: 0
     };
     
     $scope.minDate = $scope.minDate ? null : new Date();
