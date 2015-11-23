@@ -28,5 +28,18 @@ angular.module('SHeroApp')
         };
     
         $scope.getRentedItems();
+    
+        $scope.openModal = function(item){
+            var modalLogin = $uibModal.open({
+              animation: $scope.animationsEnabled,
+              templateUrl: 'app/views/ModalRateItem.html',
+             controller: 'ModalRateItemCtrl',
+             size : 'lg',
+             resolve: {
+                 item: function () {
+                   return item;
+                 }
+               }        
+            };
          
     });
