@@ -44,13 +44,14 @@
                 </h4>
             </div>
             <div class="col-md-3">
-                <uib-rating class="pull-right" ng-model="item.meanRating" 
+                <uib-rating class="pull-right" ng-model="item.userRating"
+                    ng-click="openModal({{item}});"
                     max="5" 
-                    readonly="true"  
+                    readonly="false"  
                     aria-labelledby="default-rating"
                     state-on="'fa fa-star fa-2x'"
                     state-off="'fa fa-star-o fa-2x'">
-                </uib-rating>  
+                </uib-rating>
             </div>
             <div class="col-md-7">
                 <h4>{{item.price  | currency : "€"}} / day</h4>
@@ -60,10 +61,6 @@
                     <button type="button" id="toggle{{item.id}}" class="btn btn-primary" data-toggle="collapse" data-target="#{{item.id}}">
                         Details
                     </button>
-                    <button type="button" id="rent{{item.id}}" class="btn btn-success">
-                        Rent
-                    </button>
-                    
                 </div>
             </div>
         </div>
