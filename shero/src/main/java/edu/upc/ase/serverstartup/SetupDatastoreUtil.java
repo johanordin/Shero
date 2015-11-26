@@ -29,8 +29,24 @@ public class SetupDatastoreUtil {
 		
 		if(emailTemplates.isEmpty()){
 			//If not create now Email Template
-			EmailTemplate emailTemplate = new EmailTemplate("WelcomeTemplate", HTML_TEMPLATE);
-			ObjectifyService.ofy().save().entity(emailTemplate).now();
+			EmailTemplate welcomeTemplate = new EmailTemplate("WelcomeTemplate", HtmlTempates.WELCOME_TEMPLATE);
+			ObjectifyService.ofy().save().entity(welcomeTemplate).now();
+		}
+		
+		List<EmailTemplate> emailTemplates2 = ObjectifyService.ofy().load().type(EmailTemplate.class)
+				.filter("name", "RenterTemplate").list();
+		if(emailTemplates2.isEmpty()){
+			//If not create now Email Template
+			EmailTemplate welcomeTemplate = new EmailTemplate("RenterTemplate", HtmlTempates.RENTERTEMPLATE);
+			ObjectifyService.ofy().save().entity(welcomeTemplate).now();
+		}
+		
+		List<EmailTemplate> emailTemplates3 = ObjectifyService.ofy().load().type(EmailTemplate.class)
+				.filter("name", "OwnerTemplate").list();
+		if(emailTemplates3.isEmpty()){
+			//If not create now Email Template
+			EmailTemplate ownerTemplate = new EmailTemplate("OwnerTemplate", HtmlTempates.RENTERTEMPLATE);
+			ObjectifyService.ofy().save().entity(ownerTemplate).now();
 		}
 	}
 	
@@ -406,8 +422,4 @@ public class SetupDatastoreUtil {
 		ObjectifyService.ofy().save().entity(i10).now();
 		ObjectifyService.ofy().save().entity(i11).now();
 	}
-	
-	private static String HTML_TEMPLATE = "<html>" + "<head>" + "<title>Welcome to Shero!</title>" + "</head>"
-			+ "<body>" + "<h1> Hello #USERNAME#</h1>" + "<p>Welcome to Shero, be a sharing Hero!<p/>" + "</body>"
-			+ "</html>";
 }
