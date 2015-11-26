@@ -1,4 +1,5 @@
 
+<h1>Delete your item!</h1><br/>
 <div class="col-md-12">
     <div class="col-md-12 edititem-container">     
             <div class="col-md-12 well-sm searchresult-heading">
@@ -28,10 +29,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="btn-group pull-right" role="group">
-                        <button type="button" id="toggle{{item.id}}" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#{{item.id}}">
-                            Details
-                        </button>
-                        <button type="button" class="btn btn-sm btn-warning" ng-click="deleteItem();">Delete this item</button>
+                        <button type="button" class="btn btn-warning" ng-click="deleteItem();">Delete this item</button>
                     </div>
                 </div>
                 <div class="col-md-7"> 
@@ -39,7 +37,7 @@
                 <div class="col-md-3">
                 </div>
             </div>
-            <div class="col-md-12 collapse edititem-footer" id="{{item.id}}">
+            <div class="col-md-12 collapse in edititem-footer" id="{{item.id}}">
                 <br>
                 <div class="col-md-4">
                     <uib-datepicker ng-model='activeDate' 
@@ -55,7 +53,7 @@
                 </div>
                 <div class="col-md-2">
                     <div class="col-md-12" ng-repeat="tag in item.taglist" ng-hide="item.taglist.length == 0">
-                        <span class="itemtag pull-right">{{item.tag}}</span>
+                        <span class="itemtag pull-right">{{tag}}</span>
                     </div>
                 </div>
             </div>
@@ -63,18 +61,4 @@
         </div>
 </div>
 
-
-<p>Edit Item with Id: {{itemId}}!</p>
-
-<p>
-    The item (use to find necessary items: {{item}}<br>
-    <br>
-    name: {{item.name}}<br>
-    price: {{item.price}}<br>
-    desc: {{item.description}}<br>
-    <br>
-    for displaying availability in calendar use: {{item.availabilityDates}}<br>
-    for displaying tags use: {{item.taglist}}<br>
-    for displaying rating use {{item.meanRating}}
-</p>
 

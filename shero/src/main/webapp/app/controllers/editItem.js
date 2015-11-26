@@ -16,4 +16,8 @@ angular.module('SHeroApp')
                 });
             });
         }
+        
+        $scope.disabled = function(date, mode) {
+         return true;
+     }; 
     });
