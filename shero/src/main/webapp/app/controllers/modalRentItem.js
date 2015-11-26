@@ -18,7 +18,7 @@ angular.module('SHeroApp').controller('ModalRentItemCtrl', function ($scope, $mo
     
     //Variables for DatePicker
     $scope.activeDate = null;
-	$scope.type = 'individual';
+	$scope.type = 'individual';  
 	
 	$scope.title = 'Rent an Item';
 	
@@ -28,14 +28,19 @@ angular.module('SHeroApp').controller('ModalRentItemCtrl', function ($scope, $mo
 	
     $scope.disabled = function(date, mode) {
         var disabled = true;
+        var currentTime = new Date().setHours(0, 0, 0, 0) + offset;
         $scope.item.availabilityDates.forEach(function (availableDate) {
-            if ((date.setHours(0, 0, 0, 0) + offset) === availableDate) {
+            if (((date.setHours(0, 0, 0, 0) + offset) === availableDate) && (currentTime < availableDate)) {
                 disabled = false;
             }
         });
         return disabled;
     };
-	
+    
+    $scope.getDayClass = function(date, mode) {
+        var customClass = 'available';
+        return customClass;
+    }
 	
     //remove a selected date from the selectedDates-array
 	$scope.removeDateFromSelected = function(dt) {
