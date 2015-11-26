@@ -39,7 +39,6 @@ import edu.upc.ase.domain.Rental;
 import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
 import edu.upc.ase.helper.GsonUTCDateAdapter;
-import edu.upc.ase.mail.MailServiceUtil;
 import edu.upc.ase.rest.test.TestMailService;
 
 @Path("/users")
@@ -149,7 +148,7 @@ public class UserRestService {
 		}
 		user.serialize();
 		//Send welcome Mail to user
-		MailServiceUtil mailService = new MailServiceUtil();
+		TestMailService mailService = new TestMailService();
 		mailService.sendWelcomeMail(user);
 		
 		return GSON.toJson(user);

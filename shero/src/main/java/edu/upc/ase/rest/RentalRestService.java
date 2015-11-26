@@ -21,7 +21,6 @@ import com.googlecode.objectify.ObjectifyService;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.Rental;
 import edu.upc.ase.helper.GsonUTCDateAdapter;
-import edu.upc.ase.mail.MailServiceUtil;
 
 @Path("/rentals")
 public class RentalRestService {
@@ -77,9 +76,6 @@ public class RentalRestService {
 				newRental = ObjectifyService.ofy().load().type(Rental.class).id(key.getId()).now();
 			}
 		}
-		
-		MailServiceUtil mailServiceUtil = new MailServiceUtil();
-		mailServiceUtil.sendRentalMail(newRental);
 		
 		// return the newly created rental
 		Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new GsonUTCDateAdapter()).create();

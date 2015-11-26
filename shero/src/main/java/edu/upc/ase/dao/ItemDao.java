@@ -14,12 +14,6 @@ public class ItemDao {
 		Item item = ObjectifyService.ofy().load().type(Item.class).id(Long.parseLong(id)).now();
 		return item;
 	}
-	
-	//Get Item by ID
-	public Item getItemById(Long id) {
-		Item item = ObjectifyService.ofy().load().type(Item.class).id(id).now();
-		return item;
-	}
 
 	public Item updateItem(Item updatedItem) {
 		Key<Item> key = ObjectifyService.ofy().save().entity(updatedItem).now();
