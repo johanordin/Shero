@@ -354,7 +354,7 @@ public class UserRestService {
 				itemRated.put(itemKey, new ArrayList<RentalInfo>());
 			}
 			List<RentalInfo> info = itemRated.get(itemKey);
-			info.add(new RentalInfo(rental.getItemRated(), rental.getPeriod()));
+			info.add(new RentalInfo(rental.getRentalId(), rental.getItemRated(), rental.getPeriod()));
 
 		}
 		
@@ -378,6 +378,8 @@ public class UserRestService {
 			for(RentalInfo info : rentalInfos) {
 				// first convert item into json
 				JsonObject jsonItem = gson.toJsonTree(item).getAsJsonObject();
+				// add rentalId to item
+				jsonItem.addProperty("rentalId", info.getRentalId());
 				// then add boolean rated property
 				jsonItem.addProperty("itemRated", info.getRated());
 				// add actual rental period
@@ -391,14 +393,18 @@ public class UserRestService {
 	}
 	
 	private class RentalInfo {
+		private Long rentalId;
 		private Boolean rated;
 		private List<Date> rentalPeriod;
 		
-		public RentalInfo(Boolean rated, List<Date> rentalPeriod) {
+		public RentalInfo(Long rentalId, Boolean rated, List<Date> rentalPeriod) {
+			this.rentalId = rentalId;
 			this.rated = rated;
 			this.rentalPeriod = rentalPeriod;
 		}
-
+		public Long getRentalId() {
+			return rentalId;
+		}
 		public Boolean getRated() {
 			return rated;
 		}
