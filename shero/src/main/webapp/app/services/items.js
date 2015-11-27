@@ -1,5 +1,5 @@
 angular.module('SHeroApp')
-    .factory('ItemsService', function($q, $timeout, $http, $cookies) {
+    .factory('ItemsService', function($q, $timeout, $http, $cookies, SessionStorageService) {
     
         var getAllItems = function() {
             return $http({
@@ -99,6 +99,13 @@ angular.module('SHeroApp')
         }
     
         var getNeededItemInfo = function (item) {
+            var userId = SessionStorageService.getUserId();
+            if ((typeof userId === 'undefined') || (userId != item.ownerId)) {
+                item.show = "true";
+            } else {
+                item.show = "false";
+            }
+            console.log(JSON.stringify(item));
             item.availabilityDates = [];
             item.taglist = [];
             item.availabilityPeriods.forEach(function(availability) {

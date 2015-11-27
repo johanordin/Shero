@@ -1,5 +1,4 @@
-
-<h1>Delete your item!</h1><br/>
+<h1>View your item!</h1><br/>
 <div class="col-md-12">
     <div class="col-md-12 edititem-container">     
             <div class="col-md-12 well-sm searchresult-heading">
@@ -20,9 +19,10 @@
                         max="5" 
                         readonly="true"  
                         aria-labelledby="default-rating"
-                        state-on="'fa fa-star fa-2x'"
-                        state-off="'fa fa-star-o fa-2x'">
-                    </uib-rating>  
+                        style="font-size: 2em;"
+                        state-on="'glyphicon glyphicon-star'"
+                        state-off="'glyphicon glyphicon-star-empty'">
+                    </uib-rating>
                 </div>
                 <div class="col-md-7">
                     <h4>{{item.price  | currency : "€"}} / day</h4>
