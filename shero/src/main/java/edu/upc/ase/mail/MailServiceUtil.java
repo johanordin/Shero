@@ -21,6 +21,7 @@ import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.Rental;
 import edu.upc.ase.domain.User;
 import edu.upc.ase.domain.admin.EmailTemplate;
+import edu.upc.ase.domain.helper.RentalQuestion;
 import edu.upc.ase.rest.test.TestMailService;
 
 public class MailServiceUtil {
@@ -53,23 +54,22 @@ public class MailServiceUtil {
 
 		return "{\"status\":\"successful\"}";
 	}
-	
+
 	public String sendRentalMail(Rental rental) {
-		
-		//The Users who rented the item
+
+		// The Users who rented the item
 		User renter = new UserDao().getUserById(rental.getUserId());
-		
-		//The rented Item
+
+		// The rented Item
 		Item rentedItem = new ItemDao().getItemById(rental.getItemId());
-		
-		//The owner of the Item
+
+		// The owner of the Item
 		User owner = new UserDao().getUserById(rentedItem.getOwnerId());
 
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
-		
-		//Send eMail to renter
+		// Send eMail to renter
 		try {
 			Message msg = new MimeMessage(session);
 			String msgText = getHtmlMessageText("RenterTemplate");
@@ -78,8 +78,9 @@ public class MailServiceUtil {
 			msg.setContent(msgText, "text/html");
 
 			msg.setFrom(new InternetAddress("shero.ase@gmail.com", "Shero, be a sharing Hero"));
-			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(renter.getEmailAddress(), renter.getFullname()));
-			msg.setSubject("Congratulations, you rented "+rentedItem.getName());
+			msg.addRecipient(Message.RecipientType.TO,
+					new InternetAddress(renter.getEmailAddress(), renter.getFullname()));
+			msg.setSubject("Congratulations, you rented " + rentedItem.getName());
 			Transport.send(msg);
 
 		} catch (AddressException e) {
@@ -90,8 +91,7 @@ public class MailServiceUtil {
 			logger.error("UnsupportedEncodingException", e);
 		}
 
-		
-		//Send eMail to owner
+		// Send eMail to owner
 		try {
 			Message msg = new MimeMessage(session);
 			String msgText = getHtmlMessageText("OwnerTemplate");
@@ -100,8 +100,9 @@ public class MailServiceUtil {
 			msg.setContent(msgText, "text/html");
 
 			msg.setFrom(new InternetAddress("shero.ase@gmail.com", "Shero, be a sharing Hero"));
-			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(owner.getEmailAddress(), owner.getFullname()));
-			msg.setSubject("Congratulations, you rented out your Item: "+rentedItem.getName());
+			msg.addRecipient(Message.RecipientType.TO,
+					new InternetAddress(owner.getEmailAddress(), owner.getFullname()));
+			msg.setSubject("Congratulations, you rented out your Item: " + rentedItem.getName());
 			Transport.send(msg);
 
 		} catch (AddressException e) {
@@ -111,7 +112,67 @@ public class MailServiceUtil {
 		} catch (UnsupportedEncodingException e) {
 			logger.error("UnsupportedEncodingException", e);
 		}
-				
+
+		return "{\"status\":\"successful\"}";
+	}
+
+	public String sendRentalQuestionMail(RentalQuestion rentalQuestion) {
+
+		// The Item to ask about
+		Item item = new ItemDao().getItemById(rentalQuestion.getItemId());
+		// The Users who rented the item
+		User renter = new UserDao().getUserById(rentalQuestion.getRenterId());
+		// The owner of the Item
+		User owner = new UserDao().getUserById(item.getOwnerId());
+
+		Properties props = new Properties();
+		Session session = Session.getDefaultInstance(props, null);
+
+		// Send eMail to renter
+		try {
+			Message msg = new MimeMessage(session);
+			String msgText = getHtmlMessageText("QuestionTemplate");
+			// Replace placeholder USERNAME with real username
+			msgText = msgText.replace("#USERNAME#", renter.getFullname());
+			msgText = msgText.replace("QUESTION", rentalQuestion.getText());
+			msg.setContent(msgText, "text/html");
+
+			msg.setFrom(new InternetAddress("shero.ase@gmail.com", "Shero, be a sharing Hero"));
+			msg.addRecipient(Message.RecipientType.TO,
+					new InternetAddress(renter.getEmailAddress(), renter.getFullname()));
+			msg.setSubject("You hava a question about " + item.getName());
+			Transport.send(msg);
+
+		} catch (AddressException e) {
+			logger.error("Address Error", e);
+		} catch (MessagingException e) {
+			logger.error("Message Error", e);
+		} catch (UnsupportedEncodingException e) {
+			logger.error("UnsupportedEncodingException", e);
+		}
+
+		// Send eMail to owner
+		try {
+			Message msg = new MimeMessage(session);
+			String msgText = getHtmlMessageText("QuestionTemplate");
+			// Replace placeholder USERNAME with real username
+			msgText = msgText.replace("#USERNAME#", owner.getFullname());
+			msg.setContent(msgText, "text/html");
+
+			msg.setFrom(new InternetAddress("shero.ase@gmail.com", "Shero, be a sharing Hero"));
+			msg.addRecipient(Message.RecipientType.TO,
+					new InternetAddress(owner.getEmailAddress(), owner.getFullname()));
+			msg.setSubject("Congratulations, you rented out your Item: " + item.getName());
+			Transport.send(msg);
+
+		} catch (AddressException e) {
+			logger.error("Address Error", e);
+		} catch (MessagingException e) {
+			logger.error("Message Error", e);
+		} catch (UnsupportedEncodingException e) {
+			logger.error("UnsupportedEncodingException", e);
+		}
+
 		return "{\"status\":\"successful\"}";
 	}
 
