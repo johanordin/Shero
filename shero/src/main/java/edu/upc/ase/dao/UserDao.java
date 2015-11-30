@@ -11,4 +11,9 @@ public class UserDao {
 		User user = ObjectifyService.ofy().load().type(User.class).id(id).now();
 		return user;
 	}
+	
+	public User getUserById(String id) {
+		User user = ObjectifyService.ofy().load().type(User.class).id(Long.parseLong(id)).now();
+		return user;
+	}
 }
