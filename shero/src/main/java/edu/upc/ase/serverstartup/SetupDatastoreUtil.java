@@ -48,6 +48,14 @@ public class SetupDatastoreUtil {
 			EmailTemplate ownerTemplate = new EmailTemplate("OwnerTemplate", HtmlTempates.RENTERTEMPLATE);
 			ObjectifyService.ofy().save().entity(ownerTemplate).now();
 		}
+		
+		List<EmailTemplate> emailTemplates4 = ObjectifyService.ofy().load().type(EmailTemplate.class)
+				.filter("name", "QuestionTemplate").list();
+		if(emailTemplates4.isEmpty()){
+			//If not create now Email Template
+			EmailTemplate questionTemplate = new EmailTemplate("QuestionTemplate", HtmlTempates.QUESTION_TEMPLATE);
+			ObjectifyService.ofy().save().entity(questionTemplate).now();
+		}
 	}
 	
 	public static void setupUser() {
