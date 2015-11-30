@@ -38,9 +38,9 @@ import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.Rental;
 import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
+import edu.upc.ase.domain.helper.RentalQuestion;
 import edu.upc.ase.helper.GsonUTCDateAdapter;
 import edu.upc.ase.mail.MailServiceUtil;
-import edu.upc.ase.rest.test.TestMailService;
 
 @Path("/users")
 public class UserRestService {
@@ -390,6 +390,20 @@ public class UserRestService {
 		}
 		
 		return gson.toJson(resultList);
+	}
+	
+	//Rest call to send a mail with a question about an item
+	@Path("/question")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public String sendRentalQuestion(String jsonRentalQuestion) {
+		RentalQuestion rentalQuestion = GSON.fromJson(jsonRentalQuestion, RentalQuestion.class);
+		
+		new MailServiceUtil().sendRentalQuestionMail(rentalQuestion);
+		
+		
+		return jsonRentalQuestion;
+		
 	}
 	
 	private class RentalInfo {

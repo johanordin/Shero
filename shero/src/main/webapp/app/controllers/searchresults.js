@@ -56,13 +56,16 @@ angular.module('SHeroApp')
      // Send email Modal
      $scope.animationsEnabled = true;
 
-     $scope.openContactModal = function(ownerId) {
-    	 $scope.ownerId = ownerId;
+     $scope.openContactModal = function(itemID) {
        var modalQuestions = $uibModal.open({
          animation: $scope.animationsEnabled,
          templateUrl: 'app/views/ModalQuestions.html',
          controller: 'ModalQuestionsCtrl',
-         scope : $scope
+         resolve: {
+        	 itemID: function () {
+               return itemID;
+             }
+           }
        });
        modalQuestions.result.then(function () {
        });
