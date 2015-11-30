@@ -12,6 +12,13 @@ angular.module('SHeroApp')
                 
                 $scope.rentedItems.forEach(function(item) {
                     ItemsService.getNeededItemInfo(item);
+                    
+                    item.rentalDates = [];
+                    item.rentalPeriod.forEach(function(rental) {
+                        // Convert to unixtime
+                        var unixtime = Date.parse(rental);
+                        item.rentalDates.push(unixtime);
+                     });
                 });
             });
         };
@@ -20,6 +27,10 @@ angular.module('SHeroApp')
              $scope.sortKey = keyname;   //set the sortKey to the param passed
              $scope.reverse = !$scope.reverse; //if true make it false and vice versa     
          }
+         
+        $scope.disabled = function(date, mode) {
+         return true;
+     }; 
     
         $scope.rateItem = function (rentalId, rating) {
             var rateData = {};

@@ -1,3 +1,4 @@
+<h1>Your searchresults!</h1><br/>
 <div class="col-md-12">
     <div class="col-md-12">
         <div class="btn-group-sm pull-right" role="group">
@@ -29,7 +30,7 @@
         </div> 
     </div>
     <br/><br/>
-    <div class="col-md-12 searchresult-container" dir-paginate="item in itemlist | orderBy:sortKey:reverse | itemsPerPage:10">     
+    <div class="col-md-12 searchresult-container" dir-paginate="item in itemsToShow.items | orderBy:sortKey:reverse | itemsPerPage:10">
             <div class="col-md-12 well-sm searchresult-heading">
                 <div class="col-md-2">
                     <img class="img-thumbnail"  
@@ -48,8 +49,9 @@
                         max="5" 
                         readonly="true"  
                         aria-labelledby="default-rating"
-                        state-on="'fa fa-star fa-2x'"
-                        state-off="'fa fa-star-o fa-2x'">
+                        style="font-size: 2em;"
+                        state-on="'glyphicon glyphicon-star'"
+                        state-off="'glyphicon glyphicon-star-empty'">
                     </uib-rating>  
                 </div>
                 <div class="col-md-7">
@@ -94,7 +96,7 @@
                 </div>
             </div>
             <br>
-        </div>
+    </div>
     <dir-pagination-controls
         max-size="5"
         direction-links="true"

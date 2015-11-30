@@ -39,6 +39,7 @@ import edu.upc.ase.domain.Rental;
 import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
 import edu.upc.ase.helper.GsonUTCDateAdapter;
+import edu.upc.ase.mail.MailServiceUtil;
 import edu.upc.ase.rest.test.TestMailService;
 
 @Path("/users")
@@ -148,7 +149,7 @@ public class UserRestService {
 		}
 		user.serialize();
 		//Send welcome Mail to user
-		TestMailService mailService = new TestMailService();
+		MailServiceUtil mailService = new MailServiceUtil();
 		mailService.sendWelcomeMail(user);
 		
 		return GSON.toJson(user);
@@ -340,7 +341,7 @@ public class UserRestService {
 		Set<Key<Item>> rentedItems = new HashSet<Key<Item>>();
 		
 		// one item might appear in multiple rentals, list keeps track in which it has been rated and in which not
-		Map<Key<Item>, ArrayList<Boolean>> itemRated = new java.util.HashMap<Key<Item>, ArrayList<Boolean>>();
+		Map<Key<Item>, ArrayList<RentalInfo>> itemRated = new java.util.HashMap<Key<Item>, ArrayList<RentalInfo>>();
 		
 		for(Rental rental : rentals) {
 			Key<Item> itemKey = Key.create(Item.class, rental.getItemId());
@@ -350,10 +351,11 @@ public class UserRestService {
 			
 			// remember if this item has been rated or not
 			if (!itemRated.containsKey(itemKey)) {
-				itemRated.put(itemKey, new ArrayList<Boolean>());
+				itemRated.put(itemKey, new ArrayList<RentalInfo>());
 			}
-			List<Boolean> rated = itemRated.get(itemKey);
-			rated.add(rental.getItemRated());
+			List<RentalInfo> info = itemRated.get(itemKey);
+			info.add(new RentalInfo(rental.getRentalId(), rental.getItemRated(), rental.getPeriod()));
+
 		}
 		
 		// fetch rented items using the collected keys
@@ -372,12 +374,16 @@ public class UserRestService {
 			// since an item may have been rented multiple times,
 			// every item that is put into the result list needs to be annotated
 			// with information whether it has been rated or not
-			List<Boolean> itemsRated = itemRated.get(itemKey);
-			for(Boolean rated : itemsRated) {
+			List<RentalInfo> rentalInfos = itemRated.get(itemKey);
+			for(RentalInfo info : rentalInfos) {
 				// first convert item into json
 				JsonObject jsonItem = gson.toJsonTree(item).getAsJsonObject();
+				// add rentalId to item
+				jsonItem.addProperty("rentalId", info.getRentalId());
 				// then add boolean rated property
-				jsonItem.addProperty("itemRated", rated);
+				jsonItem.addProperty("itemRated", info.getRated());
+				// add actual rental period
+				jsonItem.add("rentalPeriod", gson.toJsonTree(info.getRentalPeriod()).getAsJsonArray());
 				// eventually add it to results
 				resultList.add(jsonItem);
 			}
@@ -386,4 +392,24 @@ public class UserRestService {
 		return gson.toJson(resultList);
 	}
 	
+	private class RentalInfo {
+		private Long rentalId;
+		private Boolean rated;
+		private List<Date> rentalPeriod;
+		
+		public RentalInfo(Long rentalId, Boolean rated, List<Date> rentalPeriod) {
+			this.rentalId = rentalId;
+			this.rated = rated;
+			this.rentalPeriod = rentalPeriod;
+		}
+		public Long getRentalId() {
+			return rentalId;
+		}
+		public Boolean getRated() {
+			return rated;
+		}
+		public List<Date> getRentalPeriod() {
+			return rentalPeriod;
+		}
+	}
 }

@@ -7,16 +7,21 @@
  */
 
 angular.module('SHeroApp')
-	.controller('SearchResultsCtrl', function($scope, $uibModal, ItemsService, SearchResultService) { 
+	.controller('SearchResultsCtrl', function($scope, $uibModal, ItemsService, SearchResultService, SessionStorageService) { 
   
 	// Variable for items
 	$scope.itemlist = {};
+    $scope.itemsToShow = {items: []};
+    $scope.userId = SessionStorageService.getUserId();
 		
 	//fetch all items from backend
 	$scope.fetchItems = function() {
         $scope.itemlist = SearchResultService.getSearchResults();
         $scope.itemlist.forEach(function(item) {
-            ItemsService.getNeededItemInfo(item);
+            var item = ItemsService.getNeededItemInfo(item);
+            if (item.show) {
+                $scope.itemsToShow.items.push(item);
+            }
          });
      }; 
      

@@ -1,15 +1,64 @@
-<p>Edit Item with Id: {{itemId}}!</p>
+<h1>View your item!</h1><br/>
+<div class="col-md-12">
+    <div class="col-md-12 edititem-container">     
+            <div class="col-md-12 well-sm searchresult-heading">
+                <div class="col-md-2">
+                    <img class="img-thumbnail"  
+                         src="{{item.imgUrl}}"
+                         onerror="if (this.src != 'img/placeholder_small.jpeg') this.src = 'img/placeholder_small.jpeg';"
+                         alt="Couldn't find image">
+                    </img>
+                </div>
+                <div class="col-md-7 edititem-title">
+                    <h4> {{item.name}} 
+                        <small>({{item.address.street}} {{item.address.number}}, {{item.address.zipcode}} {{item.address.city}})</small>
+                    </h4>
+                </div>
+                <div class="col-md-3">
+                    <uib-rating class="pull-right" ng-model="item.meanRating" 
+                        max="5" 
+                        readonly="true"  
+                        aria-labelledby="default-rating"
+                        style="font-size: 2em;"
+                        state-on="'glyphicon glyphicon-star'"
+                        state-off="'glyphicon glyphicon-star-empty'">
+                    </uib-rating>
+                </div>
+                <div class="col-md-7">
+                    <h4>{{item.price  | currency : "€"}} / day</h4>
+                </div>
+                <div class="col-md-3">
+                    <div class="btn-group pull-right" role="group">
+                        <button type="button" class="btn btn-warning" ng-click="deleteItem();">Delete this item</button>
+                    </div>
+                </div>
+                <div class="col-md-7"> 
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+            <div class="col-md-12 collapse in edititem-footer" id="{{item.id}}">
+                <br>
+                <div class="col-md-4">
+                    <uib-datepicker ng-model='activeDate' 
+                                    multi-select='item.availabilityDates' 
+                                    name="datepicker"
+                                    date-disabled="disabled(date, mode)">
+                    </uib-datepicker>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-justify">{{item.description}}</p>
+                    <div class="btn-group pull-right" role="group">
+		            </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-12" ng-repeat="tag in item.taglist" ng-hide="item.taglist.length == 0">
+                        <span class="itemtag pull-right">{{tag}}</span>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+</div>
 
-<p>
-    The item (use to find necessary items: {{item}}<br>
-    <br>
-    name: {{item.name}}<br>
-    price: {{item.price}}<br>
-    desc: {{item.description}}<br>
-    <br>
-    for displaying availability in calendar use: {{item.availabilityDates}}<br>
-    for displaying tags use: {{item.taglist}}<br>
-    for displaying rating use {{item.meanRating}}
-</p>
 
-<button class="btn btn-sm btn-warning" ng-click="deleteItem();">Delete this item</button>
