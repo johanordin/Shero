@@ -7,30 +7,31 @@
  * # 
  * 
  */
-angular.module('SHeroApp').controller('ModalQuestionsCtrl', function ($scope, $modalInstance, MessageService) {
-
+angular.module('SHeroApp').controller('ModalQuestionsCtrl', function ($scope,  $modalInstance, MessageService, SessionStorageService, itemID) {
+	
+	// input from user
 	$scope.formData = {};
 	
-	console.log("ownerId: " + $scope.ownerId);
+    $scope.itemID = itemID;
+    $scope.renterID  = SessionStorageService.getUserId();
+    $scope.firstName = SessionStorageService.getUserFirstname();
+    $scope.lastName = SessionStorageService.getUserFirstname();
+    $scope.userEmail = SessionStorageService.getUserEmailAddress();
 	
     $scope.sendMessage = function() {
     	var data = {};
-    	data.name = $scope.formData.name;
-    	data.mail = $scope.formData.mail;
+    	data.itemID = $scope.itemID;
+    	data.renterID = $scope.renterID;
     	data.message = $scope.formData.message;
-    	data.ownerId = $scope.ownerId;
-        
-        console.log("name   : " + data.name);
-        console.log("mail   : " + data.mail);
-        console.log("message: " + data.message);
-        console.log("ownerId : " + data.ownerId);
+
+        console.log("itemID   : " + data.itemID);
+        console.log("renterID : " + data.renterID);
+        console.log("message  : " + data.message);
         
         var postMesg = MessageService.postMessage(data);
-        postMesg.then(function(response) {
-        	
-        	//TODO: check that the response is valid.
-            console.log("status: " + response.status);
-            console.log("data: " + JSON.stringify(response.data)); 
+        postMesg.then(function(response) {        	
+		    console.log("status: " + response.status);
+		    console.log("data: " + JSON.stringify(response.data)); 
         });
         console.log("after request");
         $modalInstance.close();
