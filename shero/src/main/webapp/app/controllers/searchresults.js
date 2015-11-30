@@ -16,6 +16,7 @@ angular.module('SHeroApp')
 		
 	//fetch all items from backend
 	$scope.fetchItems = function() {
+        $scope.itemsToShow = {items: []};
         $scope.itemlist = SearchResultService.getSearchResults();
         $scope.itemlist.forEach(function(item) {
             var item = ItemsService.getNeededItemInfo(item);
@@ -77,7 +78,4 @@ angular.module('SHeroApp')
        modalQuestions.result.then(function () {
        });
      };
-     
-     
-
 });

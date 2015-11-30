@@ -30,7 +30,7 @@
         </div> 
     </div>
     <br/><br/>
-    <div class="col-md-12 myrentals-container" dir-paginate="item in rentedItems | orderBy:sortKey:reverse | itemsPerPage:10"> 
+    <div class="col-md-12 myrentals-container" dir-paginate="item in rentedItems | orderBy:sortKey:reverse | itemsPerPage:10 track by $index"> 
         <div class="col-md-12 well-sm myrentals-heading">
             <div class="col-md-2">
                 <img class="img-thumbnail"  
@@ -48,10 +48,11 @@
                 <uib-rating class="pull-right" ng-model="item.userRating"
                     ng-click="openRateItemModal({{item}});"
                     max="5" 
-                    readonly="false"  
+                    readonly="false"
+                    style="font-size: 2em; cursor: pointer;"
                     aria-labelledby="default-rating"
-                    state-on="'fa fa-star fa-2x'"
-                    state-off="'fa fa-star-o fa-2x'">
+                    state-on="'glyphicon glyphicon-star'"
+                    state-off="'glyphicon glyphicon-star-empty'">
                 </uib-rating>
             </div>
             <div class="col-md-7">
