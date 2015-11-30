@@ -1,5 +1,5 @@
 angular.module('SHeroApp')
-    .controller('MyRentalsCtrl', function ($scope, UsersService, ItemsService, SessionStorageService) {
+    .controller('MyRentalsCtrl', function ($scope, $uibModal, UsersService, ItemsService, SessionStorageService) {
         
         $scope.userId = SessionStorageService.getUserId();
         $scope.rentedItems = {};
@@ -34,8 +34,8 @@ angular.module('SHeroApp')
     
         $scope.getRentedItems();
     
-        $scope.openRentItemModal = function(item) {
-            var modalLogin = $uibModal.open({
+        $scope.openRateItemModal = function(item) {
+            var modalRateItem = $uibModal.open({
               animation: $scope.animationsEnabled,
               templateUrl: 'app/views/ModalRateItem.html',
               controller: 'ModalRateItemCtrl',
@@ -46,7 +46,7 @@ angular.module('SHeroApp')
                  }
                }
            });
-           modalQuestions.result.then(function () {
+           modalRateItem.result.then(function () {
            });
          };
     
