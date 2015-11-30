@@ -32,36 +32,27 @@ angular.module('SHeroApp')
          return true;
      }; 
     
-        $scope.rateItem = function (rentalId, rating) {
-            var rateData = {};
-            rateData.rentalId = rentalId;
-            rateData.rating = rating;
-            var rateItemPromise = ItemsService.rateItem(rateData);
-            rateItemPromise.then(function(response) {
-                console.log(JSON.stringify(response.data));
-                $scope.getRentedItems();
-            });    
-        };
-    
-        $scope.getRentedItems();
-    
-        $scope.openRateItemModal = function(item) {
-            var modalRateItem = $uibModal.open({
-              animation: $scope.animationsEnabled,
-              templateUrl: 'app/views/ModalRateItem.html',
-              controller: 'ModalRateItemCtrl',
-              size : 'lg',
-              resolve: {
-                 item: function () {
-                   return item;
-                 }
-               }
-           });
-           modalRateItem.result.then(function () {
-           });
-         };
+    $scope.getRentedItems();
+
+    $scope.openRateItemModal = function(item) {
+        var modalRateItem = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'app/views/ModalRateItem.html',
+          controller: 'ModalRateItemCtrl',
+          size : 'md',
+          resolve: {
+             item: function () {
+               return item;
+             }
+           }
+       });
+       modalRateItem.result.then(function () {
+           console.log('Modal dismissed at: ' + new Date());
+           $scope.getRentedItems();
+       });
+     };
     
     
-    });
+});
 
 
