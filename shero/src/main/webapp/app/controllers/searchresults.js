@@ -13,7 +13,16 @@ angular.module('SHeroApp')
 	$scope.itemlist = {};
     $scope.itemsToShow = {items: []};
     $scope.userId = SessionStorageService.getUserId();
-		
+    	
+    $scope.loggedIn = SessionStorageService.getUserId() ? true : false;
+    $scope.$watch(function () { return SessionStorageService.getUserId(); }, function (newVal) {
+        if (newVal) {
+        	$scope.loggedIn = true;
+        } else {
+        	$scope.loggedIn = false;
+        }
+    });
+    
 	//fetch all items from backend
 	$scope.fetchItems = function() {
         $scope.itemsToShow = {items: []};

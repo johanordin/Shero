@@ -62,8 +62,9 @@
                         <button type="button" id="toggle{{item.id}}" class="btn btn-primary" data-toggle="collapse" data-target="#{{item.id}}">
                             Details
                         </button>
-                        <button type="button" id="rent{{item.id}}" class="btn btn-success" ng-click="openRentItemModal({{item}});">
-                            Rent
+                        <button type="button" ng-disabled="!loggedIn" id="rent{{item.id}}" class="btn btn-success" ng-click="openRentItemModal({{item}});">
+                            <span ng-show="!loggedIn">Login to rent</span>
+  							<span ng-show="loggedIn">Rent</span>
                         </button>
                     </div>
                 </div>
