@@ -27,11 +27,13 @@ angular.module('SHeroApp')
 		$scope.errors = [];
   		
   		// calling default upload() from flow
-		$scope.triggerImage = function(value){	
+		$scope.triggerImage = function(itemId){	
 			// Send the imageId with the request to create image
-			$scope.outer_scope_flow.opts.query = {'itemId': value};
+			$scope.outer_scope_flow.opts.query = {'itemId': itemId};
 			$scope.outer_scope_flow.upload();
 			//console.log('flow.upload() called  with itemId: ' + value);
+			
+			$scope.redirect(itemId);
 		}
 	
 	    //onSubmit-function of user-form
@@ -68,8 +70,7 @@ angular.module('SHeroApp')
 			}
 		});
 		
-
-		// limit image size
+		// Limit size for image uploading.
 		$scope.validate = function (file) {
 		   //console.log('filesize:' + file.size/(1024*1024) +'MB');
 		   //2 MB limit
@@ -87,13 +88,12 @@ angular.module('SHeroApp')
 			//outer_scope_event = $event;
 		}
 		
-		// redirect
-		$scope.redirect = function () {
-			console.log("Redirect");
-			$location.path("/Home");
+		// Redirect
+		$scope.redirect = function (itemId) {
+			$location.path("/EditItem/" + itemId + "/new");
 //			setTimeout(function() { 
 //				$location.path("/Home");
-//			}, 3000);
-			
+//			}, 3000);	
 		}		
+		
 	});

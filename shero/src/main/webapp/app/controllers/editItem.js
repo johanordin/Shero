@@ -1,6 +1,8 @@
 angular.module('SHeroApp')
     .controller('EditItemCtrl', function ($scope, $stateParams, $location, ItemsService, UsersService, SessionStorageService) {
-        $scope.itemId = $stateParams.itemId;
+    	
+    	$scope.isNewitem = false;
+    	$scope.itemId = $stateParams.itemId;
     
         var rawItem = SessionStorageService.getUserItemSpecific($scope.itemId);
         $scope.item = ItemsService.getNeededItemInfo(rawItem[0]);
@@ -17,7 +19,20 @@ angular.module('SHeroApp')
             });
         }
         
-        $scope.disabled = function(date, mode) {
-         return true;
-     }; 
+		$scope.disabled = function(date, mode) {
+			return true;
+		};
+		
+		// Add alert when a new item is created.
+		$scope.$watch( function () { return $location.path(); }, function (path) {
+			var itemCreated = "/EditItem/" + $scope.itemId + "/new";
+			//console.log("Path: " + path);
+			//console.log(itemCreated);
+			
+			if (path == itemCreated) {
+				$scope.isNewitem = true;
+			}
+
+		});
+     
     });

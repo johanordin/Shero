@@ -73,6 +73,11 @@ angular.module('SHeroApp')
 	        templateUrl: 'app/views/EditItem.html',
             controller: 'EditItemCtrl'
 	      })
+	            //Child-State of EditItem to show first page of the user-form
+	            .state('editItem.newItem', {
+	                url: '/new',
+	                templateUrl: 'app/views/EditItem.html'
+	            })
         
         .state('myRentals', {
             url: '/MyRentals',
