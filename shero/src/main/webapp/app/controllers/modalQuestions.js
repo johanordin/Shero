@@ -20,20 +20,15 @@ angular.module('SHeroApp').controller('ModalQuestionsCtrl', function ($scope,  $
 	
     $scope.sendMessage = function() {
     	var data = {};
-    	data.itemID = $scope.itemID;
-    	data.renterID = $scope.renterID;
-    	data.message = $scope.formData.message;
-
-        console.log("itemID   : " + data.itemID);
-        console.log("renterID : " + data.renterID);
-        console.log("message  : " + data.message);
+    	data.itemId = $scope.itemID;
+    	data.renterId = $scope.renterID;
+    	data.text = $scope.formData.message;
+        console.log(JSON.stringify(data));
         
         var postMesg = MessageService.postMessage(data);
         postMesg.then(function(response) {        	
-		    console.log("status: " + response.status);
 		    console.log("data: " + JSON.stringify(response.data)); 
         });
-        console.log("after request");
         $modalInstance.close();
         
     }
