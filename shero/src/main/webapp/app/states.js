@@ -95,18 +95,18 @@ angular.module('SHeroApp')
 	  
 	  flowFactoryProvider.on('catchAll', function (event) {
 		//event.preventDefault();//prevent file from uploading
-	    console.log('catchAll', arguments);
+		//console.log('catchAll', arguments);
 	  });
 	  
 	  flowFactoryProvider.on('flow::fileAdded', function (event, $flow, flowFile) {
 		  //event.preventDefault();//prevent file from uploading
-		  console.log('-> fileAdded called --> from factorys');
+		  //console.log('-> fileAdded called --> from factorys');
 	  });
 	 
 	  flowFactoryProvider.on('filesSubmitted', function (flowEvent, flowObj, files, event) {
 	    //event.preventDefault();//prevent file from uploading
-		console.log('->filesSubmitted called --> from factorys');
-	    console.log(files);
+		//console.log('->filesSubmitted called --> from factorys');
+	    //console.log(files);
 	  });
 	  
 	}]);
