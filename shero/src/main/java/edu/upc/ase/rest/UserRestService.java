@@ -397,7 +397,12 @@ public class UserRestService {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public String sendRentalQuestion(String jsonRentalQuestion) {
+		logger.info("RentalQuestion JSON_:" +jsonRentalQuestion);
 		RentalQuestion rentalQuestion = GSON.fromJson(jsonRentalQuestion, RentalQuestion.class);
+		
+		logger.info("text: " + rentalQuestion.getText());
+		logger.info("Renter ID: " + rentalQuestion.getRenterId());
+		logger.info("Item ID: " + rentalQuestion.getItemId());
 		
 		new MailServiceUtil().sendRentalQuestionMail(rentalQuestion);
 		

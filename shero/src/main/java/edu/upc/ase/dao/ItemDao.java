@@ -11,8 +11,16 @@ public class ItemDao {
 
 	//Get Item by ID
 	public Item getItemById(String id) {
-		Item item = ObjectifyService.ofy().load().type(Item.class).id(Long.parseLong(id)).now();
-		return item;
+		if(id != null)
+		{
+			Item item = ObjectifyService.ofy().load().type(Item.class).id(Long.parseLong(id)).now();
+			return item;			
+		}
+		else
+		{
+			return null;
+		}
+				
 	}
 	
 	//Get Item by ID

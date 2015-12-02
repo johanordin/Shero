@@ -61,10 +61,10 @@ public class MailServiceUtil {
 		User renter = new UserDao().getUserById(rental.getUserId());
 
 		// The rented Item
-		Item rentedItem = new ItemDao().getItemById(rental.getItemId());
+		Item item = new ItemDao().getItemById(rental.getItemId());
 
 		// The owner of the Item
-		User owner = new UserDao().getUserById(rentedItem.getOwnerId());
+		User owner = new UserDao().getUserById(item.getOwnerId());
 
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
@@ -74,13 +74,19 @@ public class MailServiceUtil {
 			Message msg = new MimeMessage(session);
 			String msgText = getHtmlMessageText("RenterTemplate");
 			// Replace placeholder USERNAME with real username
-			msgText = msgText.replace("#USERNAME#", renter.getFullname());
+			msgText = msgText.replace("#OWNER#", owner.getFullname());
+			msgText = msgText.replace("#RENTER#", renter.getFullname());
+			msgText = msgText.replace("#ITEMNAME#", item.getName());
+			msgText = msgText.replace("#STARTDATE#", rental.getPeriod().get(0).toString());
+			msgText = msgText.replace("#ENDDATE#", rental.getPeriod().get(rental.getPeriod().size()-1).toString());
+			msgText = msgText.replace("#ADDRESS#", item.getAddress().toString());
+			
 			msg.setContent(msgText, "text/html");
 
 			msg.setFrom(new InternetAddress("shero.ase@gmail.com", "Shero, be a sharing Hero"));
 			msg.addRecipient(Message.RecipientType.TO,
 					new InternetAddress(renter.getEmailAddress(), renter.getFullname()));
-			msg.setSubject("Congratulations, you rented " + rentedItem.getName());
+			msg.setSubject("Congratulations, you rented " + item.getName());
 			Transport.send(msg);
 
 		} catch (AddressException e) {
@@ -96,13 +102,18 @@ public class MailServiceUtil {
 			Message msg = new MimeMessage(session);
 			String msgText = getHtmlMessageText("OwnerTemplate");
 			// Replace placeholder USERNAME with real username
-			msgText = msgText.replace("#USERNAME#", owner.getFullname());
+			msgText = msgText.replace("#OWNER#", owner.getFullname());
+			msgText = msgText.replace("#RENTER#", renter.getFullname());
+			msgText = msgText.replace("#ITEMNAME#", item.getName());
+			msgText = msgText.replace("#STARTDATE#", rental.getPeriod().get(0).toString());
+			msgText = msgText.replace("#ENDDATE#", rental.getPeriod().get(rental.getPeriod().size()-1).toString());
+			msgText = msgText.replace("#ADDRESS#", item.getAddress().toString());
 			msg.setContent(msgText, "text/html");
 
 			msg.setFrom(new InternetAddress("shero.ase@gmail.com", "Shero, be a sharing Hero"));
 			msg.addRecipient(Message.RecipientType.TO,
 					new InternetAddress(owner.getEmailAddress(), owner.getFullname()));
-			msg.setSubject("Congratulations, you rented out your Item: " + rentedItem.getName());
+			msg.setSubject("Congratulations, you rented out your Item: " + item.getName());
 			Transport.send(msg);
 
 		} catch (AddressException e) {

@@ -227,7 +227,7 @@ public class HtmlTempates {
 			"<tr>\n"+
 			"<!-- start of image --><td align=\"center\">\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"imgpop\">\n"+
-			"\t\t\t\t\t\t\t\t\t\t\t\t\t <a href=\"#\"><img id=\"o3wwdbsihqq\" alt=\"\" style=\"display:block; border:none; outline:none; text-decoration:none;\" src=\"img/bigimage.png\" class=\"bigimage\" st-image=\"edit\" border=\"0\" height=\"282\" width=\"540\"></a>\n"+
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t <a href=\"#\"><img id=\"o3wwdbsihqq\" alt=\"\" style=\"display:block; border:none; outline:none; text-decoration:none;\" src=\"http://shero-2015.appspot.com/img/SHeroLogo.png\" class=\"bigimage\" st-image=\"edit\" border=\"0\" height=\"282\" width=\"540\"></a>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t</td>\n"+
 			"\t\t\t\t\t\t\t\t\t\t</tr>\n"+
@@ -238,7 +238,7 @@ public class HtmlTempates {
 			"<!-- Spacing --><!-- title --><tr>\n"+
 			"<td style=\"font-family: Helvetica, arial, sans-serif; font-size: 18px; color: #333333; text-align:left;line-height: 20px;\" st-title=\"rightimage-title\">\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"+
-			"\t\t\t\t\t\t\t\t\t\t\t\t\tCongratulations #USERNAME#\n"+
+			"\t\t\t\t\t\t\t\t\t\t\t\t\tCongratulations #RENTER#\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t</td>\n"+
 			"\t\t\t\t\t\t\t\t\t\t</tr>\n"+
@@ -644,7 +644,7 @@ public class HtmlTempates {
 			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"visibility: visible;\" class=\"img_edit\">\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"+
-			"\t\t\t\t\t\t\t\t\t\t\t\t\t</div> <a href=\"#\"><img alt=\"\" style=\"display:block; border:none; outline:none; text-decoration:none;\" src=\"https://stamplia.com/edit/25590_4y2cql30je4o48o8kwwks0sowso4cogsckcscwk8wckggkcw4o_47730/img/bigimage.png\" class=\"bigimage\" border=\"0\" height=\"282\" width=\"540\" /></a>\n"+
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t</div> <a href=\"#\"><img alt=\"\" style=\"display:block; border:none; outline:none; text-decoration:none;\" src=\"http://shero-2015.appspot.com/img/SHeroLogo.png\" class=\"bigimage\" border=\"0\" height=\"282\" width=\"540\" /></a>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t</td>\n"+
 			"\t\t\t\t\t\t\t\t\t\t</tr>\n"+
@@ -663,7 +663,7 @@ public class HtmlTempates {
 			"\t\t\t\t\t\t\t\t\t\t<tr>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-family: Helvetica, arial, sans-serif; font-size: 18px; color: #333333; text-align:left;line-height: 20px;\">\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"+
-			"\t\t\t\t\t\t\t\t\t\t\t\t\tCongratulations #USERNAME#\n"+
+			"\t\t\t\t\t\t\t\t\t\t\t\t\tCongratulations #OWNER#\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t</td>\n"+
 			"\t\t\t\t\t\t\t\t\t\t</tr>\n"+
@@ -1054,7 +1054,7 @@ public class HtmlTempates {
 			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"visibility: visible;\" class=\"img_edit\">\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"+
-			"\t\t\t\t\t\t\t\t\t\t\t\t\t</div> <a href=\"#\"><img alt=\"\" style=\"display:block; border:none; outline:none; text-decoration:none;\" src=\"https://stamplia.com/edit/25590_4y2cql30je4o48o8kwwks0sowso4cogsckcscwk8wckggkcw4o_47731/img/bigimage.png\" class=\"bigimage\" border=\"0\" height=\"282\" width=\"540\" /></a>\n"+
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t</div> <a href=\"#\"><img alt=\"\" style=\"display:block; border:none; outline:none; text-decoration:none;\" src=\"http://shero-2015.appspot.com/img/SHeroLogo.png\" class=\"bigimage\" border=\"0\" height=\"282\" width=\"540\" /></a>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t</td>\n"+
 			"\t\t\t\t\t\t\t\t\t\t</tr>\n"+
@@ -1464,7 +1464,7 @@ public class HtmlTempates {
 			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"visibility: visible;\" class=\"img_edit\">\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"+
-			"\t\t\t\t\t\t\t\t\t\t\t\t\t</div> <a href=\"#\"><img alt=\"\" style=\"display:block; border:none; outline:none; text-decoration:none;\" src=\"https://stamplia.com/edit/25590_4y2cql30je4o48o8kwwks0sowso4cogsckcscwk8wckggkcw4o_48150/img/bigimage.png\" class=\"bigimage\" border=\"0\" height=\"282\" width=\"540\" /></a>\n"+
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t</div> <a href=\"#\"><img alt=\"\" style=\"display:block; border:none; outline:none; text-decoration:none;\" src=\"http://shero-2015.appspot.com/img/SHeroLogo.png\" class=\"bigimage\" border=\"0\" height=\"282\" width=\"540\" /></a>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t</div>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t</td>\n"+
 			"\t\t\t\t\t\t\t\t\t\t</tr>\n"+
@@ -1483,7 +1483,7 @@ public class HtmlTempates {
 			"\t\t\t\t\t\t\t\t\t\t<tr>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-family: Helvetica, arial, sans-serif; font-size: 18px; color: #333333; text-align:left;line-height: 20px;\">\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"+
-			"\t\t\t\t\t\t\t\t\t\t\t\t\tYou have a question from #USERNAME#\n"+
+			"\t\t\t\t\t\t\t\t\t\t\t\t\tYou have a question from #RENTER#\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t</td>\n"+
 			"\t\t\t\t\t\t\t\t\t\t</tr>\n"+
