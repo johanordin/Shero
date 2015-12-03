@@ -596,7 +596,7 @@ public class HtmlTempates {
 			"\t\t\t\t\t\t\t\t\t\t<tr>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-family: Helvetica, Arial, sans-serif;font-size: 14px; color: #ffffff;line-height: 24px; padding: 10px 0;\" class=\"menu\" align=\"right\" valign=\"middle\" width=\"270\">\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"+
-			"\t\t\t\t\t\t\t\t\t\t\t\t\tSHERO | <a style=\"text-decoration: none; color: #ffffff;\" href=\"#\">ABOUT</a> | <a style=\"text-decoration: none; color: #ffffff;\" href=\"#\">SHOP</a>\n"+
+			"\t\t\t\t\t\t\t\t\t\t\t\t\tSHERO |\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t</td>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t<td width=\"20\">\n"+
@@ -1006,7 +1006,7 @@ public class HtmlTempates {
 			"\t\t\t\t\t\t\t\t\t\t<tr>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-family: Helvetica, Arial, sans-serif;font-size: 14px; color: #ffffff;line-height: 24px; padding: 10px 0;\" class=\"menu\" align=\"right\" valign=\"middle\" width=\"270\">\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"+
-			"\t\t\t\t\t\t\t\t\t\t\t\t\tSHERO | <a style=\"text-decoration: none; color: #ffffff;\" href=\"#\">ABOUT</a> | <a style=\"text-decoration: none; color: #ffffff;\" href=\"#\">SHOP</a>\n"+
+			"\t\t\t\t\t\t\t\t\t\t\t\t\tSHERO | \n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t</td>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t<td width=\"20\">\n"+
@@ -1416,7 +1416,7 @@ public class HtmlTempates {
 			"\t\t\t\t\t\t\t\t\t\t<tr>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-family: Helvetica, Arial, sans-serif;font-size: 14px; color: #ffffff;line-height: 24px; padding: 10px 0;\" class=\"menu\" align=\"right\" valign=\"middle\" width=\"270\">\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"+
-			"\t\t\t\t\t\t\t\t\t\t\t\t\tSHERO | <a style=\"text-decoration: none; color: #ffffff;\" href=\"#\">ABOUT</a> | <a style=\"text-decoration: none; color: #ffffff;\" href=\"#\">SHOP</a>\n"+
+			"\t\t\t\t\t\t\t\t\t\t\t\t\tSHERO | \n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t</td>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t<td width=\"20\">\n"+
