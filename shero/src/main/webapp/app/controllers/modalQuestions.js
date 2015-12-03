@@ -15,7 +15,7 @@ angular.module('SHeroApp').controller('ModalQuestionsCtrl', function ($scope,  $
     $scope.itemID = itemID;
     $scope.renterID  = SessionStorageService.getUserId();
     $scope.firstName = SessionStorageService.getUserFirstname();
-    $scope.lastName = SessionStorageService.getUserFirstname();
+    $scope.lastName = SessionStorageService.getUserLastname();
     $scope.userEmail = SessionStorageService.getUserEmailAddress();
 	
     $scope.sendMessage = function() {
