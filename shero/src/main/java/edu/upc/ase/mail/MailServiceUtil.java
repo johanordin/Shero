@@ -144,16 +144,16 @@ public class MailServiceUtil {
 			Message msg = new MimeMessage(session);
 			String msgText = getHtmlMessageText("QuestionTemplate");
 			// Replace placeholder USERNAME with real username
-			msgText = msgText.replace("#USERNAME#", renter.getFullname());
-			msgText = msgText.replace("QUESTION", rentalQuestion.getText());
+			msgText = msgText.replace("#RENTER#", renter.getFullname());
+			msgText = msgText.replace("#QUESTION#", rentalQuestion.getText());
 			msg.setContent(msgText, "text/html");
 
 			msg.setFrom(new InternetAddress("shero.ase@gmail.com", "Shero, be a sharing Hero"));
 			msg.addRecipient(Message.RecipientType.TO,
-					new InternetAddress(renter.getEmailAddress(), renter.getFullname()));
+					new InternetAddress(owner.getEmailAddress(), owner.getFullname()));
 			msg.addRecipient(Message.RecipientType.CC,
-					new InternetAddress(owner.getEmailAddress(), owner.getFullname()));			
-			msg.setSubject("You hava a question about " + item.getName());
+					new InternetAddress(renter.getEmailAddress(), renter.getFullname()));			
+			msg.setSubject("You hava a question about '" + item.getName() + "'");
 			Transport.send(msg);
 
 		} catch (AddressException e) {

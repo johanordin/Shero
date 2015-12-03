@@ -249,7 +249,7 @@ public class HtmlTempates {
 			"<!-- Spacing --><!-- content --><tr>\n"+
 			"<td style=\"font-family: Helvetica, arial, sans-serif; font-size: 13px; color: #95a5a6; text-align:left;line-height: 24px;\" st-content=\"rightimage-paragraph\">\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"+
-			"\t\t\t\t\t\t\t\t\t\t\t\t\tYou sucessfully rented #ITEMNAME# from #RENTER#\n"+
+			"\t\t\t\t\t\t\t\t\t\t\t\t\tYou sucessfully rented #ITEMNAME# from #OWNER#\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t</td>\n"+
 			"\t\t\t\t\t\t\t\t\t\t</tr>\n"+
@@ -682,7 +682,7 @@ public class HtmlTempates {
 			"\t\t\t\t\t\t\t\t\t\t<tr>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-family: Helvetica, arial, sans-serif; font-size: 13px; color: #95a5a6; text-align:left;line-height: 24px;\">\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t<p>\n"+
-			"\t\t\t\t\t\t\t\t\t\t\t\t\tYou sucessfully out rented #ITEMNAME# to #RENTER#\n"+
+			"\t\t\t\t\t\t\t\t\t\t\t\t\tYou sucessfully rented out #ITEMNAME# to #RENTER#\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t\t</p>\n"+
 			"\t\t\t\t\t\t\t\t\t\t\t</td>\n"+
 			"\t\t\t\t\t\t\t\t\t\t</tr>\n"+
@@ -773,7 +773,7 @@ public class HtmlTempates {
 			"</html>";
 	
 	public static String WELCOME_TEMPLATE = "<html>\n"+
-			"<head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Minty-Multipurpose Responsive Email Template</title><style type=\"text/css\">\n"+
+			"<head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Welcome to SHero!</title><style type=\"text/css\">\n"+
 			" /* Client-specific Styles */\n"+
 			" #outlook a {padding:0;} /* Force Outlook to provide a \"view in browser\" menu link. */\n"+
 			" body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}\n"+

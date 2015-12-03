@@ -1,7 +1,7 @@
 angular.module('SHeroApp').controller('ModalRateItemCtrl', function ($scope, $modalInstance, ItemsService, item) {
     
     $scope.item = item;
-    $scope.userRating = 0;
+    $scope.userRating = 1;
     
     $scope.rateItem = function (rentalId, rating) {
             var rateData = {};

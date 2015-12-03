@@ -45,7 +45,7 @@ public class SetupDatastoreUtil {
 				.filter("name", "OwnerTemplate").list();
 		if(emailTemplates3.isEmpty()){
 			//If not create now Email Template
-			EmailTemplate ownerTemplate = new EmailTemplate("OwnerTemplate", HtmlTempates.RENTERTEMPLATE);
+			EmailTemplate ownerTemplate = new EmailTemplate("OwnerTemplate", HtmlTempates.OWNER_TEMPLATE);
 			ObjectifyService.ofy().save().entity(ownerTemplate).now();
 		}
 		
