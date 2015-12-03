@@ -7,7 +7,7 @@ public class HtmlTempates {
 			"<head>\n"+
 			"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n"+
 			"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"+
-			"<title>Minty-Multipurpose Responsive Email Template</title>\n"+
+			"<title>Successfully rented an Item</title>\n"+
 			"<style type=\"text/css\">\n"+
 			" /* Client-specific Styles */\n"+
 			" #outlook a {padding:0;} /* Force Outlook to provide a \"view in browser\" menu link. */\n"+
@@ -363,7 +363,7 @@ public class HtmlTempates {
 			"";
 	
 	public static String OWNER_TEMPLATE ="<html>\n"+
-			"<head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Minty-Multipurpose Responsive Email Template</title><style type=\"text/css\">\n"+
+			"<head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Successfully rented out an item</title><style type=\"text/css\">\n"+
 			" /* Client-specific Styles */\n"+
 			" #outlook a {padding:0;} /* Force Outlook to provide a \"view in browser\" menu link. */\n"+
 			" body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}\n"+
@@ -1183,7 +1183,7 @@ public class HtmlTempates {
 			"</html>";
 	
 	public static String QUESTION_TEMPLATE="<html>\n"+
-			"<head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Minty-Multipurpose Responsive Email Template</title><style type=\"text/css\">\n"+
+			"<head> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Question about an item</title><style type=\"text/css\">\n"+
 			" /* Client-specific Styles */\n"+
 			" #outlook a {padding:0;} /* Force Outlook to provide a \"view in browser\" menu link. */\n"+
 			" body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}\n"+
