@@ -1,6 +1,7 @@
 package edu.upc.ase.mail;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -105,8 +106,8 @@ public class MailServiceUtil {
 			msgText = msgText.replace("#OWNER#", owner.getFullname());
 			msgText = msgText.replace("#RENTER#", renter.getFullname());
 			msgText = msgText.replace("#ITEMNAME#", item.getName());
-			msgText = msgText.replace("#STARTDATE#", rental.getPeriod().get(0).toString());
-			msgText = msgText.replace("#ENDDATE#", rental.getPeriod().get(rental.getPeriod().size()-1).toString());
+			msgText = msgText.replace("#STARTDATE#", DateFormat.getDateInstance().format(rental.getPeriod().get(0)));
+			msgText = msgText.replace("#ENDDATE#", DateFormat.getDateInstance().format(rental.getPeriod().get(rental.getPeriod().size()-1)));
 			msgText = msgText.replace("#ADDRESS#", item.getAddress().toString());
 			msg.setContent(msgText, "text/html");
 
