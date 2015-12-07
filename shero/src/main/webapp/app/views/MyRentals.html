@@ -1,3 +1,4 @@
+<h1>Your Rentals!</h1><br/>
 <div class="col-md-12">
     <div class="col-md-12">
         <div class="btn-group-sm pull-right" role="group">
@@ -29,8 +30,8 @@
         </div> 
     </div>
     <br/><br/>
-    <div class="col-md-12 myrentals-container" dir-paginate="item in itemlist | orderBy:sortKey:reverse | itemsPerPage:10"> 
-        <div class="col-md-12 row well-sm myrentals-heading">
+    <div class="col-md-12 myrentals-container" dir-paginate="item in rentedItems | orderBy:sortKey:reverse | itemsPerPage:10 track by $index"> 
+        <div class="col-md-12 well-sm myrentals-heading">
             <div class="col-md-2">
                 <img class="img-thumbnail"  
                      src="/rest/items/image/{{item.id}}"
@@ -44,34 +45,35 @@
                 </h4>
             </div>
             <div class="col-md-3">
-                <uib-rating class="pull-right" ng-model="item.meanRating" 
+                <uib-rating class="pull-right" ng-model="item.meanRating"
                     max="5" 
-                    readonly="true"  
+                    readonly="true"
+                    style="font-size: 2em; cursor: pointer;"
                     aria-labelledby="default-rating"
-                    state-on="'fa fa-star fa-2x'"
-                    state-off="'fa fa-star-o fa-2x'">
-                </uib-rating>  
+                    state-on="'glyphicon glyphicon-star'"
+                    state-off="'glyphicon glyphicon-star-empty'">
+                </uib-rating>
             </div>
             <div class="col-md-7">
                 <h4>{{item.price  | currency : "€"}} / day</h4>
             </div>
             <div class="col-md-3">
                 <div class="btn-group pull-right" role="group">
-                    <button type="button" id="toggle{{item.id}}" class="btn btn-primary" data-toggle="collapse" data-target="#{{item.id}}">
+                    <button type="button" id="toggle{{item.rentalId}}" class="btn btn-primary" data-toggle="collapse" data-target="#{{item.rentalId}}">
                         Details
                     </button>
-                    <button type="button" id="rent{{item.id}}" class="btn btn-success">
-                        Rent
+                    <button type="button" ng-disabled="item.itemRated" id="rate{{item.id}}" class="btn btn-success" ng-click="openRateItemModal({{item}});">
+                        <span ng-hide="item.itemRated">Rate</span>
+                        <span ng-show="item.itemRated">Already rated</span>
                     </button>
-                    
                 </div>
             </div>
         </div>
-        <div class="col-md-12 collapse myrentals-footer" id="{{item.id}}">
+        <div class="col-md-12 collapse myrentals-footer" id="{{item.rentalId}}">
             <br>
             <div class="col-md-4">
                 <uib-datepicker ng-model='activeDate' 
-                                multi-select='item.availabilityDates' 
+                                multi-select='item.rentalDates' 
                                 name="datepicker"
                                 date-disabled="disabled(date, mode)">
                 </uib-datepicker>
@@ -93,4 +95,3 @@
         boundary-links="true" >
     </dir-pagination-controls>
 </div>
-

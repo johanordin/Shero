@@ -1,5 +1,5 @@
 angular.module('SHeroApp')
-    .factory('ItemsService', function($q, $timeout, $http, $cookies) {
+    .factory('ItemsService', function($q, $timeout, $http, $cookies, SessionStorageService) {
     
         var getAllItems = function() {
             return $http({
@@ -17,6 +17,15 @@ angular.module('SHeroApp')
 	    		url: '/rest/users/'+ userId +'/items',
 	    		data: itemData
 	    	}).then(function(response){
+                return response;
+            });
+        };
+    
+        var deleteItem = function (itemId) {
+            return $http({
+                method: "DELETE",
+                url: 'rest/items/'+itemId
+            }).then(function(response) {
                 return response;
             });
         };
@@ -67,8 +76,58 @@ angular.module('SHeroApp')
             return itemNames;
         };
     
-        return {postItem : postItem,
-                searchItems: searchItems,
-        		getAllItems: getAllItems,
-                getItemSuggestions: getItemSuggestions};
+        var rentItem = function (rentalData) {
+            var userId = $cookies.get('SHeroUserId');
+            rentalData.userId = userId;
+            return $http({
+	    		method: 'POST',
+	    		url: '/rest/rentals',
+	    		data: rentalData
+	    	}).then(function(response){
+                return response;
+            });
+        }
+        
+        var rateItem = function (rateData) {
+            return $http({
+	    		method: 'POST',
+	    		url: '/rest/itemratings',
+	    		data: rateData
+	    	}).then(function(response){
+                return response;
+            });
+        }
+    
+        var getNeededItemInfo = function (item) {
+            var userId = SessionStorageService.getUserId();
+            if ((typeof userId === 'undefined') || (userId != item.ownerId)) {
+                item.show = "true";
+            } else {
+                item.show = "false";
+            }
+            item.availabilityDates = [];
+            item.taglist = [];
+            item.availabilityPeriods.forEach(function(availability) {
+                // Convert to unixtime
+                var unixtime = Date.parse(availability);
+                item.availabilityDates.push(unixtime);
+             });
+            item.tags.forEach(function(tag) {
+               item.taglist.push(tag.text); 
+            });
+            item.meanRating = item.sumRatings / item.numRatings;
+            item.imgUrl = "/rest/items/image/" + item.id;
+            return item;
+        };
+    
+        return {
+            postItem : postItem,
+            deleteItem: deleteItem,
+            searchItems: searchItems,
+        	getAllItems: getAllItems,
+            getItemSuggestions: getItemSuggestions,
+            rentItem: rentItem,
+            rateItem: rateItem,
+            getNeededItemInfo: getNeededItemInfo
+        };
     })

@@ -1,0 +1,23 @@
+.edititem-heading {
+    background-color: lightgrey;
+    padding: 15px;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
+.edititem-footer {
+    padding-bottom: 15px;
+}
+
+.edititem-title {
+    margin-top: 0.1em;
+    margin-bottom: 0.2em;
+}
+
+.edititem-container {
+	border: 3px solid lightgrey;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}

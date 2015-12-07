@@ -1,3 +1,4 @@
+<h1>Your searchresults!</h1><br/>
 <div class="col-md-12">
     <div class="col-md-12">
         <div class="btn-group-sm pull-right" role="group">
@@ -29,14 +30,14 @@
         </div> 
     </div>
     <br/><br/>
-    <div class="col-md-12 searchresult-container" dir-paginate="item in itemlist | orderBy:sortKey:reverse | itemsPerPage:10">     
+    <div class="col-md-12 searchresult-container" dir-paginate="item in itemsToShow.items | orderBy:sortKey:reverse | itemsPerPage:10 track by $index">
             <div class="col-md-12 well-sm searchresult-heading">
                 <div class="col-md-2">
                     <img class="img-thumbnail"  
                          src="{{item.imgUrl}}"
                          onerror="if (this.src != 'img/placeholder_small.jpeg') this.src = 'img/placeholder_small.jpeg';"
                          alt="Couldn't find image">
-                    </image>
+                    </img>
                 </div>
                 <div class="col-md-7 searchresult-title">
                     <h4> {{item.name}} 
@@ -48,8 +49,9 @@
                         max="5" 
                         readonly="true"  
                         aria-labelledby="default-rating"
-                        state-on="'fa fa-star fa-2x'"
-                        state-off="'fa fa-star-o fa-2x'">
+                        style="font-size: 2em;"
+                        state-on="'glyphicon glyphicon-star'"
+                        state-off="'glyphicon glyphicon-star-empty'">
                     </uib-rating>  
                 </div>
                 <div class="col-md-7">
@@ -60,19 +62,15 @@
                         <button type="button" id="toggle{{item.id}}" class="btn btn-primary" data-toggle="collapse" data-target="#{{item.id}}">
                             Details
                         </button>
-                        <button type="button" id="rent{{item.id}}" class="btn btn-success">
-                            Rent
+                        <button type="button" ng-disabled="!loggedIn" id="rent{{item.id}}" class="btn btn-success" ng-click="openRentItemModal({{item}});">
+                            <span ng-show="!loggedIn">Login to rent</span>
+  							<span ng-show="loggedIn">Rent</span>
                         </button>
                     </div>
                 </div>
                 <div class="col-md-7"> 
                 </div>
                 <div class="col-md-3">
-                	<div class="btn-group pull-right" role="group">
-		                <button class="btn btn-sm btn-primary" ng-click="openContactModal({{item.ownerId}});"><span class="fa fa-envelope-o"></span> <!--  -->
-		                    Contact
-		                </button>
-		            </div>
                 </div>
             </div>
             <div class="col-md-12 collapse searchresult-footer" id="{{item.id}}">
@@ -86,6 +84,11 @@
                 </div>
                 <div class="col-md-6">
                     <p class="text-justify">{{item.description}}</p>
+                    <div class="btn-group pull-right" role="group" ng-show="loggedIn">
+		                <button class="btn btn-sm btn-primary" ng-click="openContactModal( item.id);"><span class="fa fa-envelope-o"></span>
+		                    Contact
+		                </button>
+		            </div>
                 </div>
                 <div class="col-md-2">
                     <div class="col-md-12" ng-repeat="tag in item.taglist" ng-hide="item.taglist.length == 0">
@@ -94,7 +97,7 @@
                 </div>
             </div>
             <br>
-        </div>
+    </div>
     <dir-pagination-controls
         max-size="5"
         direction-links="true"

@@ -20,7 +20,7 @@
      flow-file-added="validate($file)"
      flow-file-added="!!{png:1,jpg:1,jpeg:1}[$file.getExtension()]"
      flow-files-submitted="imageUpload( $files, $event, $flow )"
-     flow-complete="redirect()">
+     >
     <h2>Upload an Image</h2>
     <div>
       <div>

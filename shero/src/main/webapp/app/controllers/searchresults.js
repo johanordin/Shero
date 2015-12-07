@@ -7,27 +7,31 @@
  */
 
 angular.module('SHeroApp')
-	.controller('SearchResultsCtrl', function($scope, $uibModal, ItemsService, SearchResultService) { 
+	.controller('SearchResultsCtrl', function($scope, $uibModal, ItemsService, SearchResultService, SessionStorageService) { 
   
 	// Variable for items
 	$scope.itemlist = {};
-		
+    $scope.itemsToShow = {items: []};
+    $scope.userId = SessionStorageService.getUserId();
+    	
+    $scope.loggedIn = SessionStorageService.getUserId() ? true : false;
+    $scope.$watch(function () { return SessionStorageService.getUserId(); }, function (newVal) {
+        if (newVal) {
+        	$scope.loggedIn = true;
+        } else {
+        	$scope.loggedIn = false;
+        }
+    });
+    
 	//fetch all items from backend
 	$scope.fetchItems = function() {
+        $scope.itemsToShow = {items: []};
         $scope.itemlist = SearchResultService.getSearchResults();
         $scope.itemlist.forEach(function(item) {
-            item.availabilityDates = [];
-            item.taglist = [];
-            item.availabilityPeriods.forEach(function(availability) {
-                // Convert to unixtime
-                var unixtime = Date.parse(availability);
-                item.availabilityDates.push(unixtime);
-             });
-            item.tags.forEach(function(tag) {
-               item.taglist.push(tag.text); 
-            });
-            item.meanRating = item.sumRatings / item.numRatings;
-            item.imgUrl = "/rest/items/image/" + item.id;
+            var item = ItemsService.getNeededItemInfo(item);
+            if (item.show) {
+                $scope.itemsToShow.items.push(item);
+            }
          });
      }; 
      
@@ -47,17 +51,21 @@ angular.module('SHeroApp')
      $scope.disabled = function(date, mode) {
          //return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
          return true;
-     };
-     
+     };     
      
      // Send email Modal
      $scope.animationsEnabled = true;
 
-     $scope.openContactModal = function(itemId) {
+     $scope.openContactModal = function(itemID) {
        var modalQuestions = $uibModal.open({
          animation: $scope.animationsEnabled,
          templateUrl: 'app/views/ModalQuestions.html',
-         controller: 'ModalQuestionsCtrl'
+         controller: 'ModalQuestionsCtrl',
+         resolve: {
+        	 itemID: function () {
+               return itemID;
+             }
+           }
        });
        modalQuestions.result.then(function () {
        });
@@ -67,5 +75,19 @@ angular.module('SHeroApp')
        $scope.animationsEnabled = !$scope.animationsEnabled;
      };
      
-
+     $scope.openRentItemModal = function(item) {
+       var modalQuestions = $uibModal.open({
+         animation: $scope.animationsEnabled,
+         templateUrl: 'app/views/ModalRentItem.html',
+         controller: 'ModalRentItemCtrl',
+         size : 'lg',
+         resolve: {
+             item: function () {
+               return item;
+             }
+           }
+       });
+       modalQuestions.result.then(function () {
+       });
+     };
 });

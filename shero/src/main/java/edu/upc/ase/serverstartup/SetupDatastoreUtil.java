@@ -12,7 +12,6 @@ import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 
 import edu.upc.ase.domain.Address;
-import edu.upc.ase.domain.Availability;
 import edu.upc.ase.domain.Item;
 import edu.upc.ase.domain.ItemRating;
 import edu.upc.ase.domain.Tag;
@@ -30,8 +29,32 @@ public class SetupDatastoreUtil {
 		
 		if(emailTemplates.isEmpty()){
 			//If not create now Email Template
-			EmailTemplate emailTemplate = new EmailTemplate("WelcomeTemplate", HTML_TEMPLATE);
-			ObjectifyService.ofy().save().entity(emailTemplate).now();
+			EmailTemplate welcomeTemplate = new EmailTemplate("WelcomeTemplate", HtmlTempates.WELCOME_TEMPLATE);
+			ObjectifyService.ofy().save().entity(welcomeTemplate).now();
+		}
+		
+		List<EmailTemplate> emailTemplates2 = ObjectifyService.ofy().load().type(EmailTemplate.class)
+				.filter("name", "RenterTemplate").list();
+		if(emailTemplates2.isEmpty()){
+			//If not create now Email Template
+			EmailTemplate welcomeTemplate = new EmailTemplate("RenterTemplate", HtmlTempates.RENTERTEMPLATE);
+			ObjectifyService.ofy().save().entity(welcomeTemplate).now();
+		}
+		
+		List<EmailTemplate> emailTemplates3 = ObjectifyService.ofy().load().type(EmailTemplate.class)
+				.filter("name", "OwnerTemplate").list();
+		if(emailTemplates3.isEmpty()){
+			//If not create now Email Template
+			EmailTemplate ownerTemplate = new EmailTemplate("OwnerTemplate", HtmlTempates.OWNER_TEMPLATE);
+			ObjectifyService.ofy().save().entity(ownerTemplate).now();
+		}
+		
+		List<EmailTemplate> emailTemplates4 = ObjectifyService.ofy().load().type(EmailTemplate.class)
+				.filter("name", "QuestionTemplate").list();
+		if(emailTemplates4.isEmpty()){
+			//If not create now Email Template
+			EmailTemplate questionTemplate = new EmailTemplate("QuestionTemplate", HtmlTempates.QUESTION_TEMPLATE);
+			ObjectifyService.ofy().save().entity(questionTemplate).now();
 		}
 	}
 	
@@ -76,37 +99,37 @@ public class SetupDatastoreUtil {
 		calendar.set(2015, 10, 13, 0, 0, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 		Date d1 = calendar.getTime();
-		calendar.set(2015, 10, 14, 0, 0, 0);
+		calendar.set(2015, 11, 14, 0, 0, 0);
 		Date d2 = calendar.getTime();
-		calendar.set(2015, 10, 15, 0, 0, 0);
+		calendar.set(2015, 11, 15, 0, 0, 0);
 		Date d3 = calendar.getTime();
-		calendar.set(2015, 10, 16, 0, 0, 0);
+		calendar.set(2015, 11, 16, 0, 0, 0);
 		Date d4 = calendar.getTime();
-		calendar.set(2015, 10, 20, 0, 0, 0);
+		calendar.set(2015, 11, 20, 0, 0, 0);
 		Date d5 = calendar.getTime();
-		calendar.set(2015, 10, 21, 0, 0, 0);
+		calendar.set(2015, 11, 21, 0, 0, 0);
 		Date d6 = calendar.getTime();
-		calendar.set(2015, 10, 22, 0, 0, 0);
+		calendar.set(2015, 11, 22, 0, 0, 0);
 		Date d7 = calendar.getTime();
-		calendar.set(2015, 10, 23, 0, 0, 0);
+		calendar.set(2015, 11, 23, 0, 0, 0);
 		Date d8 = calendar.getTime();
-		calendar.set(2015, 10, 27, 0, 0, 0);
+		calendar.set(2015, 11, 27, 0, 0, 0);
 		Date d9 = calendar.getTime();
-		calendar.set(2015, 10, 28, 0, 0, 0);
+		calendar.set(2015, 11, 28, 0, 0, 0);
 		Date d10 = calendar.getTime();
-		calendar.set(2015, 11, 1, 0, 0, 0);
+		calendar.set(2016, 0, 1, 0, 0, 0);
 		Date d11 = calendar.getTime();
-		calendar.set(2015, 11, 2, 0, 0, 0);
+		calendar.set(2016, 0, 2, 0, 0, 0);
 		Date d12 = calendar.getTime();
-		calendar.set(2015, 11, 3, 0, 0, 0);
+		calendar.set(2016, 0, 3, 0, 0, 0);
 		Date d13 = calendar.getTime();
-		calendar.set(2015, 11, 10, 0, 0, 0);
+		calendar.set(2016, 0, 10, 0, 0, 0);
 		Date d14 = calendar.getTime();
-		calendar.set(2015, 11, 11, 0, 0, 0);
+		calendar.set(2016, 0, 11, 0, 0, 0);
 		Date d15 = calendar.getTime();
-		calendar.set(2015, 11, 12, 0, 0, 0);
+		calendar.set(2016, 0, 12, 0, 0, 0);
 		Date d16 = calendar.getTime();
-		calendar.set(2015, 11, 31, 0, 0, 0);
+		calendar.set(2016, 0, 31, 0, 0, 0);
 		Date d17 = calendar.getTime();
 		
 		Tag t1 = new Tag ("Sports");
@@ -407,8 +430,4 @@ public class SetupDatastoreUtil {
 		ObjectifyService.ofy().save().entity(i10).now();
 		ObjectifyService.ofy().save().entity(i11).now();
 	}
-	
-	private static String HTML_TEMPLATE = "<html>" + "<head>" + "<title>Welcome to Shero!</title>" + "</head>"
-			+ "<body>" + "<h1> Hello #USERNAME#</h1>" + "<p>Welcome to Shero, be a sharing Hero!<p/>" + "</body>"
-			+ "</html>";
 }

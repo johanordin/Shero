@@ -81,7 +81,7 @@ public class TestItemRestServices {
 		Address addr = new Address(df.getCity(),String.valueOf( df.getNumberBetween(10000, 99999)), df.getStreetName(), 
 				String.valueOf(df.getNumberUpTo(300)));
 		// need to store to db, so the address entity gets a key in the db that can be assigned to the item
-		Key<Address> addrKey = ObjectifyService.ofy().save().entity(addr).now();
+		ObjectifyService.ofy().save().entity(addr).now();
 		item.setAddress(addr);
 		
 		Tag tag1 = new Tag("sports");

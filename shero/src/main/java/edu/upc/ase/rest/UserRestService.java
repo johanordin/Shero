@@ -3,7 +3,12 @@ package edu.upc.ase.rest;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
@@ -18,6 +23,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -28,11 +34,13 @@ import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.Result;
 
 import edu.upc.ase.domain.Address;
-import edu.upc.ase.domain.Availability;
 import edu.upc.ase.domain.Item;
+import edu.upc.ase.domain.Rental;
 import edu.upc.ase.domain.Tag;
 import edu.upc.ase.domain.User;
-import edu.upc.ase.rest.test.TestMailService;
+import edu.upc.ase.domain.helper.RentalQuestion;
+import edu.upc.ase.helper.GsonUTCDateAdapter;
+import edu.upc.ase.mail.MailServiceUtil;
 
 @Path("/users")
 public class UserRestService {
@@ -141,7 +149,7 @@ public class UserRestService {
 		}
 		user.serialize();
 		//Send welcome Mail to user
-		TestMailService mailService = new TestMailService();
+		MailServiceUtil mailService = new MailServiceUtil();
 		mailService.sendWelcomeMail(user);
 		
 		return GSON.toJson(user);
@@ -248,8 +256,7 @@ public class UserRestService {
 		String addressId = jsonObj.get("addressId").toString().replace("\"", "");
 
 		// add address to item
-		Key<Address> addrKey = Key.create(Address.class,
-				Long.parseLong(addressId));
+		Key.create(Address.class, Long.parseLong(addressId));
 		Address address = ObjectifyService.ofy().load().type(Address.class).id(Long.parseLong(addressId)).now();
 		item.setAddress(address);
 
@@ -312,5 +319,116 @@ public class UserRestService {
 		User returnUser = ObjectifyService.ofy().load().type(User.class).id(key.getId()).now();
 		
 		return GSON.toJson(returnUser);
+	}
+	
+	/**
+	 * Returns list of items rented by a user,
+	 * including an attribute "itemRated" for every item,
+	 * that indicates if this item has been rated already.
+	 * 
+	 * Note: the same item may appear multiple times,
+	 * as it may have been rented multiple times. 
+	 * A rating is therefore also allowed multiple times!
+	 * 
+	 */
+	@GET
+	@Path("/{id}/rentals/items")
+	public String getRentalsByUserId(@PathParam("id") String userId) {
+		// find rentals for a given userId
+		List<Rental> rentals = ObjectifyService.ofy().load().type(Rental.class).filter("userId", Long.parseLong(userId)).list();
+		
+		// list of item keys involved in above rentals
+		Set<Key<Item>> rentedItems = new HashSet<Key<Item>>();
+		
+		// one item might appear in multiple rentals, list keeps track in which it has been rated and in which not
+		Map<Key<Item>, ArrayList<RentalInfo>> itemRated = new java.util.HashMap<Key<Item>, ArrayList<RentalInfo>>();
+		
+		for(Rental rental : rentals) {
+			Key<Item> itemKey = Key.create(Item.class, rental.getItemId());
+			
+			// remember key for fetching item from db
+			rentedItems.add(itemKey);
+			
+			// remember if this item has been rated or not
+			if (!itemRated.containsKey(itemKey)) {
+				itemRated.put(itemKey, new ArrayList<RentalInfo>());
+			}
+			List<RentalInfo> info = itemRated.get(itemKey);
+			info.add(new RentalInfo(rental.getRentalId(), rental.getItemRated(), rental.getPeriod()));
+
+		}
+		
+		// fetch rented items using the collected keys
+		Set<Entry<Key<Item>, Item>> items = ObjectifyService.ofy().load().keys(rentedItems).entrySet();
+		
+		// prepare result list
+		Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new GsonUTCDateAdapter()).create();
+		JsonArray resultList = new JsonArray();
+		
+		Iterator<Entry<Key<Item>, Item>> it = items.iterator();
+		while (it.hasNext()) {
+			Entry<Key<Item>, Item> entry = it.next();
+			Key<Item> itemKey = entry.getKey();
+			Item item = entry.getValue();
+			
+			// since an item may have been rented multiple times,
+			// every item that is put into the result list needs to be annotated
+			// with information whether it has been rated or not
+			List<RentalInfo> rentalInfos = itemRated.get(itemKey);
+			for(RentalInfo info : rentalInfos) {
+				// first convert item into json
+				JsonObject jsonItem = gson.toJsonTree(item).getAsJsonObject();
+				// add rentalId to item
+				jsonItem.addProperty("rentalId", info.getRentalId());
+				// then add boolean rated property
+				jsonItem.addProperty("itemRated", info.getRated());
+				// add actual rental period
+				jsonItem.add("rentalPeriod", gson.toJsonTree(info.getRentalPeriod()).getAsJsonArray());
+				// eventually add it to results
+				resultList.add(jsonItem);
+			}
+		}
+		
+		return gson.toJson(resultList);
+	}
+	
+	//Rest call to send a mail with a question about an item
+	@Path("/question")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public String sendRentalQuestion(String jsonRentalQuestion) {
+		logger.info("RentalQuestion JSON_:" +jsonRentalQuestion);
+		RentalQuestion rentalQuestion = GSON.fromJson(jsonRentalQuestion, RentalQuestion.class);
+		
+		logger.info("text: " + rentalQuestion.getText());
+		logger.info("Renter ID: " + rentalQuestion.getRenterId());
+		logger.info("Item ID: " + rentalQuestion.getItemId());
+		
+		new MailServiceUtil().sendRentalQuestionMail(rentalQuestion);
+		
+		
+		return jsonRentalQuestion;
+		
+	}
+	
+	private class RentalInfo {
+		private Long rentalId;
+		private Boolean rated;
+		private List<Date> rentalPeriod;
+		
+		public RentalInfo(Long rentalId, Boolean rated, List<Date> rentalPeriod) {
+			this.rentalId = rentalId;
+			this.rated = rated;
+			this.rentalPeriod = rentalPeriod;
+		}
+		public Long getRentalId() {
+			return rentalId;
+		}
+		public Boolean getRated() {
+			return rated;
+		}
+		public List<Date> getRentalPeriod() {
+			return rentalPeriod;
+		}
 	}
 }
