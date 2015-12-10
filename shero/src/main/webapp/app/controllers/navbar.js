@@ -6,6 +6,5 @@ angular.module('SHeroApp')
             } else {
                 $scope.home = false;
             }
-             console.log($scope.home);
         });
     });
