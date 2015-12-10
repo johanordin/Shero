@@ -1,7 +1,6 @@
 /* BASIC STYLINGS
 ============================================================================= */
 body { 
-    padding-top:5em;
     background: url(../img/landingpage.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -22,6 +21,10 @@ body {
 
 h1 {
     color:white;
+}
+
+.navbar {
+    border-radius: 0px;
 }
 
 
