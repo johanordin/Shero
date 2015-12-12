@@ -4,19 +4,9 @@
 
  <div class="modal-body">
 	<form class="form-horizontal">
-	    <label>Name</label>
-	    <input type="text" class="form-control" id="name" 
-		    placeholder="Your name" 
-		    ng-model="formData.name"
-		    required 
-		    autofocus>
+	    <label>Your name: {{firstName }} {{lastName }}</label>
 	    <br>
-	    <label>E-Mail</label>   
-	    <input type="mail" class="form-control" id="mail" 
-	       placeholder="Mail" 
-	       ng-model="formData.mail"
-	       required 
-	       autofocus>
+	    <label>Your e-mail: {{userEmail }}</label>   
 	    <br>
 	    <label>Message</label>
 	    <textarea class="form-control" rows="5" id="comment" 

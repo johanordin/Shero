@@ -105,7 +105,6 @@ angular.module('SHeroApp')
             } else {
                 item.show = "false";
             }
-            console.log(JSON.stringify(item));
             item.availabilityDates = [];
             item.taglist = [];
             item.availabilityPeriods.forEach(function(availability) {

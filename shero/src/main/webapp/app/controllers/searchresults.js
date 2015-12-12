@@ -13,9 +13,19 @@ angular.module('SHeroApp')
 	$scope.itemlist = {};
     $scope.itemsToShow = {items: []};
     $scope.userId = SessionStorageService.getUserId();
-		
+    	
+    $scope.loggedIn = SessionStorageService.getUserId() ? true : false;
+    $scope.$watch(function () { return SessionStorageService.getUserId(); }, function (newVal) {
+        if (newVal) {
+        	$scope.loggedIn = true;
+        } else {
+        	$scope.loggedIn = false;
+        }
+    });
+    
 	//fetch all items from backend
 	$scope.fetchItems = function() {
+        $scope.itemsToShow = {items: []};
         $scope.itemlist = SearchResultService.getSearchResults();
         $scope.itemlist.forEach(function(item) {
             var item = ItemsService.getNeededItemInfo(item);
@@ -46,13 +56,16 @@ angular.module('SHeroApp')
      // Send email Modal
      $scope.animationsEnabled = true;
 
-     $scope.openContactModal = function(ownerId) {
-    	 $scope.ownerId = ownerId;
+     $scope.openContactModal = function(itemID) {
        var modalQuestions = $uibModal.open({
          animation: $scope.animationsEnabled,
          templateUrl: 'app/views/ModalQuestions.html',
          controller: 'ModalQuestionsCtrl',
-         scope : $scope
+         resolve: {
+        	 itemID: function () {
+               return itemID;
+             }
+           }
        });
        modalQuestions.result.then(function () {
        });
@@ -77,7 +90,4 @@ angular.module('SHeroApp')
        modalQuestions.result.then(function () {
        });
      };
-     
-     
-
 });

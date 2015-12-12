@@ -1,9 +1,23 @@
 <div class="modal-header">
+    <h3 class="modal-title">Rate the "{{item.name}}":</h3>
 </div>
  <div class="modal-body">
-  <h3 class="text-center">You rated "{{item.name}}" with {{item.userRating}} stars</h3>
+     <p class="text-center">
+         <uib-rating ng-model="userRating"
+                    ng-click="openRateItemModal({{item}});"
+                    max="5"
+                    min="1"
+                    readonly="false"
+                    style="font-size: 2em; cursor: pointer;"
+                    aria-labelledby="default-rating"
+                    state-on="'glyphicon glyphicon-star'"
+                    state-off="'glyphicon glyphicon-star-empty'">
+        </uib-rating>
+         <br>
+         Rate item with {{userRating}} stars.
+     </p>
  </div>
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-click="confirmClicked()">Confirm</button>
+   <button class="btn btn-primary" type="button" ng-click="confirmClicked()">Rate</button>
    <button class="btn btn-default" type="button" ng-click="cancelClicked()">Cancel</button> 
 </div>

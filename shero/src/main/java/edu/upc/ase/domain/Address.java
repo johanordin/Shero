@@ -75,9 +75,17 @@ public class Address {
 	public void setAdditional(String additional) {
 		this.additional = additional;
 	}
-
+	
 	@Override
 	public String toString() {
+		String address = 
+				street + " " + number + ",\n" +
+				zipcode + " " + city + ",\n" +
+				country + "\n";
+		return address;
+	}
+	
+	public String toDebugString() {
 		return "Address [id=" + id + ", country=" + country + ", city=" + city
 				+ ", zipcode=" + zipcode + ", street=" + street + ", number="
 				+ number + ", additional=" + additional + "]";
