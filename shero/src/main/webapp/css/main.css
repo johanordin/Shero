@@ -218,3 +218,7 @@ h1 {
 	border-left:1px solid #C7D2D4;
 	border-bottom:1px solid #C7D2D4;
 }
+
+.edituser{
+   background-color: rgba(255,255,255, 0.5);
+}
