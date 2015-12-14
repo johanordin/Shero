@@ -1,11 +1,14 @@
 <form class="form-horizontal" ng-submit="processAddressForm()" data-toggle="validator">
 	<div class="form-group">
-		<select class="form-control" id="address" ng-model="formData.addressId" style="border-radius: 4px;" required>
+		<label class="col-lg-2 col-md-2 col-sm-2 col-xs-12" for="location">Address to edit or delete</label>
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 input-group">
+			<select class="form-control" id="address" ng-model="formData.addressId" style="border-radius: 4px;" required>
 				<option style="display:none" value="">Select an address</option>
 	            <option ng-repeat="address in $storage.SHeroAddresses" value="{{address.id}}">
 	                {{address.street}} {{address.number}} ({{address.zipcode}} {{address.city}})
 	            </option>
 	    </select>
+	    </div>
 	</div>
 	<br/>
 	<div class="form-group">
@@ -51,12 +54,30 @@
 	</div>
 
 	<br/>
-	<div class="form-group">
-		<div class="col-sm-10">
-			<button type="submit" ng-click="processAddressForm()" class="btn btn-success">Update address</button>  <!-- added ng-click="processAddressForm()" -->
+
+	<!--
+	<div class="row">
+		<div class="form-group">
+			<div class="col-sm-4">
+				<button type="submit" ng-click="processAddressForm()" class="btn btn-success">Update address</button> 
+			</div>
+			<div class="col-sm-4">
+				<button ng-click="deleteAddress()" class="btn btn-success">Delete address</button>
+			</div>
+			<div class="col-sm-4">
+				<button ng-click="processNewAddress()" class="btn btn-success">Add address</button>
+			</div>
 		</div>
 	</div>
+	
+	-->
+	<div class="col-lg-4 col-md-6 col-sm-10 col-xs-12 input-group">
+	<div class="btn-group btn-group-md" role="group" aria-label="Buttons">
 			
+  				<button type="button" class="btn btn-success" ng-click="processAddressForm()">Update address</button>
+  				<button type="button" class="btn btn-success" ng-click="deleteAddress()">Delete address</button>
+ 				<button type="button" class="btn btn-success" ng-click="processNewAddress()">Add address</button>
+ 	</div>		
+	</div>
+
 </form>
-<button ng-click="deleteAddress()" class="btn btn-success">Delete address</button>
-<button ng-click="processNewAddress()" class="btn btn-success">Add address</button>

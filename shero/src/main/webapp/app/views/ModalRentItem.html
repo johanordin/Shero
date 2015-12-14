@@ -7,8 +7,8 @@
 <div>
   
   <div class="form-group row">
-    <label class="col-lg-2 col-md-12 col-sm-12 col-xs-12" for="datepicker">Available dates</label>
-    <div class="col-lg-4 col-offset-1 col-md-5 col-sm-5 col-xs-12">
+    <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12" for="datepicker">Available dates</label> 
+    <div class="col-lg-4 col-offset-1 col-md-5 col-sm-5 col-xs-12"> 
       <uib-datepicker ng-model='activeDate' 
       				  multi-select='formData.selectedDates' 
       				  name='datepicker'
@@ -17,27 +17,26 @@
       </uib-datepicker>
     </div>
 
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" ng-if='type=="individual"'>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <button type="button" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-info">
+   <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12" ng-if='type=="individual"'>  
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+        <button type="button" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-info"> 
           <span>Show selected dates <span class="badge">{{ formData.selectedDates.length }}</span></span>
         </button>
       </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
         <div class="well well-sm" style="max-height: 300px; overflow-x: hidden; overflow-y: scroll;">
           <div ng-if="formData.selectedDates.length == 0">
             No dates selected!
           </div>
           <div class="row" ng-repeat='d in formData.selectedDates | orderBy' style="padding-top: 0.5em;">
-            <span class="col-lg-10 col-md-10 col-sm-10 col-xs-10">{{d | date : 'dd. MMMM yyyy'}}</span>
-            <button class='col-lg-1 col-md-1 col-sm-1 col-xs-1 btn btn-xs btn-warning' 
-                    ng-click='removeDateFromSelected(d)'>
-                <i class="fa fa-times">
-                </i></button>
+            <span class="col-lg-10 col-md-10 col-sm-10 col-xs-10">{{d | date : 'dd. MMMM yyyy'}}</span> 
+            <button class='col-lg-1 col-md-1 col-sm-1 col-xs-1 btn btn-xs btn-warning' ng-click='removeDateFromSelected(d)'>
+              <i class="fa fa-times"></i>
+            </button>
           </div>
         </div>
       </div>
-    </div>
+     </div>  
 
   </div>
 </div>

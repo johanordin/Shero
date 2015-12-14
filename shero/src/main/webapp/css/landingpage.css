@@ -1,6 +1,13 @@
-.landingpage  {
-    position: absolute;
-    margin-left: 50px;
-    margin-right: auto;
-    height: 100px;
+.landingpage {
+  margin: 70px;
+}
+
+.landingpage h1{
+  font-size: 300%
+}
+
+.landingpage form {
+  margin: auto;
+  margin-left: 12%;
+  padding: 20px;
 }
