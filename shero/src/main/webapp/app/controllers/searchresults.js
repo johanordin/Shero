@@ -80,7 +80,7 @@ angular.module('SHeroApp')
          animation: $scope.animationsEnabled,
          templateUrl: 'app/views/ModalRentItem.html',
          controller: 'ModalRentItemCtrl',
-         size : 'lg',
+         size : 'lg', 
          resolve: {
              item: function () {
                return item;

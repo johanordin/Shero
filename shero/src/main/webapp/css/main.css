@@ -19,9 +19,6 @@ body {
    background-color:aliceblue;
 }
 
-h1 {
-    color:white;
-}
 
 .navbar {
     border-radius: 0px;
@@ -217,4 +214,8 @@ h1 {
 	transform: rotate(45deg);
 	border-left:1px solid #C7D2D4;
 	border-bottom:1px solid #C7D2D4;
+}
+
+.edituser{
+   background-color: rgba(255,255,255, 0.5);
 }
